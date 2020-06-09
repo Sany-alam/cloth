@@ -1,0 +1,18 @@
+clone
+copy
+git status
+git add .
+git status
+git commit -m "test comment"
+git push origin master
+
+git --force push origin master
+
+
+*** laravel after git clone ****
+1. git clone 'link'
+2. install composer in cloned project
+3. copy .env file = "copy .env.example .env"
+4. add database to env and import/migrate
+5. generate key = "php artisan key:generate"
+6. Boooom! go to serve = "php artisan serve"
