@@ -1,8 +1,15 @@
+@php
+	if(!isset($_SESSION['cart'])){
+		// session()->put("cart",[]);
+		$_SESSION['cart'] = [];
+	}
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title')</title>
     
     @yield('page-css')
@@ -32,7 +39,7 @@
 			<div class="row">
 				<div class="col-ts-12 col-xs-3 col-sm-2">
 					<div class="logo">
-						<a href="#"><img src="{{ asset('assets/home') }}/images/logos/1.png" alt=""></a>
+						<a href="{{ url('/') }}"><img src="{{ asset('assets/home') }}/images/logos/1.png" alt=""></a>
 					</div>
 				</div>
 				<div class="col-ts-12 col-xs-9 col-sm-10">
@@ -47,9 +54,13 @@
 							</form>
 						</div>
 						<div class="mini-cart">
-							<a href="#" class="cart-link">
+							<a href="{{ url('/cart') }}" class="cart-link">
 								<span class="icon lnr lnr-cart"></span>
-								<span class="count">2</span>
+								{{-- @if (session()->has('UserData')) --}}
+								{{-- @if (array_key_exists('cart',session()->get('UserData'))) --}}
+								<span id="cart-count" class="count"></span>
+								{{-- @endif --}}
+								{{-- @endif --}}
 							</a>
 							<div class="minni-cart-content">
 								<h3 class="title">YOU HAVE <span class="text-primary">(2 ITEMS)</span> IN YOUR CART</h3>
@@ -85,16 +96,16 @@
 									Subtoal:<span class="amount">$100.00</span>
 								</div>
 								<div class="group-buttons">
-									<a href="#" class="button">Shopping Cart</a>
-									<a href="#" class="button primary checkout-button">CheckOut</a>
+									<a href="{{ url('/cart') }}" class="button">Shopping Cart</a>
+									<a href="{{ url('/checkout') }}" class="button primary checkout-button">CheckOut</a>
 								</div>
 							</div>
 						</div>
-						<a href="#" class="header-bar kt-open-side-menu">
+						{{-- <a href="#" class="header-bar kt-open-side-menu">
 							<span></span>
 							<span></span>
 							<span></span>
-						</a>
+						</a> --}}
 					</div>
 					<a href="#" class="mobile-navigation">
 						<span></span>
@@ -102,9 +113,28 @@
 						<span></span>
 					</a>
 					<ul class="kt-nav main-menu clone-main-menu">
-						<li class="active menu-item-has-children">
-							<a href="#">Home</a>
-							<ul class="sub-menu">
+						<li class="@yield('home-active')">
+							<a href="{{url('/')}}">Home</a>
+						</li>
+						<li class="@yield('cart-active')">
+							<a href="{{url('/cart')}}">Cart</a>
+						</li>
+						<li class="@yield('checkout-active')">
+							<a href="{{url('/checkout')}}">Checkout</a>
+						</li>
+						@if (!session()->has('UserData'))
+						<li>
+							<a data-toggle="modal" href="#LoginModal">Login</a>
+						</li>
+						<li>
+							<a data-toggle="modal" href="#SignupModal">Register</a>
+						</li>
+						@else
+						<li>
+							<a href="{{url('/user/logout')}}">Logout</a>
+						</li>
+						@endif
+							{{-- <ul class="sub-menu">
 								<li><a href="index1.html">Home 01</a></li>
 								<li><a href="index2.html">Home 02</a></li>
 								<li><a href="index3.html">Home 03</a></li>
@@ -115,9 +145,8 @@
 								<li><a href="index8.html">Home 08</a></li>
 								<li><a href="index9.html">Home 09</a></li>
 								<li><a href="index10.html">Home 10</a></li>
-							</ul>
-						</li>
-						<li class="menu-item-has-children">
+							</ul> --}}
+						{{-- <li class="menu-item-has-children">
 							<a href="shop-3columns.html">Shop</a>
 							<ul class="sub-menu">
 								<li><a href="shop-3columns.html">Shop 3 columns</a></li>
@@ -204,7 +233,7 @@
 								<li><a href="blog-rightsidebar.html">Blog Right Sidebar</a></li>
 								<li><a href="blog-single.html">Blog Single</a></li>
 							</ul>
-						</li>                                               
+						</li>                                                --}}
 					</ul>
 					
 				</div>
@@ -212,10 +241,67 @@
 		</div>
 	</div>
 </header>
-<!-- slider -->
 
 @yield('content')
 
+{{-- modals --}}
+
+<div id="SignupModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-body">
+			<form class="login" style="display: block;">
+				<h3 class="form-title">Register</h3>
+				<p class="form-row form-row-first">
+					<label for="remail">Email <span class="required">*</span></label>
+					<input class="input-text" id="remail" type="text">
+				</p>
+				<p class="form-row form-row-last">
+					<label for="rpassword">Password <span class="required">*</span></label>
+					<input class="input-text" id="rpassword" type="password">
+				</p>
+				<p class="form-row">
+					<button type="button" class="button" data-dismiss="modal" aria-label="Close">Close</button>
+					<button type="button" class="button" id="register">Register</button>
+					<div class="lost_password">Already have an account? <a data-dismiss="modal" aria-label="Close"  data-toggle="modal" data-target="#LoginModal" class="lost_password">Signup</a></div>
+				</p>
+			</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+<div id="LoginModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-body">
+		  <form class="login" style="display: block;">
+			<h3 class="form-title">Login</h3>
+			<p class="form-row form-row-first">
+				<label for="lemail">Email <span class="required">*</span></label>
+				<input class="input-text" id="lemail" type="text">
+			</p>
+			<p class="form-row form-row-last">
+				<label for="lpassword">Password <span class="required">*</span></label>
+				<input class="input-text" name="password" id="lpassword" type="password">
+			</p>
+			<p class="form-row">
+				<label for="rememberme" class="inline">
+					<input id="lrememberme" value="forever" type="checkbox"> Remember me
+				</label>
+			</p>
+			<p class="lost_password">
+				<a href="#">Lost your password?</a>
+			</p>
+			<button type="button" class="button" data-dismiss="modal" aria-label="Close">Close</button>
+			<button class="button" type="button" id="login">Login</button>
+			<div class="lost_password">Do not have an account? <a data-dismiss="modal" aria-label="Close"  data-toggle="modal" data-target="#SignupModal" class="lost_password">Signup</a></div>
+		</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+{{-- modals --}}
 
 <footer class="footer style2">
 	<div class="footer-inner">
@@ -272,6 +358,7 @@
 </footer>
 	<a href="#" class="scroll_top" title="Scroll to Top" style="display: block;"><i class="fa fa-arrow-up"></i></a>
 	<script type="text/javascript" src="{{ asset('assets/home/js/jquery-2.1.4.min.js') }}"></script>
+	{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 	<script type="text/javascript" src="{{ asset('assets/home/js/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('assets/home/js/owl.carousel.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/home/js/chosen.jquery.min.js') }}"></script>
@@ -284,6 +371,17 @@
 	<script type="text/javascript" src="{{ asset('assets/home/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/home/js/functions.js') }}"></script>
     @yield('page-js')
-    @yield('custom-js')
+	@yield('custom-js')
+	<script>
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		var cartUrl = "{{url('cart')}}";
+		var userUrl = "{{url('user')}}";
+	</script>
+	<script src="{{asset('assets\home\customJS\cart.js')}}"></script>
+	<script src="{{asset('assets\home\customJS\auth.js')}}"></script>
 </body>
 </html>

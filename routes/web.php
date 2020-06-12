@@ -17,28 +17,19 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::prefix('')->group(function () {
-    Route::get('','HomeController@index');
-    Route::get('product/no/{id}','HomeController@product');
-    Route::get('card/add/product/{id}','HomeController@cart_add_product');
-    // Route::get('category','CategoryController@index');
-    // Route::post('category/add','CategoryController@store');
-    // Route::get('category/show','CategoryController@show');
-    // Route::post('category/delete','CategoryController@destroy');
-    // Route::post('category/list','CategoryController@list');
-    // Route::post('category/edit','CategoryController@edit');
-    // Route::post('category/update','CategoryController@update');
+Route::get('','HomeController@index');
+Route::get('product/no/{id}','HomeController@product');
+Route::get('cart','HomeController@cart');
+Route::get('checkout','HomeController@checkout');
+Route::post('cart/add',"HomeController@cart_add_product");
+Route::get('cart/clear',"HomeController@cart_clear_product");
+Route::get('cart/count',"HomeController@cart_count");
 
-    // Route::get('product','ProductController@index');
-    // Route::post('product/add','ProductController@store');
-    // Route::get('product/show','ProductController@show');
-    // Route::post('product/stock','ProductController@stock');
-    // Route::post('product/delete','ProductController@destroy');
-    // Route::post('product/edit','ProductController@edit');
-    // Route::post('product/update','ProductController@update');
-    // Route::post('product/img','ProductController@img');
-    // Route::post('product/single/img','ProductController@single_img');
-    // Route::post('product/img/new/upload','ProductController@img_new_upload');
+Route::prefix('user')->group(function(){
+    Route::post("create","UserController@store");
+    Route::post("login","UserController@create");
+    Route::get("logout","UserController@destroy");
+    
 });
 
 

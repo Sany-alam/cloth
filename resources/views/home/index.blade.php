@@ -1,5 +1,5 @@
 @extends('home.app')
-
+@section('home-active','active')
 @section('content')
 	
 <div class="container">
@@ -127,7 +127,7 @@
 											<a href="javascript:void(0)" onclick="add_to_cart({{$product->id}})" class="button add_to_cart_button">Add to cart</a>
 											<a href="{{url('product/no/'.$product->id)}}" class="button yith-wcqv-button">Quickview</a>
 											<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-													<div class="yith-wcwl-add-button show">
+													<div class="yith-wcwl-add-button">
 														<a href="#" rel="nofollow" > Wishlist</a>
 													</div>
 													<div class="yith-wcwl-wishlistaddedbrowse hide" >
@@ -351,5 +351,7 @@
 @endsection
 
 @section('custom-js')
-	<script src="{{asset('assets\home\custom.js')}}"></script>
+	<script>
+		var cartUrl = "{{url('cart')}}";
+	</script>
 @endsection

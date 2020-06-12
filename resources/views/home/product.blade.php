@@ -12,40 +12,6 @@
 				<div class="single-product-fullwidth kt-fullwidth">
 					<div class="product-single row">
 						<div class="col-sm-6 single-product-left">
-							{{-- <div class="images kt-images-zoom">
-								<div class="kt-easyzoom easyzoom easyzoom--with-thumbnails">
-									<a href="{{asset('assets/home')}}/images/products/38.jpg">
-										<img src="{{asset('assets/home')}}/images/products/39.jpg" alt=""/>
-									</a>
-								</div>
-								<ul class="kt-zoom-thumbnails owl-carousel nav-center-center" data-loop="true" data-nav="true" data-dots="false" data-margin="0" data-responsive='{"0":{"items":"2"},"480":{"items":"4"},"768":{"items":"4"},"992":{"items":"5"}}'>
-									<li>
-										<a class="thumb selected" href="{{asset('assets/home')}}/images/products/38.jpg" data-standard="{{asset('assets/home')}}/images/products/39.jpg">
-											<img src="{{asset('assets/home')}}/images/products/33.jpg" alt="" />
-										</a>
-									</li>
-									<li>
-										<a class="thumb" href="https://placeholdit.imgix.net/~text?txtsize=53&amp;txt=FULL%2002&amp;w=1000&amp;h=1177" data-standard="https://placeholdit.imgix.net/~text?txtsize=53&amp;txt=standard02&amp;w=1000&amp;h=1170">
-											<img src="{{asset('assets/home')}}/images/products/34.jpg" alt="" />
-										</a>
-									</li>
-									<li>
-										<a class="thumb" href="https://placeholdit.imgix.net/~text?txtsize=53&amp;txt=FULL%2003&amp;w=1000&amp;h=1177" data-standard="https://placeholdit.imgix.net/~text?txtsize=53&amp;txt=standard03&amp;w=1000&amp;h=1170">
-											<img src="{{asset('assets/home')}}/images/products/35.jpg" alt="" />
-										</a>
-									</li>
-									<li>
-										<a class="thumb" href="https://placeholdit.imgix.net/~text?txtsize=53&amp;txt=FULL%2004&amp;w=1000&amp;h=1177" data-standard="https://placeholdit.imgix.net/~text?txtsize=53&amp;txt=standard04&amp;w=1000&amp;h=1170">
-											<img src="{{asset('assets/home')}}/images/products/34.jpg" alt="" />
-										</a>
-									</li>
-									<li>
-										<a class="thumb" href="https://placeholdit.imgix.net/~text?txtsize=53&amp;txt=FULL%2004&amp;w=1000&amp;h=1177" data-standard="https://placeholdit.imgix.net/~text?txtsize=53&amp;txt=standard05&amp;w=1000&amp;h=1170">
-											<img src="{{asset('assets/home')}}/images/products/35.jpg" alt="" />
-										</a>
-									</li>
-								</ul>
-							</div> --}}
 							<div class="" id="myGallery"></div>
 						</div>
 						<div class="col-sm-6 single-product-right">
@@ -74,13 +40,13 @@
 									<div class="variation-row">
 										<label>Size</label>
 										<div class="inner value">
+											@php
+												$s = explode(",",$product->size)
+											@endphp
 											<select id="size">
-												@php
-													$s = explode(",",$product->size)
-												@endphp
 												<option value="">Size</option>
 												@for ($i = 0; $i < count($s); $i++)
-													<option value="{{ $s[$i] }}">{{ $s[$i] }}</option>
+												<option value="{{ $s[$i] }}">{{ $s[$i] }}</option>
 												@endfor
 											</select>
 										</div>
@@ -88,13 +54,13 @@
 									<div class="variation-row">
 										<label>Color</label>
 										<div class="inner value">
+											@php
+												$color = explode(",",$product->color)
+											@endphp
 											<select id="color">
-												@php
-													$color = explode(",",$product->color)
-												@endphp
 												<option value="">Color</option>
 												@for ($i = 0; $i < count($color); $i++)
-													<option value="{{ $color[$i] }}">{{ $color[$i] }}</option>
+												<option value="{{ $color[$i] }}">{{ $color[$i] }}</option>
 												@endfor
 											</select>
 										</div>
@@ -103,11 +69,11 @@
 								<div class="variations_button">
 									<input type="text" id="id" value="{{ $product->id }}">
 									<div class="quantity">
-										<a class="quantity-minus" href="#">-</a>
-										<input type="text" data-min="5" data-max="10" name="quantity" value="1" title="Qty" class="input-text qty text" size="4">
-										<a class="quantity-plus" href="#">+</a>
+										<a id="quantity-sub" class="quantity-minus" href="javascript:void(0)">-</a>
+										<input id="quantity" type="text" class="input-text qty text" value="1">
+										<a id="quantity-add" class="quantity-plus" href="javascript:void(0)">+</a>
 									</div>
-									<button type="button" class="single_add_to_cart_button button alt" onclick="add_to_cart()">Add to cart</button>
+									<button type="button" class="single_add_to_cart_button button alt" id="add_to_cart">Add to cart</button>
 								</div>
 								<div class="product_meta">
 									{{-- <span class="sku_wrapper">SKU: <span class="sku">201623469</span></span> --}}
@@ -129,9 +95,9 @@
 										<li class="additional_information_tab">
 											<a data-toggle="tab" href="#tab-additional_information">DETAILS</a>
 										</li>
-										<li class="reviews_tab">
+										{{-- <li class="reviews_tab">
 											<a data-toggle="tab" href="#tab-reviews">Reviews (2)</a>
-										</li>
+										</li> --}}
 									</ul>
 									<div class="tab-container">
 										<div id="tab-description" class="tab-panel active">
@@ -251,147 +217,67 @@
 						</div>
 					</div>
 				</div>
+				@if ($product->category->products->count() > 1)
 				<div class="related products">
 					<h3 class="title">Related Products</h3>
 					<ul class="product-list owl-carousel nav-center-center" data-loop="true" data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"}}'>
-						@foreach ($rproducts as $rproduct)
-						<li class="product-item">
-							<div class="product-inner">
-								<div class="flash">
-									<span class="sale">Sale</span>
-								</div>
-								<div class="thumb">
-									<a class="product-image" href="#"><img src="{{asset('assets/home')}}/images/products/2.jpg" alt=""></a>
-									<div class="group-buttons">
-										<a href="#" class="button add_to_cart_button">Add to cart</a>
-										<a href="#" class="button yith-wcqv-button">Quickview</a>
-										<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-											    <div class="yith-wcwl-add-button show">
+						@foreach ($product->category->products->except($product->id) as $related_product)
+							@empty($related_product)
+								<script>
+									$(".title").hide();
+									alert("alert");
+								</script>
+							@endempty
+							@if ($product->category->products->count() == 1)
+								hello
+							@endif
+							<li class="product-item">
+								<div class="product-inner">
+									@if ($related_product->stock == false)
+										<div class="flash">
+											<span class="sale">Sale</span>
+										</div>
+									@endif
+									<div class="thumb">
+										<a class="product-image" href="#"><img src="{{asset('/storage/app/public/product/'.$related_product->images[0]->image) }}" alt=""></a>
+										<div class="group-buttons">
+											<a href="javascript:void(0)" onclick="add_to_cart({{$related_product->id}})" class="button add_to_cart_button">Add to cart</a>
+											<a href="{{ url('/product/no/'.$related_product->id) }}" class="button yith-wcqv-button">Quickview</a>
+											<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
+												{{-- <div class="yith-wcwl-add-button show">
 													<a href="#" rel="nofollow"> Wishlist</a>
+												</div> --}}
+												<div class="yith-wcwl-wishlistaddedbrowse hide">
+													<span class="feedback">Product added!</span>
+													<a href="#">Browse Wishlist</a>
 												</div>
-											    <div class="yith-wcwl-wishlistaddedbrowse hide">
-											        <span class="feedback">Product added!</span>
-											        <a href="#">Browse Wishlist</a>
-											    </div>
-											    <div class="yith-wcwl-wishlistexistsbrowse hide">
-											        <span class="feedback">The product is already in the wishlist!</span>
-											        <a href="#" rel="nofollow">Browse Wishlist</a>
-											    </div>
+												<div class="yith-wcwl-wishlistexistsbrowse hide">
+													<span class="feedback">The product is already in the wishlist!</span>
+													<a href="#" rel="nofollow">Browse Wishlist</a>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="info">
-									<h3 class="product-name"><a href="#">SAFFIANO-LEATHER LACE-UP  BOOTS</a></h3>
-									<span class="price">
-										<del>$200.00</del>
-										<ins>$179.00</ins>
-									</span>
-									<div class="rating">
-										<i class="active fa fa-star"></i>
-										<i class="active fa fa-star"></i>
-										<i class="active fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
+									<div class="info">
+										<h3 class="product-name"><a href="#">{{ $related_product->name }}</a></h3>
+										<span class="price">
+											<del>{{ $related_product->price*1.2 }}</del>
+											<ins>{{ $related_product->price }}Tk</ins>
+										</span>
+										{{-- <div class="rating">
+											<i class="active fa fa-star"></i>
+											<i class="active fa fa-star"></i>
+											<i class="active fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div> --}}
 									</div>
 								</div>
-							</div>
-						</li>
+							</li>
 						@endforeach
-						{{-- <li class="product-item">
-							<div class="product-inner">
-								<div class="thumb">
-									<a class="product-image" href="#"><img src="{{asset('assets/home')}}/images/products/3.jpg" alt=""></a>
-									<div class="group-buttons">
-										<a href="#" class="button add_to_cart_button">Add to cart</a>
-										<a href="#" class="button yith-wcqv-button">Quickview</a>
-										<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-											    <div class="yith-wcwl-add-button show">
-													<a href="#" rel="nofollow"> Wishlist</a>
-												</div>
-											    <div class="yith-wcwl-wishlistaddedbrowse hide">
-											        <span class="feedback">Product added!</span>
-											        <a href="#">Browse Wishlist</a>
-											    </div>
-											    <div class="yith-wcwl-wishlistexistsbrowse hide">
-											        <span class="feedback">The product is already in the wishlist!</span>
-											        <a href="#" rel="nofollow">Browse Wishlist</a>
-											    </div>
-										</div>
-									</div>
-								</div>
-								<div class="info">
-									<h3 class="product-name"><a href="#">B&W SWEATSHIRT</a></h3>
-									<span class="price">
-										$179.00
-									</span>
-								</div>
-							</div>
-						</li>
-						<li class="product-item">
-							<div class="product-inner">
-								<div class="thumb">
-									<a class="product-image" href="#"><img src="{{asset('assets/home')}}/images/products/4.jpg" alt=""></a>
-									<div class="group-buttons">
-										<a href="#" class="button add_to_cart_button">Add to cart</a>
-										<a href="#" class="button yith-wcqv-button">Quickview</a>
-										<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-											    <div class="yith-wcwl-add-button show">
-													<a href="#" rel="nofollow"> Wishlist</a>
-												</div>
-											    <div class="yith-wcwl-wishlistaddedbrowse hide">
-											        <span class="feedback">Product added!</span>
-											        <a href="#">Browse Wishlist</a>
-											    </div>
-											    <div class="yith-wcwl-wishlistexistsbrowse hide">
-											        <span class="feedback">The product is already in the wishlist!</span>
-											        <a href="#" rel="nofollow">Browse Wishlist</a>
-											    </div>
-										</div>
-									</div>
-								</div>
-								<div class="info">
-									<h3 class="product-name"><a href="#">B&W SWEATSHIRT</a></h3>
-									<span class="price">
-										$179.00
-									</span>
-								</div>
-							</div>
-						</li>
-						<li class="product-item">
-							<div class="product-inner">
-								<div class="flash">
-									<span class="new">New</span>
-								</div>
-								<div class="thumb">
-									<a class="product-image" href="#"><img src="{{asset('assets/home')}}/images/products/5.jpg" alt=""></a>
-									<div class="group-buttons">
-										<a href="#" class="button add_to_cart_button">Add to cart</a>
-										<a href="#" class="button yith-wcqv-button">Quickview</a>
-										<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-											    <div class="yith-wcwl-add-button show">
-													<a href="#" rel="nofollow"> Wishlist</a>
-												</div>
-											    <div class="yith-wcwl-wishlistaddedbrowse hide">
-											        <span class="feedback">Product added!</span>
-											        <a href="#">Browse Wishlist</a>
-											    </div>
-											    <div class="yith-wcwl-wishlistexistsbrowse hide">
-											        <span class="feedback">The product is already in the wishlist!</span>
-											        <a href="#" rel="nofollow">Browse Wishlist</a>
-											    </div>
-										</div>
-									</div>
-								</div>
-								<div class="info">
-									<h3 class="product-name"><a href="#">B&W SWEATSHIRT</a></h3>
-									<span class="price">
-										$179.00
-									</span>
-								</div>
-							</div>
-						</li> --}}
 					</ul>
 				</div>
+				@endif
 			</div>
 		</div>
 	</div>
@@ -399,6 +285,17 @@
 @endsection
 @section('page-js')
 	<script src="{{ asset('assets\home\vendor\gallery-zoom-zoomy\dist\zoomy.js') }}"></script>
+	<script>
+		// $(".single_add_to_cart_button").click(function() {
+		// 	alert($("#id").val()+" "+$("#quantity").val()+" "+$("#color").val()+" "+$("#size").val())
+		// })
+	
+		// var product_id = $("#id").val();
+		// var product_quantity = $("#quantity").val();
+		// var product_size = $("#size").val();
+		// var product_color = $("#color").val();
+		
+	</script>
 @endsection
 @section('custom-js')
 	<script>
@@ -409,12 +306,10 @@
 		}
 		// $('#myGallery').zoomy(url);
 		$('#myGallery').zoomy(url, {
-			height: 700,
-    		width: 710,
-			thumbLeft:true,
+			height: 420,
+			// width: 100,
+			// thumbLeft:true,
 			thumbRight:true
 		});
-
 	</script>
-	<script src="{{asset('assets\home\custom.js')}}"></script>
 @endsection
