@@ -1,9 +1,3 @@
-@php
-	if(!isset($_SESSION['cart'])){
-		// session()->put("cart",[]);
-		$_SESSION['cart'] = [];
-	}
-@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +21,12 @@
 	<link href="{{ asset('assets\home\downloaded\font2.css') }}" rel='stylesheet' type='text/css'>
 </head>
 <body>
+@php
+	if(!isset($_SESSION['cart'])){
+		// session()->put("cart",[]);
+		$_SESSION['cart'] = [];
+	}
+@endphp
 <div id="box-mobile-menu" class="box-mobile-menu full-height">
     <div class="box-inner">
         <a href="#" class="close-menu"><span class="icon fa fa-times"></span></a>
