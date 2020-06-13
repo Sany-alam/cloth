@@ -55,8 +55,8 @@ class HomeController extends Controller
             'created_at'=>$product->created_at,
             'updated_at'=>$product->updated_at
         ];
-        // session()->push('cart',$PItems);
-        // array_push($_SESSION['cart'],$PItems);
+        session()->push('cart',$PItems);
+        array_push($_SESSION['cart'],$PItems);
         return "success";
     }
 

@@ -24,7 +24,7 @@ function add_to_cart(id) {
         type:"post",
         success:function(data) {
             if (data == "success") {
-                
+                CountCart();
             }
         }
     })
