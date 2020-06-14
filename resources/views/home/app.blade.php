@@ -21,12 +21,6 @@
 	<link href="{{ asset('assets\home\downloaded\font2.css') }}" rel='stylesheet' type='text/css'>
 </head>
 <body>
-@php
-	if(!isset($_SESSION['cart'])){
-		// session()->put("cart",[]);
-		$_SESSION['cart'] = [];
-	}
-@endphp
 <div id="box-mobile-menu" class="box-mobile-menu full-height">
     <div class="box-inner">
         <a href="#" class="close-menu"><span class="icon fa fa-times"></span></a>
@@ -97,6 +91,7 @@
 								</div>
 								<div class="group-buttons">
 									<a href="{{ url('/cart') }}" class="button">Shopping Cart</a>
+									<a href="javascript:void(0)" class="button primary checkout-button" onclick="AllClearCart()">Clear Cart</a>
 									<a href="{{ url('/checkout') }}" class="button primary checkout-button">CheckOut</a>
 								</div>
 							</div>
@@ -241,7 +236,11 @@
 		</div>
 	</div>
 </header>
-
+@php
+	if(!session()->has("cart")){
+	 	session()->put("cart",[]);
+	}
+@endphp
 @yield('content')
 
 {{-- modals --}}

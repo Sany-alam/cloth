@@ -38,13 +38,15 @@ class HomeController extends Controller
     {
         $product = Product::where('id',$request->id)->first();
         $c = explode(",",$product->color);
+        $color = $c[0];
         $s = explode(",",$product->size);
+        $siz = $s[0];
         $PItems = [
             'id'=>$product->id,
             'category_id'=>$product->category_id,
             'name'=>$product->name,
             'price'=>$product->price,
-            'size'=>$request->input('size',$s[0]),
+            'size'=>$request->input('size',$siz),
             'weight'=>$product->weight,
             'fabric'=>$product->fabric,
             'stock'=>$product->stock,
@@ -55,19 +57,33 @@ class HomeController extends Controller
             'created_at'=>$product->created_at,
             'updated_at'=>$product->updated_at
         ];
-        session()->push('cart',$PItems);
-        array_push($_SESSION['cart'],$PItems);
-        return "success";
-    }
+        foreach (session()->get('cart') as $key => $value) {
+            if ($product->id == $value['id']) {
+                if ($PItems['size'] == $value['size'] && $PItems['color'] == $value['color']) {
+                    // return $PItems['id']." = ".$value['id']." ".$value['size']." = ".$PItems['size']." ".$PItems['color']." = ".$value['color']." & ".$value['id']." from A ";
+                    return session()->get('cart');
 
-    public function cart_clear_product(Request $request)
-    {
-        unset($_SESSION['cart']);
+                }
+                else{
+                    // return $PItems['id']." = ".$value['id']." ".$value['size']." = ".$PItems['size']." ".$PItems['color']." = ".$value['color']." & ".$value['id']." from B ";
+                    return session()->get('cart');
+                }
+            }
+            else{
+                // return $PItems['size']." & ".$PItems['color']." & ".$PItems['id']." from C ";
+                return session()->get('cart');
+            }
+        }
     }
 
     public function cart_count()
     {
-        // return count(session()->get('cart'));
-        return count($_SESSION['cart']);
+        return count(session()->get('cart'));
+    }
+
+    public function cart_clear_product()
+    {
+        session()->put("cart",[]);
+        return "success";
     }
 }
