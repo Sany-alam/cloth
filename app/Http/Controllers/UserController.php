@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -25,16 +26,17 @@ class UserController extends Controller
     public function create(Request $request)
     {
         if ($user = User::where([['email','=',$request->email],['password','=', $request->password]])->exists()) {
-            // if (condition) {
-                # code...
-        //     }
-        //     $EmptyArray = array();
-        //     session()->put('UserData',[['user'=>$user],['cart'=>$EmptyArray]]);
-        //     return "success";
-        //  }
-        //  else{
-        //     return "error";
-         }
+            // $credentials = $request->only();
+            if (Auth::attempt(['email'=>$request->email,'password' => $request->password])) {
+                return "success";
+            }
+            else{
+                return "kellafote";
+            }
+        }
+        else{
+            return "kellafote2";
+        }
     }
 
     /**
@@ -96,7 +98,7 @@ class UserController extends Controller
      */
     public function destroy()
     {
-        session()->forget('UserData');
+        session()->forget('user');
         return redirect('/');
     }
 }

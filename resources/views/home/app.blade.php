@@ -50,41 +50,33 @@
 						<div class="mini-cart">
 							<a href="{{ url('/cart') }}" class="cart-link">
 								<span class="icon lnr lnr-cart"></span>
-								{{-- @if (session()->has('UserData')) --}}
-								{{-- @if (array_key_exists('cart',session()->get('UserData'))) --}}
-								<span id="cart-count" class="count"></span>
-								{{-- @endif --}}
-								{{-- @endif --}}
+								<span class="count cart-count"></span>
 							</a>
-							<div class="minni-cart-content">
-								<h3 class="title">YOU HAVE <span class="text-primary">(2 ITEMS)</span> IN YOUR CART</h3>
-								<ul class="minicart-list">
+							<!-- <div class="minni-cart-content">
+								<h3 class="title">YOU HAVE <span class="text-primary">(<i class="cart-count"></i> ITEMS)</span> IN YOUR CART</h3>
+								<ul class="minicart-list" id="cart-list">
 									<li class="item">
-										<div class="thumb">
-											<a href="#"><img src="{{ asset('assets/home') }}/images/products/1.jpg" alt=""></a>
-										</div>
-										<div class="info">
-											<h4 class="product-name">
-												<a href="#">SAFFIANO-LEATHER LACEUP BOOTS</a>
-											</h4>
-											<span class="price">
-												1x$50.00
-											</span>
-										</div>
-									</li>
-									<li class="item">
-										<div class="thumb">
-											<a href="#"><img src="{{ asset('assets/home') }}/images/products/1.jpg" alt=""></a>
-										</div>
-										<div class="info">
-											<h4 class="product-name">
-												<a href="#">SAFFIANO-LEATHER LACEUP BOOTS</a>
-											</h4>
-											<span class="price">
-												1x$50.00
-											</span>
-										</div>
-									</li>
+				                        <div class="thumb">
+				                            <a href="#"><img src="'.asset("storage/app/public/product/".Product::find($value['id'])->images[0]->image).'" alt=""></a>
+				                        </div>
+				                        <div class="info">
+				                            <h4 class="product-name" style="margin:0px;">
+				                                <a href="'.url('product/no/'.$value['id'].'').'">'.$value['name'].'</a>
+				                            </h4>
+				                            <h6 style="margin:0px;">
+				                                Price : '.$value["price"].' Tk
+				                            </h6>
+				                            <h6 style="margin:0px;">
+				                                Size : '.$value["size"].'
+				                            </h6>
+				                            <h6 style="margin:0px;">
+				                                Color : '.$value["color"].'
+				                            </h6>
+				                            <h6 style="margin:0px;">
+				                                Quantity : '.$value["quantity"].'
+				                            </h6>
+				                        </div>
+				                    </li>
 								</ul>
 								<div class="subtotal">
 									Subtoal:<span class="amount">$100.00</span>
@@ -94,7 +86,7 @@
 									<a href="javascript:void(0)" class="button primary checkout-button" onclick="AllClearCart()">Clear Cart</a>
 									<a href="{{ url('/checkout') }}" class="button primary checkout-button">CheckOut</a>
 								</div>
-							</div>
+							</div> -->
 						</div>
 						{{-- <a href="#" class="header-bar kt-open-side-menu">
 							<span></span>
@@ -117,18 +109,19 @@
 						<li class="@yield('checkout-active')">
 							<a href="{{url('/checkout')}}">Checkout</a>
 						</li>
-						@if (!session()->has('UserData'))
+						@guest
 						<li>
 							<a data-toggle="modal" href="#LoginModal">Login</a>
 						</li>
 						<li>
 							<a data-toggle="modal" href="#SignupModal">Register</a>
 						</li>
-						@else
+						@endguest
+						@auth
 						<li>
 							<a href="{{url('/user/logout')}}">Logout</a>
 						</li>
-						@endif
+						@endauth
 							{{-- <ul class="sub-menu">
 								<li><a href="index1.html">Home 01</a></li>
 								<li><a href="index2.html">Home 02</a></li>
@@ -294,7 +287,7 @@
 			</p>
 			<button type="button" class="button" data-dismiss="modal" aria-label="Close">Close</button>
 			<button class="button" type="button" id="login">Login</button>
-			<div class="lost_password">Do not have an account? <a data-dismiss="modal" aria-label="Close"  data-toggle="modal" data-target="#SignupModal" class="lost_password">Signup</a></div>
+			<div class="lost_password">Do not have an account? <a data-dismiss="modal" aria-label="Close"  data-toggle="modal" class="lost_password" href="#SignupModal">Signup</a></div>
 		</form>
 		</div>
 	  </div>

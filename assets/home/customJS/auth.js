@@ -37,13 +37,35 @@ $("#login").click(function() {
         type:"post",
         success:function(data) {
             // alert(data);
-            // // all = $.trim(data);
+            // all = $.trim(data);
             if (data == "success") {
                 $("#LoginModal").modal('hide');
+                alert("successfully loggedin");
             }
             else{
-                alert("Credentiols not matched!");
+                alert(data);
+                log(data);
             }
         }
     })
 });
+
+
+function placeOrder() {
+    $.ajax({
+        processData:false,
+        contentType:false,
+        url:cartUrl+"/order",
+        type:"get",
+        success:function(data) {
+            alert(data);
+            all = $.trim(data);
+            if (all == "login-failed") {
+                $("#LoginModal").modal('show');
+            }
+            else{
+                // alert("Credentiols not matched!");
+            }
+        }
+    })
+}

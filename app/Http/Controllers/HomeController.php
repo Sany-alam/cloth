@@ -34,6 +34,17 @@ class HomeController extends Controller
         return view('home.product',['product'=>$product,'rproducts'=>$rproduct]);
     }
 
+
+
+
+
+
+
+
+
+
+
+
     public function cart_add_product(Request $request)
     {
         $product = Product::where('id',$request->id)->first();
@@ -57,28 +68,97 @@ class HomeController extends Controller
             'created_at'=>$product->created_at,
             'updated_at'=>$product->updated_at
         ];
-        foreach (session()->get('cart') as $key => $value) {
-            if ($product->id == $value['id']) {
-                if ($PItems['size'] == $value['size'] && $PItems['color'] == $value['color']) {
-                    // return $PItems['id']." = ".$value['id']." ".$value['size']." = ".$PItems['size']." ".$PItems['color']." = ".$value['color']." & ".$value['id']." from A ";
+        if (count(session()->get('cart')) > 0) {
+            $oldCArt = session()->get('cart');
+            foreach ($oldCArt as $key => $value) {
+                if ($value['id'] == $PItems['id']) {
+                    $value['quantity'] = $value['quantity']+1;
+                    session()->push('cart[0].quantity', 4);
+                //     if ($value['size'] == $PItems['size'] && $value['color'] == $PItems['color']) {
+                //         $value['quantity'] = session()->get('cart')[$key]['quantity']+1;
+                        
+                //         // return session()->get('cart'.$value['quantity']);
+                //         return session()->get('cart');
+                //         break;
+                    file_put_contents('test.txt',$value['quantity']);
+                    // }
                     return session()->get('cart');
-
                 }
-                else{
-                    // return $PItems['id']." = ".$value['id']." ".$value['size']." = ".$PItems['size']." ".$PItems['color']." = ".$value['color']." & ".$value['id']." from B ";
-                    return session()->get('cart');
-                }
-            }
-            else{
-                // return $PItems['size']." & ".$PItems['color']." & ".$PItems['id']." from C ";
-                return session()->get('cart');
             }
         }
+        else{
+            session()->push('cart', $PItems);
+            return session()->get('cart');
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function cart_count()
     {
         return count(session()->get('cart'));
+    }
+
+    public function cart_list()
+    {
+        $list = "";
+        foreach (session()->get('cart') as $key => $value) {
+            $list .='
+            <tr>
+                <td class="product-thumbnail">
+                    <img class="product-thumb" src="'.asset('storage/app/public/product/'.Product::find($value['id'])->images[0]->image).'" alt="">
+                </td>
+                <td class="product-name">
+                    <a class="name" href="#">'.$value['name'].'</a>
+                </td>
+                <td class="product-price">
+                    <span class="amount">'.$value['price'].'</span>
+                </td>
+                <td class="product-quantity">
+                    <div class="quantity">
+                        <a id="quantity-sub" class="quantity-minus" href="javascript:void(0)">-</a>
+                        <input id="quantity" type="text" class="input-text qty text" value="'.$value['quantity'].'">
+                        <a id="quantity-add" class="quantity-plus" href="javascript:void(0)">+</a>
+                    </div>
+                </td>
+                <td class="product-subtotal">
+                    <span class="amount">'.$value['price']*$value['quantity'].'</span>
+                </td>
+                <td class="product-remove">
+                    <a class="remove" href="javascript:void(0)" onclick="clearSingleProduct('.$value['id'].','.$key.')"><i class="fa fa-close"></i></a>
+                </td>
+            </tr>
+            <script>
+            $("#quantity-add").click(function () {
+            if ($("#quantity").val() < 10) {
+                $("#quantity").val(+$("#quantity").val() + 1);
+                }
+            });
+            $("#quantity-sub").click(function () {
+                if ($("#quantity").val() > 1) {
+                if ($("#quantity").val() > 1) $("#quantity").val(+$("#quantity").val() - 1);
+                }
+            });
+            </script>';
+        }
+        if (!empty($list)) {
+            return $list;
+        }
+        else{
+            $list = "<h6 style='text-align:center;'>No product available in your cart. <a href='".url('/')."'>Countinue shopping!</a></h6>";
+            return $list;
+        }
+        
     }
 
     public function cart_clear_product()
@@ -86,4 +166,26 @@ class HomeController extends Controller
         session()->put("cart",[]);
         return "success";
     }
+
+
+    public function cart_clear_single_product($id,$index)
+    {
+        $card = session()->get('cart');
+        if ($card[$index]['id'] == $id) {
+            unset($card[$index]);
+        }
+        session()->pull('cart',$card);
+        return $id." & ".$index;
+    }
+
+
+    public function place_order()
+    {
+        
+    }
+
+
+
+
+
 }

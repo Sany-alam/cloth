@@ -168,7 +168,12 @@
 										</li>
 									</ul>
 								</div>
-								<button class="button primary alt">PLACE ORDER</button>
+								@guest
+								<button data-toggle="modal" href="#LoginModal" class="button primary alt">PLACE ORDER</button>
+								@endguest
+								@auth
+								<button onclick="placeOrder()" class="button primary alt">PLACE ORDER</button>
+								@endauth
 							</div>
 						</div>
 					</div>

@@ -61,12 +61,20 @@ function CountCart() {
         url:""+cartUrl+"/count",
         type:"get",
         success:function(data) {
-            if (data.length > 0) {
-                $("#cart-count").html(data)
-            }
-            else{
-                $("#cart-count").html("0")
-            }
+            $(".cart-count").html(data);
+            CartList();
+        }
+    })
+}
+
+function CartList() {
+    $.ajax({
+        processData:false,
+        contentType:false,
+        url:""+cartUrl+"/list",
+        type:"get",
+        success:function(data) {
+            $("#cart-list").html(data);
         }
     })
 }
@@ -82,6 +90,21 @@ function AllClearCart() {
             if (data == "success") {
                 CountCart();
             }
+        }
+    })
+}
+
+
+
+function clearSingleProduct(id,index) {
+    $.ajax({
+        processData:false,
+        contentType:false,
+        url:""+cartUrl+"/clear/single/"+id+"/"+index,
+        type:"get",
+        success:function(data) {
+            CountCart();
+            alert(data);
         }
     })
 }
