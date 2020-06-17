@@ -23,15 +23,17 @@ function add_to_cart(id) {
         url:""+cartUrl+"/add",
         type:"post",
         success:function(data) {
-            console.log(data);
             CountCart();
+            if (data.length != 0 && typeof(data) !== Object) {
+                alert(data);
+            }
         }
     })
 }
 
 
 $("#add_to_cart").click(function() {
-    if ($("#quantity").val().length > 0 && $("#id").val().length > 0 && $("#size").val().length > 0 && $("#color").val().length > 0) {
+    if ($("#quantity").val().length > 0 && $("#id").val().length > 0 && $("#size").val().length > 0) {
         formdata = new FormData();
         formdata.append('id',$("#id").val()),
         formdata.append('quantity',$("#quantity").val()),
@@ -45,6 +47,9 @@ $("#add_to_cart").click(function() {
             type:"post",
             success:function(data) {
                 CountCart();
+                if (data.length !== 0) {
+                    alert(data);
+                }
             }
         })
     }
@@ -94,8 +99,6 @@ function AllClearCart() {
     })
 }
 
-
-
 function clearSingleProduct(id,index) {
     $.ajax({
         processData:false,
@@ -104,7 +107,60 @@ function clearSingleProduct(id,index) {
         type:"get",
         success:function(data) {
             CountCart();
-            alert(data);
+        }
+    })
+}
+
+
+$("#checkout").click(function(){
+    qty = [];
+    $("[name='quantity[]']").each(function(){
+        qty.push($(this).val());
+    })
+    data = new FormData();
+    data.append('qty',qty);
+    $.ajax({
+        processData:false,
+        contentType:false,
+        url:""+cartUrl+"/checkout",
+        type:"post",
+        data:data,
+        success:function(data) {
+            CountCart();
+            if (data === "done") {
+                location.href='checkout';
+            }
+        }
+    })
+
+});
+
+
+function placeOrder() {
+    data = new FormData();
+    data.append('name',$("#name").val());
+    data.append('address',$("#address").val());
+    data.append('city',$("#city").val());
+    data.append('state',$("#state").val());
+    data.append('postcode',$("#postcode").val());
+    data.append('email',$("#email").val());
+    data.append('phone',$("#phone").val());
+    data.append('note',$("#note").val());
+    account = false;
+    if ($("#account").is(":checked")) {
+        account = true;
+    }
+    data.append('account',account);
+    data.append('payment',$("[name='payment_method']:checked").val());
+    $.ajax({
+        processData:false,
+        contentType:false,
+        url:""+cartUrl+"/order",
+        type:"post",
+        data:data,
+        success:function(data) {
+            console.log(data);
+            
         }
     })
 }

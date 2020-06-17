@@ -52,59 +52,46 @@
 							<div class="woocommerce-billing-fields">
 								<h3 class="form-title">BILLING ADDRESS</h3>
 								<p>
-									<input class="input-text" type="text" placeholder="COUNTRY">
+									<input id="name" class="input-text" type="text" placeholder="FULL NAME">
+								</p>
+								<p>
+									<input id="address" class="input-text" type="text" placeholder="ADDRESS*">
+								</p>
+								<p>
+									<input id="city" class="input-text" type="text" placeholder="TOWN/CITY*">
 								</p>
 								<div class="row">
 									<div class="col-sm-6">
 										<p>
-											<input class="input-text" type="text" placeholder="FIRST NAME*">
+											<input id="state" class="input-text" type="text" placeholder="STATE">
 										</p>
 									</div>
 									<div class="col-sm-6">
 										<p>
-											<input class="input-text" type="text" placeholder="LAST NAME*">
-										</p>
-									</div>
-								</div>
-								<p>
-									<input class="input-text" type="text" placeholder="ADDRESS*">
-								</p>
-								<p>
-									<input class="input-text" type="text" placeholder="TOWN/CITY*">
-								</p>
-								<div class="row">
-									<div class="col-sm-6">
-										<p>
-											<input class="input-text" type="text" placeholder="STATE">
-										</p>
-									</div>
-									<div class="col-sm-6">
-										<p>
-											<input class="input-text" type="text" placeholder="POSTCODE*">
+											<input id="postcode" class="input-text" type="text" placeholder="POSTCODE*">
 										</p>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-6">
 										<p>
-											<input class="input-text" type="text" placeholder="EMAIL">
+											<input id="email" class="input-text" type="text" placeholder="EMAIL">
 										</p>
 									</div>
 									<div class="col-sm-6">
 										<p>
-											<input class="input-text" type="text" placeholder="PHONE*">
+											<input id="phone" class="input-text" type="text" placeholder="PHONE*">
 										</p>
 									</div>
 								</div>
 								<p>
-									<label><input type="checkbox">Create an account?</label>
+									<label><input id="account" type="checkbox">Create an account?</label>
 								</p>
 							</div>
 							<div class="woocommerce-shipping-fields">
-								<h3 class="form-title">BILLING ADDRESS <input type="checkbox"></h3>
 								<p>
-									<label>ORDER NOTES</label>
-									<textarea rows="3" class="input-text" placeholder="Notes about your delivery, e. g.  special notes for delivery."></textarea>
+									<label>ORDER NOTES (Optional)</label>
+									<textarea id="note" rows="3" class="input-text" placeholder="Notes about your delivery, e. g.  special notes for delivery."></textarea>
 								</p>
 							</div>
 						</div>
@@ -119,17 +106,24 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="cart_item">
-											<td class="product-name">Happy Ninja<strong class="product-quantity">× 1</strong>													</td>
-											<td class="product-total">
-												<span class="amount">$17.00</span>
-											</td>
-										</tr>
+										@php
+											$subtotal = 0
+										@endphp
+										@foreach (session()->get('cart') as $item)
+											<tr class="cart_item">
+												<td class="product-name">{{$item['name']}}<strong class="product-quantity">× {{$item['quantity']}}</strong> - {{$item['size']}} Size
+												</td>
+												<td class="product-total">
+													<span class="amount">{{$item['price']*$item['quantity']}} Tk</span>
+												</td>
+											</tr>
+											{{$subtotal = $subtotal+$item['price']*$item['quantity']}}
+										@endforeach
 									</tbody>
 									<tfoot>
 										<tr class="cart-subtotal">
 											<th>Subtotal</th>
-											<td><span class="amount">$52.00</span></td>
+											<td><span class="amount">{{$subtotal}} Tk</span></td>
 										</tr>
 										<tr class="shipping">
 											<th>Shipping</th>
@@ -139,41 +133,36 @@
 										</tr>
 										<tr class="order-total">
 											<th>Total</th>
-											<td><strong><span class="amount">52.00$</span></strong> </td>
+											<td><strong><span class="amount">{{$subtotal}} Tk</span></strong> </td>
 										</tr>
 									</tfoot>
 								</table>
 								<div class="woocommerce-checkout-payment">
 									<ul class="wc_payment_methods payment_methods methods">
 										<li class="wc_payment_method selected">
-											<input id="p1" class="input-radio" type="radio" checked="checked" name="payment_method">
-											<label for="p1">Direct Bank Transfer</label>
+											<input id="payment1" class="input-radio" type="radio" name="payment_method" value="Cash On Delivery">
+											<label for="payment1">Cash on delivery</label>
 											<div class="payment_box">
 												<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.</p>
 											</div>
 										</li>
 										<li class="wc_payment_method ">
-											<input id="p2" class="input-radio" type="radio" name="payment_method">
-											<label for="p2">Cheque Payment</label>
+											<input id="payment2" class="input-radio" type="radio" name="payment_method" value="BKASH">
+											<label for="payment2">Bkash Payment</label>
 											<div class="payment_box">
 												<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.</p>
 											</div>
 										</li>
 										<li class="wc_payment_method ">
-											<input id="p3" class="input-radio" type="radio" name="payment_method">
-											<label for="p3">PayPal</label>
+											<input id="payment3" class="input-radio" type="radio" name="payment_method" value="BANK">
+											<label for="payment3">Direct Bank Transfer</label>
 											<div class="payment_box">
 												<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.</p>
 											</div>
 										</li>
 									</ul>
 								</div>
-								@guest
-								<button data-toggle="modal" href="#LoginModal" class="button primary alt">PLACE ORDER</button>
-								@endguest
-								@auth
 								<button onclick="placeOrder()" class="button primary alt">PLACE ORDER</button>
-								@endauth
 							</div>
 						</div>
 					</div>

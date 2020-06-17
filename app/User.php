@@ -10,4 +10,9 @@ class User extends Model
         'email',
         'password'
     ];
+
+    public function order()
+    {
+        return $this->hasMany('App\Order', 'user_id', 'id');
+    }
 }

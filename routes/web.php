@@ -26,7 +26,8 @@ Route::get('cart/clear',"HomeController@cart_clear_product");
 Route::get('cart/count',"HomeController@cart_count");
 Route::get('cart/list',"HomeController@cart_list");
 Route::get('cart/clear/single/{id}/{index}',"HomeController@cart_clear_single_product");
-Route::get('cart/order',"HomeController@place_order");
+Route::post('cart/checkout',"HomeController@cart_checkout");
+Route::post('cart/order',"HomeController@place_order");
 
 Route::prefix('user')->group(function(){
     Route::post("create","UserController@store");

@@ -18,6 +18,11 @@
 							<div class="summary">
 								<h1 class="product_title entry-title">{{ $product->name }}</h1>
 								<div>
+									<p>
+										@if(!empty($product->color))
+										Color : <span id="color">{{ $product->color }}</span>
+										@endif
+									</p>
 									<p class="price">
 										<del><span class="amount">{{ $product->price*1.2 }}Tk</span></del>
 										<ins><span class="amount">{{ $product->price }}Tk</span></ins>
@@ -47,20 +52,6 @@
 												<option value="">Size</option>
 												@for ($i = 0; $i < count($s); $i++)
 												<option value="{{ $s[$i] }}">{{ $s[$i] }}</option>
-												@endfor
-											</select>
-										</div>
-									</div>
-									<div class="variation-row">
-										<label>Color</label>
-										<div class="inner value">
-											@php
-												$color = explode(",",$product->color)
-											@endphp
-											<select id="color">
-												<option value="">Color</option>
-												@for ($i = 0; $i < count($color); $i++)
-												<option value="{{ $color[$i] }}">{{ $color[$i] }}</option>
 												@endfor
 											</select>
 										</div>

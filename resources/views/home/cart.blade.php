@@ -17,40 +17,17 @@
 					<table class="shop_table cart">
 						<thead>
 							<tr>
-								<th colspan="2" class="product">Product name</th>
+								<th class="product">Image</th>
+								<th class="product">Product name</th>
 								<th class="product">Size</th>
 								<th class="product">Color</th>
 								<th class="product-price">Price</th>
 								<th class="product-quantity">QUANTITY</th>
-								<th class="product-subtotal">Total</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody id="cart-list">
-							<!-- <tr>
-								<td class="product-thumbnail">
-									<img class="product-thumb" src="images/products/14.jpg" alt="">
-								</td>
-								<td class="product-name">
-									<a class="name" href="#">Happy Ninja </a>
-								</td>
-								<td class="product-price">
-									<span class="amount">$15.13</span>
-								</td>
-								<td class="product-quantity">
-									<div class="quantity">
-										<a class="quantity-minus" href="#">-</a>
-										<input type="text" data-step="1" data-min="" data-max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4">
-										<a class="quantity-plus" href="#">+</a>
-									</div>
-								</td>
-								<td class="product-subtotal">
-									<span class="amount">$113.00</span>
-								</td>
-								<td class="product-remove">
-									<a class="remove" href="#"><i class="fa fa-close"></i></a>
-								</td>
-							</tr> -->
+							
 						</tbody>
 					</table>
 					<div class="carttable-footer">
@@ -63,13 +40,10 @@
 							</div>
 							<div class="col-sm-6">
 								<div class="cart-control">
+									<button href="javascript:void(0)" class="button primary" id="checkout">PROCEED TO CHECKOUT</button>
 									<a class="button" href="javascript:void(0)" onclick="AllClearCart()">CLEAR CART</a>
-									<input type="submit" class="button" name="apply_coupon" value="UPDATE CART">
-									<a href="{{url('/checkout')}}" class="button primary">PROCEED TO CHECKOUT</a>
 								</div>
 							</div>
-
-							
 						</div>
 					</div>
 					<div class="row">

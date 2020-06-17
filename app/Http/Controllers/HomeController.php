@@ -34,17 +34,6 @@ class HomeController extends Controller
         return view('home.product',['product'=>$product,'rproducts'=>$rproduct]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
     public function cart_add_product(Request $request)
     {
         $product = Product::where('id',$request->id)->first();
@@ -69,40 +58,24 @@ class HomeController extends Controller
             'updated_at'=>$product->updated_at
         ];
         if (count(session()->get('cart')) > 0) {
-            $oldCArt = session()->get('cart');
-            foreach ($oldCArt as $key => $value) {
-                if ($value['id'] == $PItems['id']) {
-                    $value['quantity'] = $value['quantity']+1;
-                    session()->push('cart[0].quantity', 4);
-                //     if ($value['size'] == $PItems['size'] && $value['color'] == $PItems['color']) {
-                //         $value['quantity'] = session()->get('cart')[$key]['quantity']+1;
-                        
-                //         // return session()->get('cart'.$value['quantity']);
-                //         return session()->get('cart');
-                //         break;
-                    file_put_contents('test.txt',$value['quantity']);
-                    // }
-                    return session()->get('cart');
+            $cart = session()->get('cart');
+            $count = 0;
+            foreach ($cart as $value) {
+                if ($value['id'] == $PItems['id'] && $value['size'] == $PItems['size']) {
+                    $count = 1;
                 }
+            }
+            if ($count == 0) {
+                session()->push('cart', $PItems);
+            }
+            else{
+                return "You have already added this, increase quantity in cart to order more.";
             }
         }
         else{
             session()->push('cart', $PItems);
-            return session()->get('cart');
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function cart_count()
     {
@@ -115,38 +88,41 @@ class HomeController extends Controller
         foreach (session()->get('cart') as $key => $value) {
             $list .='
             <tr>
-                <td class="product-thumbnail">
+                <td class="product-thumbnail" style="text-align:left;">
                     <img class="product-thumb" src="'.asset('storage/app/public/product/'.Product::find($value['id'])->images[0]->image).'" alt="">
                 </td>
-                <td class="product-name">
-                    <a class="name" href="#">'.$value['name'].'</a>
+                <td class="product-name" style="text-align:left;">
+                    <a class="name" href="product/no/'.$value['id'].'">'.$value['name'].'</a>
                 </td>
-                <td class="product-price">
+                <td class="product-price" style="text-align:left;">
+                    <span class="amount">'.$value['size'].'</span>
+                </td>
+                <td class="product-price" style="text-align:left;">
+                    <span class="amount">'.$value['color'].'</span>
+                </td>
+                <td class="product-price" style="text-align:left;">
                     <span class="amount">'.$value['price'].'</span>
                 </td>
                 <td class="product-quantity">
                     <div class="quantity">
-                        <a id="quantity-sub" class="quantity-minus" href="javascript:void(0)">-</a>
-                        <input id="quantity" type="text" class="input-text qty text" value="'.$value['quantity'].'">
-                        <a id="quantity-add" class="quantity-plus" href="javascript:void(0)">+</a>
+                        <a id="quantity-sub'.$key.$value['id'].'" class="quantity-minus" href="javascript:void(0)">-</a>
+                        <input id="quantity'.$key.$value['id'].'" type="text" class="input-text qty text" name="quantity[]" value="'.$value['quantity'].'">
+                        <a id="quantity-add'.$key.$value['id'].'" class="quantity-plus" href="javascript:void(0)">+</a>
                     </div>
-                </td>
-                <td class="product-subtotal">
-                    <span class="amount">'.$value['price']*$value['quantity'].'</span>
-                </td>
+                </td>.
                 <td class="product-remove">
-                    <a class="remove" href="javascript:void(0)" onclick="clearSingleProduct('.$value['id'].','.$key.')"><i class="fa fa-close"></i></a>
+                    <a class="remove button" href="javascript:void(0)" onclick="clearSingleProduct('.$value['id'].','.$key.')"><i class="fa fa-close"></i></a>
                 </td>
             </tr>
             <script>
-            $("#quantity-add").click(function () {
-            if ($("#quantity").val() < 10) {
-                $("#quantity").val(+$("#quantity").val() + 1);
+            $("#quantity-add'.$key.$value['id'].'").click(function () {
+            if ($("#quantity'.$key.$value['id'].'").val() < 10) {
+                $("#quantity'.$key.$value['id'].'").val(+$("#quantity'.$key.$value['id'].'").val() + 1);
                 }
             });
-            $("#quantity-sub").click(function () {
-                if ($("#quantity").val() > 1) {
-                if ($("#quantity").val() > 1) $("#quantity").val(+$("#quantity").val() - 1);
+            $("#quantity-sub'.$key.$value['id'].'").click(function () {
+                if ($("#quantity'.$key.$value['id'].'").val() > 1) {
+                if ($("#quantity'.$key.$value['id'].'").val() > 1) $("#quantity'.$key.$value['id'].'").val(+$("#quantity'.$key.$value['id'].'").val() - 1);
                 }
             });
             </script>';
@@ -170,22 +146,31 @@ class HomeController extends Controller
 
     public function cart_clear_single_product($id,$index)
     {
-        $card = session()->get('cart');
+        $card = session()->pull('cart');
         if ($card[$index]['id'] == $id) {
             unset($card[$index]);
         }
-        session()->pull('cart',$card);
-        return $id." & ".$index;
+        session()->put('cart',$card);
     }
 
-
-    public function place_order()
+    public function cart_checkout(Request $request)
     {
+        $jk = explode(",",$request->qty);
+        $cart = session()->pull('cart');
+        for ($i=0;$i<count($cart);$i++) {
+            if ($cart[$i]['quantity'] != $jk[$i]) {
+                $int = (int)$jk[$i];
+                $cart[$i]['quantity'] = $int;
+            }
+        }
+        $car2t = session()->put('cart',$cart);
+        $car3t = session()->get('cart');
         
+        return "done";
     }
 
-
-
-
-
+    public function place_order(Request $request)
+    {
+        return $request->all();
+    }
 }

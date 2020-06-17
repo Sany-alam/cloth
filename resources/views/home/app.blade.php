@@ -6,7 +6,6 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title')</title>
     
-    @yield('page-css')
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets\home\css\animate.css') }}"> <!--css/animate.css-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets\home\css\bootstrap.min.css') }}"><!--css/bootstrap.min.css-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets\home\css\font-awesome.min.css') }}"><!--css/font-awesome.min.css-->
@@ -16,7 +15,12 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets\home\css\easyzoom.css') }}"><!--css/easyzoom.css-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets\home\css\jquery.mCustomScrollbar.css') }}"><!--css/jquery.mCustomScrollbar.css-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets\home\css\style.css') }}"><!--css/style.css-->
-
+	@yield('page-css')
+	<style>
+		.modal .modal-dialog{
+			margin: 10px auto;
+		}
+	</style>
 	<link href="{{ asset('assets\home\downloaded\font.css') }}" rel='stylesheet' type='text/css'>
 	<link href="{{ asset('assets\home\downloaded\font2.css') }}" rel='stylesheet' type='text/css'>
 </head>
@@ -267,7 +271,8 @@
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
 		<div class="modal-body">
-		  <form class="login" style="display: block;">
+		<form class="login" style="display: block;">
+			<div class="" id="login-alert"></div>
 			<h3 class="form-title">Login</h3>
 			<p class="form-row form-row-first">
 				<label for="lemail">Email <span class="required">*</span></label>
