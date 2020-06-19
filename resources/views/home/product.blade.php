@@ -1,6 +1,6 @@
 @extends('home.app')
 @section('page-css')
-	
+
 <link type="text/css" rel="stylesheet" href="{{asset('assets\home\vendor\gallery-zoom-zoomy\dist\zoomy.css')}}" />
 @endsection
 @section('content')
@@ -35,7 +35,7 @@
 										<i class="active fa fa-star"></i>
 										<i class="fa fa-star"></i>
 										<i class="fa fa-star"></i>
-									</div>	
+									</div>
 									<a href="#reviews" class="woocommerce-review-link" rel="nofollow">(<span class="count">3</span> Reviews)</a>
 								</div>
 								<div class="short-descript">
@@ -47,9 +47,9 @@
 										<div class="inner value">
 											@php
 												$s = explode(",",$product->size)
-											@endphp
+                                                @endphp
 											<select id="size">
-												<option value="">Size</option>
+                                                <option value="">Size</option>
 												@for ($i = 0; $i < count($s); $i++)
 												<option value="{{ $s[$i] }}">{{ $s[$i] }}</option>
 												@endfor
@@ -58,7 +58,7 @@
 									</div>
 								</div>
 								<div class="variations_button">
-									<input type="text" id="id" value="{{ $product->id }}">
+									<input type="hidden" id="id" value="{{ $product->id }}">
 									<div class="quantity">
 										<a id="quantity-sub" class="quantity-minus" href="javascript:void(0)">-</a>
 										<input id="quantity" type="text" class="input-text qty text" value="1">
@@ -126,7 +126,7 @@
 																<img alt="" src="http://1.gravatar.com/avatar/17f38c2b7301299a345f8ec6fcaa66ea?s=60&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/17f38c2b7301299a345f8ec6fcaa66ea?s=120&amp;d=mm&amp;r=g 2x" class="avatar avatar-60 photo" height="60" width="60">
 																<div class="comment-text">
 																	<div class="meta">
-																		<strong >JAMIE FOX</strong> – 
+																		<strong >JAMIE FOX</strong> –
 																		<time datetime="2013-06-07T13:01:25+00:00">January 22, 2016</time>
 																		<div class="rating" title="Rated 3 out of 5">
 																			<i class="active fa fa-star"></i>
@@ -134,7 +134,7 @@
 																			<i class="active fa fa-star"></i>
 																			<i class="fa fa-star"></i>
 																			<i class="fa fa-star"></i>
-																		</div>								
+																		</div>
 																	</div>
 																	<div class="description">
 																		<p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
@@ -147,7 +147,7 @@
 																<img alt="" src="http://1.gravatar.com/avatar/17f38c2b7301299a345f8ec6fcaa66ea?s=60&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/17f38c2b7301299a345f8ec6fcaa66ea?s=120&amp;d=mm&amp;r=g 2x" class="avatar avatar-60 photo" height="60" width="60">
 																<div class="comment-text">
 																	<div class="meta">
-																		<strong>MARTIN LUTHER KING</strong> – 
+																		<strong>MARTIN LUTHER KING</strong> –
 																		<time datetime="2013-06-07T13:01:25+00:00">January 22, 2016</time>
 																		<div class="rating" title="Rated 3 out of 5">
 																			<i class="active fa fa-star"></i>
@@ -155,7 +155,7 @@
 																			<i class="active fa fa-star"></i>
 																			<i class="fa fa-star"></i>
 																			<i class="fa fa-star"></i>
-																		</div>								
+																		</div>
 																	</div>
 																	<div class="description">
 																		<p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
@@ -190,12 +190,12 @@
 																<input id="author" name="author" type="text" value="" size="30" aria-required="true">
 															</p>
 															<p class="comment-form-email">
-																<label for="email">Email <span class="required">*</span></label> 
+																<label for="email">Email <span class="required">*</span></label>
 																<input id="email" name="email" type="text" value="" size="30" aria-required="true">
 															</p>
 															<p class="form-submit">
-																<input name="submit" type="submit" id="submit" class="submit" value="Submit"> 
-															</p>				
+																<input name="submit" type="submit" id="submit" class="submit" value="Submit">
+															</p>
 														</form>
 													</div>
 												</div>
@@ -204,7 +204,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
@@ -280,12 +280,12 @@
 		// $(".single_add_to_cart_button").click(function() {
 		// 	alert($("#id").val()+" "+$("#quantity").val()+" "+$("#color").val()+" "+$("#size").val())
 		// })
-	
+
 		// var product_id = $("#id").val();
 		// var product_quantity = $("#quantity").val();
 		// var product_size = $("#size").val();
 		// var product_color = $("#color").val();
-		
+
 	</script>
 @endsection
 @section('custom-js')

@@ -17,7 +17,7 @@ class CreateBannersTable extends Migration
             $table->id();
             $table->string('title', 50)->nullable()->default('Hello Word');
             $table->string('description', 100)->nullable()->default('lorem ipsum doller teller botkisu etcettrera');
-            $table->string('image', 100)->nullable()->default('default.jpg');
+            $table->string('image', 100)->nullable();
             $table->timestamps();
         });
     }

@@ -130,6 +130,9 @@ $("#checkout").click(function(){
             if (data === "done") {
                 location.href='checkout';
             }
+            else if(data === "login-failed"){
+                $("#LoginModal").modal('show');
+            }
         }
     })
 
@@ -160,7 +163,7 @@ function placeOrder() {
         data:data,
         success:function(data) {
             console.log(data);
-            
+
         }
     })
 }

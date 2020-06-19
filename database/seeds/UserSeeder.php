@@ -11,6 +11,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //
+        App\User::create([
+            'name' => "Sany",
+            'email' => "mazharulalam26@gmail.com",
+            'phone' => "01876626011",
+            'password' => bcrypt('asd'),
+        ],
+        [
+            'name' => "Sabbir",
+            'email' => "Sabbir@gmail.com",
+            'phone' => "01876625555",
+            'password' => bcrypt('dsa'),
+        ]);
     }
 }

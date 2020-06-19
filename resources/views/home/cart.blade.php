@@ -1,6 +1,6 @@
 @extends('home.app')
 @section('page-css')
-	
+
 <!-- <link type="text/css" rel="stylesheet" href="{{asset('assets\home\vendor\gallery-zoom-zoomy\dist\zoomy.css')}}" /> -->
 @endsection
 @section('content')
@@ -27,7 +27,7 @@
 							</tr>
 						</thead>
 						<tbody id="cart-list">
-							
+
 						</tbody>
 					</table>
 					<div class="carttable-footer">
@@ -43,43 +43,6 @@
 									<button href="javascript:void(0)" class="button primary" id="checkout">PROCEED TO CHECKOUT</button>
 									<a class="button" href="javascript:void(0)" onclick="AllClearCart()">CLEAR CART</a>
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-6 col-md-6 col-lg-6">
-							<div class="form-shipping">
-								<h3 class="form-title">CALCULATE SHIPPING</h3>
-								<p>
-									<input type="text" placeholder="SERBIA">
-								</p>
-								<p>
-									<input type="text" placeholder="STATE / COUNTY">
-								</p>
-								<p>
-									<input type="text" placeholder="POSTCODE">
-								</p>
-								<button class="button">UPDATE TOTALS</button>
-							</div>
-						</div>
-						<div class="col-sm-2 col-md-12 col-lg-2 hiden-md"></div>
-						<div class="col-sm-6 col-md-6 col-lg-4">
-							<div class="cart_totals">
-								<h3 class="form-title">Cart Totals</h3>
-								<table class="shop_table">
-									<tr class="cart-subtotal">
-										<td>Subtotal</td>
-										<td data-title="Subtotal"><span class="amount">€&nbsp;46.28</span></td>
-									</tr>
-									<tr class="shipping">
-										<td>Shipping</td>
-										<td>Free Shipping </td>
-									</tr>
-									<tr class="order-total">
-										<td>Total</td>
-										<td data-title="Total"><strong><span class="amount">$46.28</span></strong></td>
-									</tr>
-								</table>
 							</div>
 						</div>
 					</div>

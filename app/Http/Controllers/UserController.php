@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -28,7 +28,12 @@ class UserController extends Controller
         if ($user = User::where([['email','=',$request->email],['password','=', $request->password]])->exists()) {
             // $credentials = $request->only();
             if (Auth::attempt(['email'=>$request->email,'password' => $request->password])) {
-                return "success";
+                if (session()->get('way-to-order')) {
+                    return "go to checkout";
+                }
+                else{
+                    return "success";
+                }
             }
             else{
                 return "kellafote";

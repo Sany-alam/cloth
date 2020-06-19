@@ -16,15 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('name', 100)->nullable();
-            $table->string('address', 100)->nullable();
-            $table->string('city', 100)->nullable();
-            $table->string('state', 100)->nullable();
-            $table->integer('postcode', 10)->nullable();
-            $table->string('email', 100)->nullable();
-            $table->integer('phone', 15)->nullable();
-            $table->longText('note')->nullable();
-            $table->string('payment', 100)->nullable();
+            $table->text('order_code')->unique();
+            $table->text('address', 100)->nullable();
+            $table->text('note')->nullable();
+            $table->text('product',1000)->nullable();
+            $table->string('payment_methode', 100)->nullable();
+            $table->integer('payment_confirmation')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

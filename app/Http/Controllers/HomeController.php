@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-session_start();
 use App\Category;
 use App\Product;
 use App\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
-{   
+{
     public function index()
     {
         $categories = Category::orderBy('id','desc')->get();
@@ -134,7 +134,7 @@ class HomeController extends Controller
             $list = "<h6 style='text-align:center;'>No product available in your cart. <a href='".url('/')."'>Countinue shopping!</a></h6>";
             return $list;
         }
-        
+
     }
 
     public function cart_clear_product()
@@ -155,17 +155,22 @@ class HomeController extends Controller
 
     public function cart_checkout(Request $request)
     {
-        $jk = explode(",",$request->qty);
-        $cart = session()->pull('cart');
-        for ($i=0;$i<count($cart);$i++) {
-            if ($cart[$i]['quantity'] != $jk[$i]) {
-                $int = (int)$jk[$i];
-                $cart[$i]['quantity'] = $int;
+        if (Auth::check()) {
+            $jk = explode(",",$request->qty);
+            $cart = session()->pull('cart');
+            for ($i=0;$i<count($cart);$i++) {
+                if ($cart[$i]['quantity'] != $jk[$i]) {
+                    $int = (int)$jk[$i];
+                    $cart[$i]['quantity'] = $int;
+                }
             }
+            $car2t = session()->put('cart',$cart);
         }
-        $car2t = session()->put('cart',$cart);
-        $car3t = session()->get('cart');
-        
+        else{
+            session()->put('way-to-order');
+            return "login-failed";
+        }
+
         return "done";
     }
 
