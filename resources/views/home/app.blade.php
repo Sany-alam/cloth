@@ -77,8 +77,13 @@
 						@endguest
 						@auth
 						<li>
-							<a href="{{url('/user/logout')}}">Logout</a>
+							<a href="{{ route('logout') }}" onclick="event.preventDefault();
+							document.getElementById('logout-form').submit();">Logout</a>
 						</li>
+						<form id="logout-form" style="display:none;" action="{{route('logout')}}" method="post">
+							@csrf
+							<input type="submit">
+						</form>
 						@endauth
 					</ul>
 				</div>
@@ -126,6 +131,7 @@
 		<div class="modal-body">
 		<form class="login" style="display: block;">
 			<div class="" id="login-alert"></div>
+			<input type="hidden" id="status">
 			<h3 class="form-title">Login</h3>
 			<p class="form-row form-row-first">
 				<label for="lemail">Email <span class="required">*</span></label>
@@ -136,9 +142,8 @@
 				<input class="input-text" name="password" id="lpassword" type="password">
 			</p>
 			<p class="form-row">
-				<label for="rememberme" class="inline">
-					<input id="lrememberme" value="forever" type="checkbox"> Remember me
-				</label>
+				<input id="lrememberme" value="forever" type="checkbox">
+				<label for="lrememberme" class="inline">Remember me</label>
 			</p>
 			<p class="lost_password">
 				<a href="#">Lost your password?</a>
@@ -230,6 +235,7 @@
 		});
 		var cartUrl = "{{url('cart')}}";
 		var userUrl = "{{url('user')}}";
+		var homeRoute = "{{route('home')}}";
 	</script>
 	<script src="{{asset('assets\home\customJS\cart.js')}}"></script>
 	<script src="{{asset('assets\home\customJS\auth.js')}}"></script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\Banner;
+use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -165,17 +166,34 @@ class HomeController extends Controller
                 }
             }
             $car2t = session()->put('cart',$cart);
+            return "done";
         }
         else{
-            session()->put('way-to-order');
             return "login-failed";
         }
-
-        return "done";
     }
 
     public function place_order(Request $request)
     {
-        return $request->all();
+        function random_strings($length_of_string){ 
+            $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+={[(}])-/*-+'; 
+            return substr(str_shuffle($str_result),0, $length_of_string); 
+        }
+        
+        $product = json_encode(session()->get('cart'));
+        Order::create([
+            'user_id'=> Auth::user()->id,
+            'order_code'=> random_strings(20),
+            'address'=> $request->address,
+            'note'=> $request->note,
+            'product'=> $product,
+            'payment_methode'=> $request->payment,
+        ]);
+        if (session()->has('cart')) {
+            session()->forget('cart');
+        }
+
+        return "Your order have been saved!";
+        
     }
 }

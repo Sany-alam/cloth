@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('','HomeController@index');
+Route::get('','HomeController@index')->name('home');
 Route::get('product/no/{id}','HomeController@product');
 Route::get('cart','HomeController@cart');
-Route::get('checkout','HomeController@checkout');
+Route::get('checkout','HomeController@checkout')->middleware('auth');
 Route::post('cart/add',"HomeController@cart_add_product");
 Route::get('cart/clear',"HomeController@cart_clear_product");
 Route::get('cart/count',"HomeController@cart_count");
@@ -32,8 +32,7 @@ Route::post('cart/order',"HomeController@place_order");
 Route::prefix('user')->group(function(){
     Route::post("create","UserController@store");
     Route::post("login","UserController@create");
-    Route::get("logout","UserController@destroy");
-    
+    Route::post("logout","UserController@destroy")->name('logout');
 });
 
 

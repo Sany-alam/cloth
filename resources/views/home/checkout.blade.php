@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 main-content">
-					<div class="woocommerce-info">Returning customer? <a href="#" class="showlogin">Click here to login</a></div>
+					{{-- <div class="woocommerce-info">Returning customer? <a href="#" class="showlogin">Click here to login</a></div>
 					<form method="post" class="login">
 						<p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
 
@@ -36,7 +36,7 @@
 						<p class="lost_password">
 							<a href="#">Lost your password?</a>
 						</p>
-					</form>
+					</form> --}}
 					<div class="woocommerce-info">Have a coupon? <a href="#" class="showcoupon">Click here to enter your code</a></div>
 					<form class="checkout_coupon" method="post">
 						<p class="form-row form-row-first">
@@ -52,58 +52,11 @@
 							<div class="woocommerce-billing-fields">
 								<h3 class="form-title">BILLING ADDRESS</h3>
 								<p>
-									<input id="name" class="input-text" type="text" placeholder="FULL NAME">
+									<label for="address">Describe your address</label>
+									<textarea id="address" rows="3" class="input-text" placeholder="Address"></textarea>
 								</p>
 								<p>
-									<input id="address" class="input-text" type="text" placeholder="ADDRESS*">
-								</p>
-								<p>
-									<input id="city" class="input-text" type="text" placeholder="TOWN/CITY*">
-								</p>
-								<div class="row">
-									<div class="col-sm-6">
-										<p>
-											<input id="state" class="input-text" type="text" placeholder="STATE">
-										</p>
-									</div>
-									<div class="col-sm-6">
-										<p>
-											<input id="postcode" class="input-text" type="text" placeholder="POSTCODE">
-										</p>
-									</div>
-								</div>
-								<small>Creating Your account based on this information to track your shopping.</small>
-								<div class="row">
-									<div class="col-sm-6">
-										<p>
-											<input id="email" class="input-text" type="text" placeholder="EMAIL">
-										</p>
-									</div>
-									<div class="col-sm-6">
-										<p>
-											<input id="phone" class="input-text" type="text" placeholder="PHONE">
-										</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<p>
-											<input id="password" class="input-text" type="password" placeholder="PASSWORD">
-										</p>
-									</div>
-									<div class="col-sm-6">
-										<p>
-											<input id="confirm_password" class="input-text" type="password" placeholder="RETYPE PASSWORD">
-										</p>
-									</div>
-								</div>
-								<p>
-									<label><input id="account" type="checkbox">Create an account?</label>
-								</p>
-							</div>
-							<div class="woocommerce-shipping-fields">
-								<p>
-									<label>ORDER NOTES (DESCRIBE RECIEVE ORDER ADDRESS)</label>
+									<label>ORDER NOTES (Optional)</label>
 									<textarea id="note" rows="3" class="input-text" placeholder="Notes about your delivery, e. g.  special notes for delivery."></textarea>
 								</p>
 							</div>
@@ -155,7 +108,7 @@
 								<div class="woocommerce-checkout-payment">
 									<ul class="wc_payment_methods payment_methods methods">
 										<li class="wc_payment_method selected">
-											<input id="payment1" class="input-radio" type="radio" name="payment_method" value="Cash On Delivery">
+											<input id="payment1" class="input-radio" type="radio" name="payment_method" value="Cash On Delivery" checked>
 											<label for="payment1">Cash on delivery</label>
 											<div class="payment_box">
 												<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.</p>
@@ -168,16 +121,9 @@
 												<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.</p>
 											</div>
 										</li>
-										<li class="wc_payment_method ">
-											<input id="payment3" class="input-radio" type="radio" name="payment_method" value="BANK">
-											<label for="payment3">Direct Bank Transfer</label>
-											<div class="payment_box">
-												<p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.</p>
-											</div>
-										</li>
 									</ul>
 								</div>
-								<button onclick="placeOrder()" class="button primary alt">PLACE ORDER</button>
+								<button id="placeOrder" class="button primary alt">PLACE ORDER</button>
 							</div>
 						</div>
 					</div>

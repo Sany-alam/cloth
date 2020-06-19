@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
             'email' => "mazharulalam26@gmail.com",
             'phone' => "01876626011",
             'password' => bcrypt('asd'),
-        ],
-        [
+        ]);
+        App\User::create([
             'name' => "Sabbir",
             'email' => "Sabbir@gmail.com",
             'phone' => "01876625555",

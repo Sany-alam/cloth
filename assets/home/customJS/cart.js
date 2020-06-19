@@ -117,53 +117,59 @@ $("#checkout").click(function(){
     $("[name='quantity[]']").each(function(){
         qty.push($(this).val());
     })
-    data = new FormData();
-    data.append('qty',qty);
-    $.ajax({
-        processData:false,
-        contentType:false,
-        url:""+cartUrl+"/checkout",
-        type:"post",
-        data:data,
-        success:function(data) {
-            CountCart();
-            if (data === "done") {
-                location.href='checkout';
+    if (qty.length > 0) {
+        data = new FormData();
+        data.append('qty',qty);
+        $.ajax({
+            processData:false,
+            contentType:false,
+            url:""+cartUrl+"/checkout",
+            type:"post",
+            data:data,
+            success:function(data) {
+                CountCart();
+                if (data === "done") {
+                    location.href='checkout';
+                }
+                else if(data === "login-failed"){
+                    $("#status").val("GoToCheckout");
+                    $("#LoginModal").modal('show');
+                }
             }
-            else if(data === "login-failed"){
-                $("#LoginModal").modal('show');
-            }
-        }
-    })
+        })
+    }
+    else{
+        alert("Shopping something");
+    }
 
 });
 
 
-function placeOrder() {
-    data = new FormData();
-    data.append('name',$("#name").val());
-    data.append('address',$("#address").val());
-    data.append('city',$("#city").val());
-    data.append('state',$("#state").val());
-    data.append('postcode',$("#postcode").val());
-    data.append('email',$("#email").val());
-    data.append('phone',$("#phone").val());
-    data.append('note',$("#note").val());
-    account = false;
-    if ($("#account").is(":checked")) {
-        account = true;
-    }
-    data.append('account',account);
-    data.append('payment',$("[name='payment_method']:checked").val());
-    $.ajax({
-        processData:false,
-        contentType:false,
-        url:""+cartUrl+"/order",
-        type:"post",
-        data:data,
-        success:function(data) {
-            console.log(data);
-
+$("#placeOrder").click(function () {
+    if ($("#address").val().length !== 0) {
+        a = confirm("Are you sure to payment method?");
+        if ($("#note").val().length == 0) {
+            alert("Note field is empty");
         }
-    })
-}
+        if (a) {
+            data = new FormData();
+            data.append('address',$("#address").val());
+            data.append('note',$("#note").val());
+            data.append('payment',$("[name='payment_method']:checked").val());
+            $.ajax({
+                processData:false,
+                contentType:false,
+                url:""+cartUrl+"/order",
+                type:"post",
+                data:data,
+                success:function(data) {
+                    alert(data);
+                    location.href=homeRoute;
+                }
+            })
+        }
+    }
+    else{
+        alert("Fillup address");
+    }
+});

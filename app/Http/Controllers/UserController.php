@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -13,10 +13,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -25,22 +21,17 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        if ($user = User::where([['email','=',$request->email],['password','=', $request->password]])->exists()) {
-            // $credentials = $request->only();
-            if (Auth::attempt(['email'=>$request->email,'password' => $request->password])) {
-                if (session()->get('way-to-order')) {
-                    return "go to checkout";
-                }
-                else{
-                    return "success";
-                }
+        if (Auth::attempt(['email'=>$request->email,'password' => $request->password], $request->remember)) {
+            if ($request->status === "GoToCheckout") {
+                session()->forget('way-to-order');
+                return "go to checkout";
             }
             else{
-                return "kellafote";
+                return "success";
             }
         }
         else{
-            return "kellafote2";
+            return "CredentialsProblem";
         }
     }
 
@@ -57,7 +48,12 @@ class UserController extends Controller
         }
         else {
             User::create(['email'=>$request->email,'password'=>$request->password]);
-            return "success";
+            if (session()->get('way-to-order')) {
+                return "login-first";
+            }
+            else {
+                return "success";
+            }
         }
     }
 
@@ -103,7 +99,9 @@ class UserController extends Controller
      */
     public function destroy()
     {
-        session()->forget('user');
-        return redirect('/');
+        if (Auth::check()) {
+            Auth::logout();
+            return redirect()->back();
+        }
     }
 }
