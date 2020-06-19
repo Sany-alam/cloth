@@ -40,26 +40,29 @@ $(function() {
     $("#AddProduct").click(function() {
         if ($("#product-name").val().length > 0 && $("#product-price").val().length > 0 && $("#product-images").val().length > 0 && $("#product-category").val().length > 0) {
 
-        var product_color = $("#product-color").val();
-        product_color = JSON.parse(product_color);
-        var loop_count = Object.keys(product_color).length;
-        var product_fina_color = '';
-        for (var i=0 ; i<loop_count; i++)
-        {
-            product_fina_color +=product_color[i].value+",";
+        if ($("#product-color").val().length !== 0) {
+            var product_color = $("#product-color").val();
+            product_color = JSON.parse(product_color);
+            var loop_count = Object.keys(product_color).length;
+            var product_fina_color = '';
+            for (var i=0 ; i<loop_count; i++)
+            {
+                product_fina_color +=product_color[i].value+",";
+            }
+            product_fina_color = product_fina_color.replace(/,\s*$/, ""); //remove last commma;
         }
-        product_fina_color = product_fina_color.replace(/,\s*$/, ""); //remove last commma;
 
-        var product_size = $("#product-size").val();
-        product_size = JSON.parse(product_size);
-        var loop_count = Object.keys(product_size).length;
-        var product_fina_size = '';
-        for (var i=0 ; i<loop_count; i++)
-        {
-            product_fina_size +=product_size[i].value+",";
+        if ($("#product-size").val().length !== 0) {
+            var product_size = $("#product-size").val();
+            product_size = JSON.parse(product_size);
+            var loop_count = Object.keys(product_size).length;
+            var product_fina_size = '';
+            for (var i=0 ; i<loop_count; i++)
+            {
+                product_fina_size +=product_size[i].value+",";
+            }
+            product_fina_size = product_fina_size.replace(/,\s*$/, ""); //remove last commma;
         }
-        product_fina_size = product_fina_size.replace(/,\s*$/, ""); //remove last commma;
-
 
             formdata = new FormData();
             formdata.append('product_name',$("#product-name").val());

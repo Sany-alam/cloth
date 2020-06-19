@@ -68,10 +68,11 @@
 									</div>
 									<div class="col-sm-6">
 										<p>
-											<input id="postcode" class="input-text" type="text" placeholder="POSTCODE*">
+											<input id="postcode" class="input-text" type="text" placeholder="POSTCODE">
 										</p>
 									</div>
 								</div>
+								<small>Creating Your account based on this information to track your shopping.</small>
 								<div class="row">
 									<div class="col-sm-6">
 										<p>
@@ -80,7 +81,19 @@
 									</div>
 									<div class="col-sm-6">
 										<p>
-											<input id="phone" class="input-text" type="text" placeholder="PHONE*">
+											<input id="phone" class="input-text" type="text" placeholder="PHONE">
+										</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<p>
+											<input id="password" class="input-text" type="password" placeholder="PASSWORD">
+										</p>
+									</div>
+									<div class="col-sm-6">
+										<p>
+											<input id="confirm_password" class="input-text" type="password" placeholder="RETYPE PASSWORD">
 										</p>
 									</div>
 								</div>
@@ -90,7 +103,7 @@
 							</div>
 							<div class="woocommerce-shipping-fields">
 								<p>
-									<label>ORDER NOTES (Optional)</label>
+									<label>ORDER NOTES (DESCRIBE RECIEVE ORDER ADDRESS)</label>
 									<textarea id="note" rows="3" class="input-text" placeholder="Notes about your delivery, e. g.  special notes for delivery."></textarea>
 								</p>
 							</div>
@@ -117,7 +130,9 @@
 													<span class="amount">{{$item['price']*$item['quantity']}} Tk</span>
 												</td>
 											</tr>
-											{{$subtotal = $subtotal+$item['price']*$item['quantity']}}
+											@php
+												$subtotal = $subtotal+$item['price']*$item['quantity']
+											@endphp
 										@endforeach
 									</tbody>
 									<tfoot>
