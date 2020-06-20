@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->text('address', 100)->nullable();
             $table->text('note')->nullable();
             $table->text('product', 1000)->nullable();
+            $table->float('total')->nullable();
             $table->string('payment_methode', 100)->nullable();
             $table->integer('payment_confirmation')->nullable();
             $table->string('status')->default('Order in queue');

@@ -51,7 +51,7 @@ class HomeController extends Controller
             'stock'=>$product->stock,
             'description'=>$product->description,
             'brand'=>$product->brand,
-            'color'=>$request->$product->color,
+            'color'=>$product->color,
             'quantity'=>$request->input('quantity', 1),
             'created_at'=>$product->created_at,
             'updated_at'=>$product->updated_at
@@ -174,24 +174,29 @@ class HomeController extends Controller
     public function place_order(Request $request)
     {
         function random_strings($length_of_string){
-            $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+={[(}])-/*-+';
+            $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
             return substr(str_shuffle($str_result),0, $length_of_string);
         }
-
-        $product = json_encode(session()->get('cart'));
+        $product = session()->get('cart');
+        $total = 0;
+        foreach ($product as $value) {
+            $total = $total+$value['price']*$value['quantity'];
+        }
         Order::create([
             'user_id'=> Auth::user()->id,
             'order_code'=> random_strings(20),
             'address'=> $request->address,
             'note'=> $request->note,
-            'product'=> $product,
+            'product'=> json_encode($product),
+            'total'=>$total,
             'payment_methode'=> $request->payment,
         ]);
+        
         if (session()->has('cart')) {
             session()->forget('cart');
         }
 
-        return "Your order have been saved!";
+        return "Your order has been saved!";
 
     }
 }

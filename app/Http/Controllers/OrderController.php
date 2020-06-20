@@ -22,6 +22,7 @@ class OrderController extends Controller
                 <th>#Id</th>
                 <th>User</th>
                 <th>Order Code</th>
+                <th>Total</th>
                 <th>Address</th>
                 <th>Note</th>
                 <th>Payment Methode</th>
@@ -36,27 +37,30 @@ class OrderController extends Controller
     foreach ($orders as $order){
         $data .= '
         <tr>
-            <td>'.$order->id.'</td>
-            <td>'.$order->user->name.'</td>
-            <td>'.$order->order_code.'</td>
-            <td>'.$order->address.'</td>
-            <td>'.$order->note.'</td>
-            <td>'.$order->payment_methode.'</td>
-            <td>'.$order->payment_confirmation.'</td>
+            <td class="text-left">'.$order->id.'</td>
+            <td class="text-left">'.$order->user->name.'</td>
+            <td class="text-left">'.$order->order_code.'</td>
+            <td class="text-left">'.$order->total.'</td>
+            <td class="text-left">'.$order->address.'</td>
+            <td class="text-left">'.$order->note.'</td>
+            <td class="text-left">'.$order->payment_methode.'</td>
+            <td class="text-left">'.$order->payment_confirmation.'</td>
             <td class="">
                 <div class="d-flex align-items-center">
                     <div class="badge badge-primary badge-dot m-r-10"></div>
                     <div>Order in queue</div>
                 </div>
             </td>
-            <td class="">
-                <button onclick="orderList('.$order->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
+            <td class="text-left">
+                <button onclick="productList('.$order->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
                     <i class="anticon anticon-ordered-list"></i>
                 </button>
             </td>
-            <td class="">
-                <button class="btn btn-primary btn-icon btn-tone btn-rounded"><i class="anticon anticon-check-circle"></i></button>
-                <button class="btn btn-danger btn-icon btn-tone btn-rounded"><i class="anticon anticon-close-circle"></i></button>
+            <td class="text-left">
+                <div class="d-flex justify-content-between align-items-center">
+                    <button class="btn btn-primary btn-icon btn-tone btn-rounded" onclick="acceptOrder('.$order->id.')"><i class="anticon anticon-check-circle"></i></button>
+                    <button class="btn btn-danger btn-icon btn-tone btn-rounded" onclick="rejectOrder('.$order->id.')"><i class="anticon anticon-close-circle"></i></button>
+                </div>
             </td>
         </tr>';
     }
@@ -77,6 +81,48 @@ class OrderController extends Controller
     </script>';
 
     return $data;
+    }
+
+    public function queue_product_list($id)
+    {
+        $order = Order::find($id);
+        $data = '<table id="data-table" class="table">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Product size</th>
+                <th>Product Quantity</th>
+                <th>Product Price</th>
+                <th>Product Subttotal</th>
+            </tr>
+        </thead>
+        <tbody>';
+        foreach (json_decode($order->product) as $value) {
+            $data .= '
+                    <tr>
+                        <td>'.$value->id.'</td>
+                        <td>'.$value->name.'</td>
+                        <td>'.$value->size.'</td>
+                        <td>'.$value->quantity.'</td>
+                        <td>'.$value->price.' Tk</td>
+                        <td>'.$value->price*$value->quantity.' Tk</td>
+                    </tr>
+            ';
+        }
+        $data .= '</tbody>
+        </table>';
+        return $data;
+    }
+
+    public function queue_product_accept($id)
+    {
+        $orders = Order::where('id',$id)->update(['status'=>"pending"]);
+    }
+
+    public function queue_product_reject($id)
+    {
+        $orders = Order::where('id',$id)->delete();
     }
 
     public function pending()

@@ -68,6 +68,9 @@ Route::prefix('admin')->group(function () {
 
     Route::get('order/queue','OrderController@queue');
     Route::get('order/queue/list ','OrderController@queue_list');
+    Route::get('order/queue/product/list/{id}','OrderController@queue_product_list');
+    Route::get('order/queue/accept/{id}','OrderController@queue_product_accept');
+    Route::get('order/queue/reject/{id}','OrderController@queue_product_reject');
     Route::get('order/pending','OrderController@pending');
     Route::get('order/complete','OrderController@complete');
 });

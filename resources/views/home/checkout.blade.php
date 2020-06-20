@@ -94,9 +94,9 @@
 											<td><span class="amount">{{$subtotal}} Tk</span></td>
 										</tr>
 										<tr class="shipping">
-											<th>Shipping</th>
+											<th>Delivery Fee</th>
 											<td data-title="Shipping">
-												<p>Free Shipping</p>
+												<p>?</p>
 											</td>
 										</tr>
 										<tr class="order-total">

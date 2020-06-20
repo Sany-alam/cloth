@@ -19,12 +19,13 @@
                             <th>#Id</th>
                             <th>User</th>
                             <th>Order Code</th>
+                            <th>Total</th>
                             <th>Address</th>
                             <th>Note</th>
                             <th>Payment Methode</th>
                             <th>Payment Confirmation</th>
+                            <th>Status</th>
                             <th>Product</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,23 +34,21 @@
                             <td>{{$order->id}}</td>
                             <td>{{$order->user->name}}</td>
                             <td>{{$order->order_code}}</td>
+                            <td>{{$order->total}}</td>
                             <td>{{$order->address}}</td>
                             <td>{{$order->note}}</td>
                             <td>{{$order->payment_methode}}</td>
                             <td>{{$order->payment_confirmation}}</td>
                             <td class="">
-                                <button onclick="orderList('{{$order->id}}')" class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                    <i class="anticon anticon-ordered-list"></i>
-                                </button>
-                            </td>
-                            <td class="">
-                                {{-- <button onclick="orderList('{{$order->id}}')" class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                    <i class="anticon anticon-ordered-list"></i>
-                                </button> --}}
                                 <div class="d-flex align-items-center">
                                     <div class="badge badge-primary badge-dot m-r-10"></div>
-                                    <div>Order in queue</div>
+                                    <div>{{$order->status}}</div>
                                 </div>
+                            </td>
+                            <td class="">
+                                <button data-toggle="modal" data-target="#ProductListModal" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                                    <i class="anticon anticon-ordered-list"></i>
+                                </button>
                             </td>
                         </tr>
                         @endforeach

@@ -38,13 +38,13 @@ $(function() {
         $(".select2").select2();
 
     $("#AddProduct").click(function() {
-        if ($("#product-name").val().length > 0 && $("#product-price").val().length > 0 && $("#product-images").val().length > 0 && $("#product-category").val().length > 0) {
+        if ($("#product-name").val().length > 0 && $("#product-price").val().length > 0 && $("#product-images").val().length > 0 && $("#product-category").val().length > 0 && $("#product-size").val().length > 0) {
 
+        var product_fina_color = '';
         if ($("#product-color").val().length !== 0) {
             var product_color = $("#product-color").val();
             product_color = JSON.parse(product_color);
             var loop_count = Object.keys(product_color).length;
-            var product_fina_color = '';
             for (var i=0 ; i<loop_count; i++)
             {
                 product_fina_color +=product_color[i].value+",";
@@ -52,11 +52,11 @@ $(function() {
             product_fina_color = product_fina_color.replace(/,\s*$/, ""); //remove last commma;
         }
 
+        var product_fina_size = '';
         if ($("#product-size").val().length !== 0) {
             var product_size = $("#product-size").val();
             product_size = JSON.parse(product_size);
             var loop_count = Object.keys(product_size).length;
-            var product_fina_size = '';
             for (var i=0 ; i<loop_count; i++)
             {
                 product_fina_size +=product_size[i].value+",";
@@ -85,12 +85,22 @@ $(function() {
                 type:"post",
                 cache: false,
                 success:function(data) {
-                    location.reload();
+                    $("#product-name").val('');
+                    $("#product-size").val('');
+                    $("#product-color").val('');
+                    $("#product-price").val('');
+                    $("#product-category").val('');
+                    $("#product-brand").val('');
+                    $("#product-weight").val('');
+                    $("#product-fabric").val('');
+                    $("#product-description").val('');
+                    $("#product-images").val('');
+                    showProductAdmin();
                 }
             })
         }
         else{
-            alert("Fill none default inputs");
+            alert("Name, Size, Image And Category are Required field.");
         }
     })
 

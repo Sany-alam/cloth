@@ -13,41 +13,6 @@
 <body>
 <div class="app">
     <div class="layout">
-        {{-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <div class="logo logo-white">
-                        <a href="{{ url('admin') }}">
-                        <img src="{{ asset('assets/admin/images/logo/logo-white.png') }}" alt="Logo">
-                        </a>
-                    </div>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item @yield('home-page')">
-                        <a class="nav-link" href="{{ url('admin') }}">Home</a>
-                    </li>
-                    <li class="nav-item @yield('product-page')">
-                        <a class="nav-link" href="{{ url('admin/order') }}">Orders</a>
-                    </li>
-                    <li class="nav-item @yield('product-page')">
-                        <a class="nav-link" href="{{ url('admin/product') }}">Product</a>
-                    </li>
-                    <li class="nav-item @yield('category-page')">
-                        <a class="nav-link" href="{{ url('admin/category') }}">Category</a>
-                    </li>
-                    <li class="nav-item @yield('banner-page')">
-                        <a class="nav-link" href="{{ url('admin/banner') }}">Banner</a>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </nav> --}}
-
         <!-- Header START -->
         <div class="header">
             <div class="logo logo-dark">
@@ -201,11 +166,6 @@
                             </a>
                         </div>
                     </li>
-                    <li>
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#quick-view">
-                            <i class="anticon anticon-appstore"></i>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -221,9 +181,6 @@
                                 <i class="anticon anticon-dashboard"></i>
                             </span>
                             <span class="title">Dashboard</span>
-                            {{-- <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span> --}}
                         </a>
                     </li>
                     <li class="nav-item dropdown ">

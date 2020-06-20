@@ -19,6 +19,7 @@
                             <th>#Id</th>
                             <th>User</th>
                             <th>Order Code</th>
+                            <th>Total</th>
                             <th>Address</th>
                             <th>Note</th>
                             <th>Payment Methode</th>
@@ -33,6 +34,7 @@
                             <td>{{$order->id}}</td>
                             <td>{{$order->user->name}}</td>
                             <td>{{$order->order_code}}</td>
+                            <td>{{$order->total}}</td>
                             <td>{{$order->address}}</td>
                             <td>{{$order->note}}</td>
                             <td>{{$order->payment_methode}}</td>

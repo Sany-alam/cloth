@@ -38,7 +38,6 @@ $("#add_to_cart").click(function() {
         formdata.append('id',$("#id").val()),
         formdata.append('quantity',$("#quantity").val()),
         formdata.append('size',$("#size").val()),
-        formdata.append('color',$("#color").val())
         $.ajax({
             processData:false,
             contentType:false,
@@ -147,10 +146,10 @@ $("#checkout").click(function(){
 
 $("#placeOrder").click(function () {
     if ($("#address").val().length !== 0) {
-        a = confirm("Are you sure to payment method?");
         if ($("#note").val().length == 0) {
             alert("Note field is empty");
         }
+        a = confirm("Are you sure to payment method?");
         if (a) {
             data = new FormData();
             data.append('address',$("#address").val());
@@ -164,7 +163,7 @@ $("#placeOrder").click(function () {
                 data:data,
                 success:function(data) {
                     alert(data);
-                    location.href=homeRoute;
+                    location.href=homeRoute+"";
                 }
             })
         }
