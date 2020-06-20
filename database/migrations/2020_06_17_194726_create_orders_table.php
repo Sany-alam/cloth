@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->text('product', 1000)->nullable();
             $table->string('payment_methode', 100)->nullable();
             $table->integer('payment_confirmation')->nullable();
+            $table->string('status')->default('Order in queue');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

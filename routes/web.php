@@ -65,4 +65,9 @@ Route::prefix('admin')->group(function () {
     Route::post('banner/delete','BannerController@destroy');
     Route::post('banner/edit','BannerController@edit');
     Route::post('banner/update','BannerController@update');
+
+    Route::get('order/queue','OrderController@queue');
+    Route::get('order/queue/list ','OrderController@queue_list');
+    Route::get('order/pending','OrderController@pending');
+    Route::get('order/complete','OrderController@complete');
 });

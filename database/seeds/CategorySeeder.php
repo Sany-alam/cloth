@@ -13,11 +13,11 @@ class CategorySeeder extends Seeder
     {
         App\Category::create([
             'name'=>"T-Shirt",
-            'image'=>"Liseaven-T-Shirt-Men-Cotton-T-Shirt-Full-Sleeve-tshirt-Men-Solid-Color-T-shirts-topsjpg640x6402020-06-18-060628.webp",
+            'image'=>"ct1.webp",
         ]);
         App\Category::create([
             'name'=>"Panjabi",
-            'image'=>"P-103-300x300.jpg",
+            'image'=>"ct2.jpg",
         ]);
     }
 }

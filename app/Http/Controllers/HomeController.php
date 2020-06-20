@@ -38,8 +38,6 @@ class HomeController extends Controller
     public function cart_add_product(Request $request)
     {
         $product = Product::where('id',$request->id)->first();
-        $c = explode(",",$product->color);
-        $color = $c[0];
         $s = explode(",",$product->size);
         $siz = $s[0];
         $PItems = [
@@ -53,7 +51,7 @@ class HomeController extends Controller
             'stock'=>$product->stock,
             'description'=>$product->description,
             'brand'=>$product->brand,
-            'color'=>$request->input('color',$c[0]),
+            'color'=>$request->$product->color,
             'quantity'=>$request->input('quantity', 1),
             'created_at'=>$product->created_at,
             'updated_at'=>$product->updated_at
@@ -175,11 +173,11 @@ class HomeController extends Controller
 
     public function place_order(Request $request)
     {
-        function random_strings($length_of_string){ 
-            $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+={[(}])-/*-+'; 
-            return substr(str_shuffle($str_result),0, $length_of_string); 
+        function random_strings($length_of_string){
+            $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+={[(}])-/*-+';
+            return substr(str_shuffle($str_result),0, $length_of_string);
         }
-        
+
         $product = json_encode(session()->get('cart'));
         Order::create([
             'user_id'=> Auth::user()->id,
@@ -194,6 +192,6 @@ class HomeController extends Controller
         }
 
         return "Your order have been saved!";
-        
+
     }
 }
