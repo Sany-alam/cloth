@@ -107,8 +107,16 @@
 			<form class="login" style="display: block;">
 				<h3 class="form-title">Register</h3>
 				<p class="form-row form-row-first">
+					<label for="rname">Name <span class="required">*</span></label>
+					<input class="input-text" id="rname" type="text">
+				</p>
+				<p class="form-row form-row-first">
 					<label for="remail">Email <span class="required">*</span></label>
 					<input class="input-text" id="remail" type="text">
+				</p>
+				<p class="form-row form-row-first">
+					<label for="rphone">Phone number<span class="required">*</span></label>
+					<input class="input-text" id="rphone" type="number">
 				</p>
 				<p class="form-row form-row-last">
 					<label for="rpassword">Password <span class="required">*</span></label>

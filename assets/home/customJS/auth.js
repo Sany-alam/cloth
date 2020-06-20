@@ -1,28 +1,35 @@
 $("#register").click(function() {
-    formdata = new FormData();
-    formdata.append('email',$("#remail").val());
-    formdata.append('password',$("#rpassword").val());
-    $.ajax({
-        processData:false,
-        contentType:false,
-        data:formdata,
-        url:userUrl+"/create",
-        type:"post",
-        success:function(data) {
-            if (data == "success") {
-                $("#SignupModal").modal('hide');
-                alert("Successfully Registered! Login to start session")
+    if ($("#remail").val().length != 0 && $("#rname").val().length != 0 && $("#rphone").val().length != 0 && $("#rpassword").val().length != 0) {
+        formdata = new FormData();
+        formdata.append('email',$("#remail").val());
+        formdata.append('name',$("#rname").val());
+        formdata.append('phone',$("#rphone").val());
+        formdata.append('password',$("#rpassword").val());
+        $.ajax({
+            processData:false,
+            contentType:false,
+            data:formdata,
+            url:userUrl+"/create",
+            type:"post",
+            success:function(data) {
+                if (data == "success") {
+                    $("#SignupModal").modal('hide');
+                    alert("Successfully Registered! Login to start session")
+                }
+                else if(data == "login-first"){
+                    $("#SignupModal").modal('hide');
+                    $("#LoginModal").modal('show');
+                }
+                else{
+                    $("#SignupModal").modal('hide');
+                    alert("Already have an account! Login")
+                }
             }
-            else if(data == "login-first"){
-                $("#SignupModal").modal('hide');
-                $("#LoginModal").modal('show');
-            }
-            else{
-                $("#SignupModal").modal('hide');
-                alert("Already have an account! Login")
-            }
-        }
-    })
+        })
+    }
+    else{
+        alert("Fill up with your information");
+    }
 });
 
 $("#login").click(function() {

@@ -47,7 +47,7 @@ class UserController extends Controller
             return "error";
         }
         else {
-            User::create(['email'=>$request->email,'password'=>$request->password]);
+            User::create(['name'=>$request->name,'phone'=>$request->phone,'email'=>$request->email,'password'=>$request->password]);
             if (session()->get('way-to-order')) {
                 return "login-first";
             }
