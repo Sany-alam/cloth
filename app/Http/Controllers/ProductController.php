@@ -72,7 +72,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $fetch = Product::orderBy('id','desc')->get();
-        $data = '<table id="data-table" class="table">
+        $data = '<table id="data-table" class="table table-hover e-commerce-table">
         <thead>
             <tr>
                 <th>#Id</th>
@@ -97,7 +97,7 @@ for ($i=0; $i < sizeof($fetch); $i++) {
     $images = Product::find($fetch[$i]->id)->images;
     $imgs = '';
     foreach ($images as $image) {
-        $imgs .= '<div class="avatar avatar-image"><img src='.asset('storage/app/public/product/'.$image->image).' alt="image" /></div>';
+        $imgs .= '<div class="avatar avatar-image avatar-square"><img src='.asset('storage/app/public/product/'.$image->image).' alt="image" /></div>';
     }
     if ($fetch[$i]->stock == 0) {
         $stock = '<div class="custom-control custom-switch">
@@ -150,8 +150,8 @@ for ($i=0; $i < sizeof($fetch); $i++) {
             <script src='.asset("assets/admin/js/pages/datatables.js").'></script>
             <script>
             $("#data-table").DataTable({
-                paging: false,
-                scrollY: 350,
+                // paging: false,
+                // scrollY: 350,
                 order:[[0,"desc" ]]
             });
             </script>

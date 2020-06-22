@@ -43,12 +43,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if (User::where([['email','=',$request->email],['password','=', $request->password]])->exists()) {
+        if (User::where('email',$request->email)->exists()) {
             return "error";
         }
         else {
             User::create(['name'=>$request->name,'phone'=>$request->phone,'email'=>$request->email,'password'=>$request->password]);
-            if (session()->get('way-to-order')) {
+            if (session()->has('way-to-order')) {
                 return "login-first";
             }
             else {
@@ -101,6 +101,9 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             Auth::logout();
+            if(session()->has('cart')){
+                session()->put('cart',[]);
+            }
             return redirect()->back();
         }
     }

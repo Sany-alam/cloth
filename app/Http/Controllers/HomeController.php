@@ -25,7 +25,20 @@ class HomeController extends Controller
 
     public function checkout()
     {
-        return view('home.checkout');
+        if(Auth::check() == false){
+            if(str_replace(url('/'), '', url()->previous()) == "/checkout"){
+                return redirect(route('home'));
+            }
+            else{
+                return redirect()->back();
+            }
+        }
+        elseif(sizeof(session()->get('cart'))>0){
+            return view('home.checkout');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
     public function product($id)

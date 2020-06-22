@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function queue_list()
     {
         $orders = Order::where('status',"Order in queue")->get();
-        $data = '<table id="data-table" class="table">
+        $data = '<table id="data-table" class="table table-hover e-commerce-table">
         <thead>
             <tr>
                 <th>#Id</th>
@@ -74,8 +74,8 @@ class OrderController extends Controller
 
     <script>
         $("#data-table").DataTable({
-            paging: false,
-            scrollY: 230,
+            // paging: false,
+            // scrollY: 230,
             order:[[0,"desc" ]]
         });
     </script>';
@@ -86,7 +86,7 @@ class OrderController extends Controller
     public function queue_product_list($id)
     {
         $order = Order::find($id);
-        $data = '<table id="data-table" class="table">
+        $data = '<table id="data-table" class="table table-hover e-commerce-table">
         <thead>
             <tr>
                 <th>Product Id</th>

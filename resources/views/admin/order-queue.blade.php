@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h4>Order list</h4>
             </div>
-            <div class="m-t-25" id="order-table">
+            <div class="m-t-25 table-responsive" id="order-table">
 
             </div>
         </div>

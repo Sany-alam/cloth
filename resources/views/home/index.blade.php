@@ -1,28 +1,32 @@
 @extends('home.app')
 @section('home-active','active')
 @section('content')
-	
+
 <div class="container">
+    @if(sizeof($banners) > 1)
 	<div class="kt_home_slide slide-home3 nav-center-center" data-nav="true" data-autoplay="true" data-loop="true" data-responsive='{"0":{"items":1,"nav":"false"},"600":{"items":1},"1000":{"items":1}}'>
 		@foreach ($banners as $banner)
 		<div class="item-slide" data-background="{{ asset('storage/app/public/banner/'.$banner->image) }}"  data-height="654"  data-reponsive='{"320":350,"480":400,"768":550,"1024":654}'>
 			<div class="content-slide">
 				<div class="inner">
-					<h2 data-animate="bounceInLeft " class="caption title" style="color: #41454a">{{ $banner->title }}</h2>
-					<span data-animate="fadeInDown" class="caption subtitle" style="color: #41454a">{{ $banner->description }}</span>
+					<h2 data-animate="bounceInLeft " class="caption title" style="color: white">{{ $banner->title }}</h2>
+					<span data-animate="fadeInDown" class="caption subtitle" style="color: white">{{ $banner->description }}</span>
 					{{-- <a data-animate="fadeInDown" class="caption link button" href="#">Shopnow</a> --}}
 				</div>
 			</div>
 		</div>
 		@endforeach
 	</div>
-	
+	@endif
+
 	{{-- latest products --}}
 	<div class="margin-top-35">
 		<div class="container">
+		    @if(sizeof($products) > 0)
 			<div class="section-heading text-left margin-bottom-35">
 				<h3 class="title">NEW ARRIVALS</h3>
 			</div>
+			@endif
 			<ul class="owl-products owl-carousel nav-center-center" data-loop="true" data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1,"nav":"false"},"480":{"items":2},"768":{"items":3},"1024":{"items":4}}'>
 				@foreach($products as $product)
 				<li class="product-item">
@@ -33,30 +37,16 @@
 						</div>
 						@endif
 						<div class="thumb">
-							<a class="product-image" href="#"><img src="{{ asset('storage/app/public/product/'.$product->images[0]->image) }}" alt=""></a>
+							<a class="product-image" href="{{url('product/no/'.$product->id)}}"><img style="width:263px!important;height:263px!important;" src="{{ asset('storage/app/public/product/'.$product->images[0]->image) }}" alt=""></a>
 							<div class="group-buttons">
 								<a href="javascript:void(0)" onclick="add_to_cart({{$product->id}})" class="button add_to_cart_button">Add to cart</a>
-								<a href="{{url('product/no/'.$product->id)}}" class="button yith-wcqv-button">Quickview</a>
-								<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-									<div class="yith-wcwl-add-button show">
-										<a href="#" rel="nofollow" > Wishlist</a>
-									</div>
-									<div class="yith-wcwl-wishlistaddedbrowse hide" >
-										<span class="feedback">Product added!</span>
-										<a href="#">Browse Wishlist</a>
-									</div>
-									<div class="yith-wcwl-wishlistexistsbrowse hide">
-										<span class="feedback">The product is already in the wishlist!</span>
-										<a href="#" rel="nofollow">Browse Wishlist</a>
-									</div>
-								</div>
 							</div>
 						</div>
 						<div class="info">
 							<h3 class="product-name"><a href="#">{{ $product->name }}</a></h3>
 							<span class="price">
-								<del>{{ $product->price*1.25 }}</del>
-								<ins>{{ $product->price }}</ins>
+								<del>{{ $product->price*1.25}} Tk</del>
+								<ins>{{ $product->price }} Tk</ins>
 							</span>
 						</div>
 					</div>
@@ -65,12 +55,13 @@
 			</ul>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- Box category -->
+	@if(sizeof($categories) > 0)
 	<div class="kt-box-categories margin-top-70">
 		<div class="head">
-			<h3 class="title">CATEGORIES</h3>
+			 <h3 class="title">CATEGORIES</h3> 
 			<a href="#" class="more">View all<span class="lnr lnr-arrow-right"></span></a>
 		</div>
 		<div class="content">
@@ -78,7 +69,7 @@
 				@foreach ($categories as $category)
 					<li class="product-item product-category">
 						<div class="inner">
-							<a href="#"><img src="{{ asset('storage/app/public/category/'.$category->image ) }}" alt=""></a>
+							<a href="#"><img style="width:263px!important;height:263px!important;" src="{{ asset('storage/app/public/category/'.$category->image ) }}" alt=""></a>
 							<h3>{{ $category->name }} <mark class="count">({{ count($category->products) }})</mark></h3>
 						</div>
 					</li>
@@ -86,9 +77,10 @@
 			</ul>
 		</div>
 	</div>
+	@endif
 	<!-- ./Box category -->
 
-	
+    <!--category tab product-->
 	<div class="container">
 		<!-- Tab -->
 		<div class="section-tab-product margin-top-90">
@@ -99,10 +91,13 @@
 							$i=1
 						@endphp
 						@foreach ($categories as $category)
-							<li @if($i==1)class="active"@endif><a data-animated="fadeInRight" data-toggle="tab" href="#tab-{{$i}}">{{ $category->name }}</a></li>
+							@if(sizeof($category->products) > 0) 
+							<li class="@if($i==1) active @endif"><a data-animated="fadeInRight" data-toggle="tab" href="#tab-{{$i}}">{{ $category->name }}</a>
+							</li>
 							@php
 								$i++
 							@endphp
+							@endif
 						@endforeach
 					</ul>
 				</div>
@@ -114,6 +109,7 @@
 					<div id="tab-{{$i}}" class="tab-panel @if($i==1) active @endif">
 						<ul class="owl-products margin-top-45 owl-carousel nav-center-center" data-responsive='{"0":{"items":1,"nav":"false"},"480":{"items":2},"768":{"items":3},"1024":{"items":4}}'>
 							@foreach ($category->products as $product)
+							@if(sizeof($category->products) > 0) 
 							<li class="product-item">
 								<div class="product-inner">
 									@if ($product->stock == false)
@@ -122,54 +118,35 @@
 									</div>
 									@endif
 									<div class="thumb">
-										<a class="product-image" href="#"><img src="{{ asset('/storage/app/public/product/'.$product->images[0]->image ) }}" alt=""></a>
+										<a class="product-image" href="{{url('product/no/'.$product->id)}}"><img style="width:263px!important;height:263px!important;" src="{{ asset('/storage/app/public/product/'.$product->images[0]->image ) }}" alt=""></a>
 										<div class="group-buttons">
 											<a href="javascript:void(0)" onclick="add_to_cart({{$product->id}})" class="button add_to_cart_button">Add to cart</a>
-											<a href="{{url('product/no/'.$product->id)}}" class="button yith-wcqv-button">Quickview</a>
-											<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-													<div class="yith-wcwl-add-button">
-														<a href="#" rel="nofollow" > Wishlist</a>
-													</div>
-													<div class="yith-wcwl-wishlistaddedbrowse hide" >
-														<span class="feedback">Product added!</span>
-														<a href="#">Browse Wishlist</a>
-													</div>
-													<div class="yith-wcwl-wishlistexistsbrowse hide">
-														<span class="feedback">The product is already in the wishlist!</span>
-														<a href="#" rel="nofollow">Browse Wishlist</a>
-													</div>
-											</div>
 										</div>
 									</div>
 									<div class="info">
 										<h3 class="product-name"><a href="#">{{ $product->name }}</a></h3>
 										<span class="price">
-											<del>{{ $product->price*1.2 }}</del>
-											<ins>{{ $product->price }}</ins>
+											<del>{{ $product->price*1.2 }}  Tk</del>
+											<ins>{{ $product->price }}  Tk</ins>
 										</span>
-										<div class="rating">
-											<i class="active fa fa-star"></i>
-											<i class="active fa fa-star"></i>
-											<i class="active fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
 									</div>
 								</div>
 							</li>
+							@php
+								$i++
+							@endphp
+							@endif
 							@endforeach
 						</ul>
 					</div>
-					@php
-						$i++
-					@endphp
 					@endforeach
 				</div>
 			</div>
 		</div>
 		<!-- ./Tab -->
 	</div>
-	
+	<!--category tab product-->
+
 	<div class="margin-top-60">
 		<a class="bannereffect-2" href="#"><img src="{{ asset('assets/home') }}/images/banners/15.jpg" alt=""></a>
 	</div>
@@ -355,3 +332,4 @@
 		var cartUrl = "{{url('cart')}}";
 	</script>
 @endsection
+

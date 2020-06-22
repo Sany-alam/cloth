@@ -58,12 +58,12 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $fetch = Category::orderBy('id','desc')->get();
-        $data = '<table id="data-table" class="table">
+        $data = '<table id="data-table" class="table table-hover e-commerce-table">
         <thead>
             <tr>
                 <th>#Id</th>
-                <th>Name</th>
                 <th>Image</th>
+                <th>Name</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -93,9 +93,10 @@ for ($i=0; $i < sizeof($fetch); $i++) {
             <script src='.asset("assets/admin/js/pages/datatables.js").'></script>
             <script>
             $("#data-table").DataTable({
-                paging: false,
-                scrollY: 350,
-                order:[[0,"desc" ]]
+                // paging: false,
+                // scrollY: 350,
+                order:[[0,"desc" ]],
+                responsive: true
             });
             </script>';
 

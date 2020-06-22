@@ -20,6 +20,9 @@
 		.modal .modal-dialog{
 			margin: 10px auto;
 		}
+		body {
+          table-layout: fixed;
+        }
 	</style>
 	<link href="{{ asset('assets\home\downloaded\font.css') }}" rel='stylesheet' type='text/css'>
 	<link href="{{ asset('assets\home\downloaded\font2.css') }}" rel='stylesheet' type='text/css'>
@@ -37,7 +40,8 @@
 			<div class="row">
 				<div class="col-ts-12 col-xs-3 col-sm-2">
 					<div class="logo">
-						<a href="{{ url('/') }}"><img src="{{ asset('assets/home') }}/images/logos/1.png" alt=""></a>
+						<!--<a href="{{ url('/') }}"><img src="{{ asset('assets/home') }}/images/logos/1.png" alt=""></a>-->
+						<a href="{{ url('/') }}"><h4>BRAND GALLERY</h4></a>
 					</div>
 				</div>
 				<div class="col-ts-12 col-xs-9 col-sm-10">

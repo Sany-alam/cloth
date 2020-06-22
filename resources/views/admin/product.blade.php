@@ -15,7 +15,7 @@
                 <h4>Product list</h4>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#AddProductModal">Add Product</button>
             </div>
-            <div class="m-t-25" id="product-table">
+            <div class="m-t-25 table-responsive" id="product-table">
                 
             </div>
         </div>
@@ -53,14 +53,14 @@
                         <select id="product-category" class="select2"></select>
                     </div>
                     <div class="form-group col">
-                        <label for="product-brand">Brand (Optional)</label>
-                        <input id="product-brand" type="text" class="form-control" placeholder="Brand">
+                        <label for="product-size">Size</label>
+                        <input id="product-size" class="tagify" placeholder="Size">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col">
-                        <label for="product-size">Size (Optional)</label>
-                        <input id="product-size" class="tagify" placeholder="Size">
+                        <label for="product-brand">Brand (Optional)</label>
+                        <input id="product-brand" type="text" class="form-control" placeholder="Brand">
                     </div>
                     <div class="form-group col">
                         <label for="product-weight">Weight (Optional)</label>
@@ -81,6 +81,8 @@
                     <label for="product-description">Description (Optional)</label>
                     <textarea id="product-description" class="form-control" placeholder="Describe your product"></textarea>
                 </div>
+            </div>
+            <div class="modal-footer">
                 <div class="form-group">
                     <div class="text-right">
                         <button data-dismiss="modal" type="button" class="btn btn-primary" id="AddProduct">Save changes</button>

@@ -13,7 +13,7 @@
                 <h4>Category list</h4>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#AddCategoryModal">Add Category</button>
             </div>
-            <div class="m-t-25" id="category-table">
+            <div class="m-t-25 table-responsive" id="category-table">
                 
             </div>
         </div>
