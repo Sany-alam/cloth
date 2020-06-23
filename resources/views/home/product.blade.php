@@ -18,29 +18,11 @@
 							<div class="summary">
 								<h1 class="product_title entry-title">{{ $product->name }}</h1>
 								<div>
-									<p>
-										@if(!empty($product->color))
-										Color : <span id="color">{{ $product->color }}</span>
-										@endif
-									</p>
 									<p class="price">
 										<del><span class="amount">{{ $product->price*1.2 }}Tk</span></del>
 										<ins><span class="amount">{{ $product->price }}Tk</span></ins>
 									</p>
 								</div>
-								{{-- <div class="woocommerce-product-rating">
-									<div class="rating" title="Rated 2.67 out of 5">
-										<i class="active fa fa-star"></i>
-										<i class="active fa fa-star"></i>
-										<i class="active fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<a href="#reviews" class="woocommerce-review-link" rel="nofollow">(<span class="count">3</span> Reviews)</a>
-								</div>
-								<div class="short-descript">
-									<p>Aenean vulputate eleifend tellus.Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc. Integer tincidunt. Vivamus elementum semper nisi.</p>
-								</div> --}}
 								<div class="variations">
 									<div class="variation-row">
 										<label>Size</label>
@@ -52,6 +34,22 @@
                                                 <option value="">Size</option>
 												@for ($i = 0; $i < count($s); $i++)
 												<option value="{{ $s[$i] }}">{{ $s[$i] }}</option>
+												@endfor
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="variations">
+									<div class="variation-row">
+										<label>Color</label>
+										<div class="inner value">
+											@php
+												$c = explode(",",$product->color)
+                                            @endphp
+											<select id="size">
+                                                <option value="">Color</option>
+												@for ($i = 0; $i < count($c); $i++)
+												<option value="{{ $c[$i] }}">{{ $c[$i] }}</option>
 												@endfor
 											</select>
 										</div>

@@ -70,6 +70,75 @@
 					<ul class="kt-nav main-menu clone-main-menu">
 						<li class="@yield('home-active')">
 							<a href="{{url('/')}}">Home</a>
+                        </li>
+                        <li class="menu-item-has-children item-megamenu">
+                            <a href="javascript:void(0)">Domains</a>
+                            <div class="sub-menu megamenu" style="width: 665px;">
+								<div class="row">
+									@for ($i = 0; $i < 3; $i++)
+                                    <div class="col-sm-12 col-md-3">
+										<div class="widget widget_nav_menu">
+											<h2 class="widgettitle">NEW ARRIVALS</h2>
+											<ul>
+												@for ($i = 0; $i < 5; $i++)
+                                                <li class="menu-item-has-children">
+                                                    <a href="#">Clothes</a>
+                                                    <ul class="sub-menu">
+                                                        @for ($i = 0; $i < 5; $i++)
+                                                        <li><a href="contact.html">Contact Us</a></li>
+                                                        @endfor
+                                                        {{-- <li><a href="faq.html">Faqs</a></li>
+                                                        <li><a href="cart.html">Cart</a></li>
+                                                        <li><a href="checkout.html">Checkout</a></li>
+                                                        <li><a href="login.html">My account</a></li>
+                                                        <li><a href="404.html">404</a></li> --}}
+                                                    </ul>
+                                                </li>
+                                                @endfor
+												{{-- <li><a href="#">Shoes</a></li>
+												<li><a href="#">Acessories</a></li>
+												<li><a href="#">Other</a></li> --}}
+											</ul>
+										</div>
+									</div>
+                                    @endfor
+									{{-- <div class="col-sm-12 col-md-3">
+										<div class="widget widget_nav_menu">
+											<h2 class="widgettitle">CLOTHES</h2>
+											<ul>
+												<li><a href="#">Tops</a></li>
+												<li><a href="#">Knitwear</a></li>
+												<li><a href="#">Dresses</a></li>
+												<li><a href="#">Denim</a></li>
+												<li><a href="#">Bottoms</a></li>
+												<li><a href="#">Jackets</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-3">
+										<div class="widget widget_nav_menu">
+											<h2 class="widgettitle">SHOES</h2>
+											<ul>
+												<li><a href="#">Sneakers</a></li>
+												<li><a href="#">Boots</a></li>
+												<li><a href="#">Heels</a></li>
+												<li><a href="#">Platforms</a></li>
+												<li><a href="#">Flats</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-3">
+										<div class="widget widget_nav_menu">
+											<h2 class="widgettitle">SALE</h2>
+											<ul>
+												<li><a href="#">Women's</a></li>
+												<li><a href="#">Man's</a></li>
+												<li><a href="#">All</a></li>
+											</ul>
+										</div>
+									</div> --}}
+								</div>
+							</div>
 						</li>
 						@guest
 						<li>

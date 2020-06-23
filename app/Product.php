@@ -13,8 +13,8 @@ class Product extends Model
     {
         return $this->hasMany('App\Image','product_id','id');
     }
-    public function category()
+    public function subcategory()
     {
-        return $this->belongsTo('App\Category','category_id','id');
+        return $this->belongsTo('App\Subcategory','subcategory_id','id');
     }
 }

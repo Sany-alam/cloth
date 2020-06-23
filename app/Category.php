@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $fillable = [
-        'name','image'
+        'name','domain_id',
     ];
 
-    public function products()
+    public function domain()
     {
-        return $this->hasMany('App\Product','category_id','id');
+        return $this->belongsTo('App\Domain', 'domain_id', 'id');
     }
 }
