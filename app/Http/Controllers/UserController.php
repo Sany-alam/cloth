@@ -104,6 +104,9 @@ class UserController extends Controller
             if(session()->has('cart')){
                 session()->put('cart',[]);
             }
+            if(session()->has('way-to-order')){
+                session()->forget('way-to-order');
+            }
             return redirect()->back();
         }
     }
