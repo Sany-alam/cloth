@@ -5,10 +5,10 @@ $(function() {
         }
     });
     $("#AddCategory").click(function() {
-        if ($("#category-name").val().length > 0 && $("#category-image").val().length > 0) {
+        if ($("#category-name").val().length > 0 && $("#category-domain").val().length > 0) {
             formdata = new FormData();
             formdata.append('category_name',$("#category-name").val());
-            formdata.append('category_image',$("#category-image")[0].files[0]);
+            formdata.append('category_domain',$("#category-domain").val());
             $.ajax({
                 processData:false,
                 contentType:false,
@@ -18,7 +18,11 @@ $(function() {
                 success:function(data) {
                     showCategoryAdmin();
                     $("#category-name").val("");
-                    $("#category-image").val("");
+                    $("#category-domain").val("");
+                    $("#category-domain[option='']").prop('selected',true);
+                    if (data.length !== 0) {
+                        alert(data);
+                    }
                 }
             })
         }
@@ -28,13 +32,14 @@ $(function() {
     })
 
     showCategoryAdmin();
+    showDomainList()
 
     $("#UpdateCategory").click(function() {
         if ($("#update-category-name").val().length > 0) {
             formdata = new FormData();
             formdata.append('category_id',$("#update-category-id").val());
             formdata.append('category_name',$("#update-category-name").val());
-            formdata.append('category_image',$("#update-category-image")[0].files[0]);
+            formdata.append('category_domain',$("#update-category-domain").val());
             $.ajax({
                 processData:false,
                 contentType:false,
@@ -42,19 +47,16 @@ $(function() {
                 url:"category/update",
                 type:"post",
                 success:function(data) {
+                    if (data.length !== 0) {
+                        alert(data);
+                    }
                     showCategoryAdmin();
-                    alert(data);
                 }
             })
         }
         else{
             alert("Fill category name");
         }
-    });
-
-    $("#update-category-image").change(function(e) {
-        img = URL.createObjectURL(e.target.files[0]);
-        $("#edit-category-image").fadeIn("slow").attr("src",img);
     });
 
 });
@@ -72,7 +74,7 @@ function edit_category(id) {
             all = JSON.parse(data)
             $("#update-category-id").val(all.id);
             $("#update-category-name").val(all.name);
-            $("#edit-category-image").attr("src","../storage/app/public/category/"+all.image);
+            $("#update-category-domain option[value='"+all.domain_id+"']").prop('selected', true)
             $("#UpdateCategoryModal").modal("show");
         }
     })
@@ -92,8 +94,23 @@ function showCategoryAdmin(){
     })
 }
 
+function showDomainList(){
+    formdata = new FormData();
+    $.ajax({
+        processData:false,
+        contentType:false,
+        data:formdata,
+        url:"domain/list",
+        type:"get",
+        success:function(data) {
+            $("#category-domain").html(data);
+            $("#update-category-domain").html(data);
+        }
+    })
+}
+
 function delete_category(id) {
-    var answer = window.confirm("All post and images about this category will be deleted?")
+    var answer = window.confirm("All about this category will be deleted?")
     if (answer) {
         formdata = new FormData();
         formdata.append('category_id',id);
@@ -105,7 +122,6 @@ function delete_category(id) {
             type:"post",
             success:function(data) {
                 showCategoryAdmin();
-                alert(data);
             }
         })
     }

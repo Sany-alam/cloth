@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Domain;
 use App\Category;
+use App\Subcategory;
 use App\Product;
 use App\Banner;
 use App\Order;
@@ -12,15 +14,23 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $domains = Domain::orderBy('id','desc')->get();
         $categories = Category::orderBy('id','desc')->get();
+        $subcategory = Subcategory::orderBy('id','desc')->get();
         $product = Product::orderBy('id','desc')->get();
         $banner = Banner::all();
-        return view('home.index',['banners'=>$banner,'products'=>$product,'categories'=>$categories]);
+        return view('home.index',['banners'=>$banner,'products'=>$product,'subcategories'=>$subcategory,'categories'=>$categories,'domains'=>$domains]);
     }
 
     public function cart()
     {
         return view('home.cart');
+    }
+
+    public function subcat_products($sub_name)
+    {
+        $sub_cate = Subcategory::where('slug',$sub_name)->first();
+        return view('home.subcat-products',['sub_cate'=>$sub_cate]);
     }
 
     public function checkout()

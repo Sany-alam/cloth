@@ -43,14 +43,20 @@
                         <input id="product-price" type="number" class="form-control" placeholder="Price">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="product-images">Chose images for product</label>
-                    <input id="product-images" type="file" class="form-control" multiple>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="product-color">Color</label>
+                        <input id="product-color" class="tagify" placeholder="Color">
+                    </div>
+                    <div class="form-group col">
+                        <label for="product-images">Chose images for product</label>
+                        <input id="product-images" type="file" class="form-control" multiple>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="form-group col">
-                        <label for="product-category">Select Category</label>
-                        <select id="product-category" class="select2"></select>
+                        <label for="product-subcategory">Select Subcategory</label>
+                        <select id="product-subcategory" class="select2"></select>
                     </div>
                     <div class="form-group col">
                         <label for="product-size">Size</label>
@@ -66,15 +72,9 @@
                         <label for="product-weight">Weight (Optional)</label>
                         <input id="product-weight" type="text" class="form-control" placeholder="Weight">
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col">
                         <label for="product-fabric">Fabric (Optional)</label>
                         <input id="product-fabric" type="text" class="form-control" placeholder="Fabric">
-                    </div>
-                    <div class="form-group col">
-                        <label for="product-color">Color (Optional)</label>
-                        <input id="product-color" class="tagify" placeholder="Color">
                     </div>
                 </div>
                 <div class="form-group">
@@ -116,13 +116,13 @@
                 </div>
                 <div class="row">
                     <div class="form-group col">
-                        <label for="update-product-category">Select Category</label>
-                        <select id="update-product-category" class="form-control">
+                        <label for="update-product-subcategory">Select Category</label>
+                        <select id="update-product-subcategory" class="form-control">
                         </select>
                     </div>
                     <div class="form-group col">
-                        <label for="update-product-brand">Brand (Optional)</label>
-                        <input id="update-product-brand" type="text" class="form-control" placeholder="Brand">
+                        <label for="update-product-color">Color</label>
+                        <input id="update-product-color" class="form-control" placeholder="Color">
                     </div>
                 </div>
                 <div class="row">
@@ -141,8 +141,8 @@
                         <input id="update-product-fabric" type="text" class="form-control" placeholder="Fabric">
                     </div>
                     <div class="form-group col">
-                        <label for="update-product-color">Color (Optional)</label>
-                        <input id="update-product-color" class="form-control" placeholder="Color">
+                        <label for="update-product-brand">Brand (Optional)</label>
+                        <input id="update-product-brand" type="text" class="form-control" placeholder="Brand">
                     </div>
                 </div>
                 <div class="form-group">

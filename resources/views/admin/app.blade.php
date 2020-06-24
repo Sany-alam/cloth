@@ -211,9 +211,14 @@
                                 <i class="anticon anticon-dashboard"></i>
                             </span>
                             <span class="title">Products</span>
-                            {{-- <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span> --}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-toggle" href="{{ url('admin/subcategory') }}">
+                            <span class="icon-holder">
+                                <i class="anticon anticon-dashboard"></i>
+                            </span>
+                            <span class="title">Subcategory</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -222,9 +227,14 @@
                                 <i class="anticon anticon-dashboard"></i>
                             </span>
                             <span class="title">Category</span>
-                            {{-- <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span> --}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="" href="{{ url('admin/domain') }}">
+                            <span class="icon-holder">
+                                <i class="anticon anticon-dashboard"></i>
+                            </span>
+                            <span class="title">Domains</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -233,9 +243,6 @@
                                 <i class="anticon anticon-dashboard"></i>
                             </span>
                             <span class="title">Banner</span>
-                            {{-- <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span> --}}
                         </a>
                     </li>
                     {{-- <li class="nav-item dropdown open">

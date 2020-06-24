@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('','HomeController@index')->name('home');
+Route::get('subcat/{name}','HomeController@subcat_products');
 Route::get('product/no/{id}','HomeController@product');
 Route::get('cart','HomeController@cart');
 Route::get('checkout','HomeController@checkout');
@@ -40,13 +41,29 @@ Route::prefix('admin')->group(function () {
     Route::get('',function(){
         return view('admin.home');
     });
+    Route::get('domain','DomainController@index');
+    Route::post('domain/add','DomainController@store');
+    Route::get('domain/show','DomainController@show');
+    Route::post('domain/delete','DomainController@destroy');
+    Route::get('domain/list','DomainController@list'); // this for category or other, domain in ul and li
+    Route::post('domain/edit','DomainController@edit');
+    Route::post('domain/update','DomainController@update');
+
     Route::get('category','CategoryController@index');
     Route::post('category/add','CategoryController@store');
     Route::get('category/show','CategoryController@show');
     Route::post('category/delete','CategoryController@destroy');
-    Route::post('category/list','CategoryController@list');
+    Route::get('category/list','CategoryController@list');
     Route::post('category/edit','CategoryController@edit');
     Route::post('category/update','CategoryController@update');
+
+    Route::get('subcategory','SubcategoryController@index');
+    Route::post('subcategory/add','SubcategoryController@store');
+    Route::get('subcategory/show','SubcategoryController@show');
+    Route::post('subcategory/delete','SubcategoryController@destroy');
+    Route::get('subcategory/list','SubcategoryController@list');
+    Route::post('subcategory/edit','SubcategoryController@edit');
+    Route::post('subcategory/update','SubcategoryController@update');
 
     Route::get('product','ProductController@index');
     Route::post('product/add','ProductController@store');

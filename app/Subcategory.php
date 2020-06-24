@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subcategory extends Model
 {
     protected $fillable = [
-        'name','category_id'
+        'name','category_id','slug'
     ];
 
     public function category()
@@ -17,6 +17,6 @@ class Subcategory extends Model
 
     public function products()
     {
-        return $this->hasMany('App\Product','category_id','id');
+        return $this->hasMany('App\Product','subcategory_id','id');
     }
 }

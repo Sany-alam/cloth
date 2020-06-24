@@ -58,7 +58,7 @@
 
 
 	<!-- Box category -->
-	@if(sizeof($categories) > 0)
+	{{-- @if(sizeof($categories) > 0)
 	<div class="kt-box-categories margin-top-70">
 		<div class="head">
 			 <h3 class="title">CATEGORIES</h3> 
@@ -77,11 +77,11 @@
 			</ul>
 		</div>
 	</div>
-	@endif
+	@endif --}}
 	<!-- ./Box category -->
 
     <!--category tab product-->
-	<div class="container">
+	{{-- <div class="container">
 		<!-- Tab -->
 		<div class="section-tab-product margin-top-90">
 			<div class="kt-tabs kt-tab-fadeeffect">
@@ -144,7 +144,7 @@
 			</div>
 		</div>
 		<!-- ./Tab -->
-	</div>
+	</div> --}}
 	<!--category tab product-->
 
 	<div class="margin-top-60">

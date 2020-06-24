@@ -18,11 +18,11 @@ function showOrderQueueList() {
 }
 
 function productList(id) {
-    pros(id);
+    productss(id);
     $("#ProductListModal").modal('show');
 }
 
-function pros(params) {
+function productss(params) {
     formdata = new FormData();
     $.ajax({
         processData:false,

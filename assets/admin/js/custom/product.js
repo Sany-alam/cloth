@@ -38,7 +38,7 @@ $(function() {
         $(".select2").select2();
 
     $("#AddProduct").click(function() {
-        if ($("#product-name").val().length > 0 && $("#product-price").val().length > 0 && $("#product-images").val().length > 0 && $("#product-category").val().length > 0 && $("#product-size").val().length > 0) {
+        if ($("#product-name").val().length > 0 && $("#product-price").val().length > 0 && $("#product-images").val().length > 0 && $("#product-subcategory").val().length > 0 && $("#product-size").val().length > 0 && $("#product-color").val().length > 0) {
 
         var product_fina_color = '';
         if ($("#product-color").val().length !== 0) {
@@ -67,7 +67,7 @@ $(function() {
             formdata = new FormData();
             formdata.append('product_name',$("#product-name").val());
             formdata.append('product_price',$("#product-price").val());
-            formdata.append('product_category',$("#product-category").val());
+            formdata.append('product_subcategory',$("#product-subcategory").val());
             formdata.append('product_brand',$("#product-brand").val());
             formdata.append('product_size',product_fina_size);
             formdata.append('product_weight',$("#product-weight").val());
@@ -100,12 +100,12 @@ $(function() {
             })
         }
         else{
-            alert("Name, Size, Image And Category are Required field.");
+            alert("Name, Size, Image, Category And Color are Required field.");
         }
     })
 
     showProductAdmin();
-    CategoryList();
+    SubcategoryList();
 
 
     $("#UpdateProduct").click(function(){
@@ -185,17 +185,18 @@ function stock(id,status) {
     })
 }
 
-function CategoryList() {
+function SubcategoryList() {
     formdata = new FormData();
     $.ajax({
         processData:false,
         contentType:false,
         data:formdata,
-        url:"category/list",
-        type:"post",
+        url:"subcategory/list",
+        type:"get",
         success:function(data) {
-            $("#product-category").html(data);
-            $("#update-product-category").html(data);
+            
+            $("#product-subcategory").html(data);
+            $("#update-product-subcategory").html(data);
         }
     })
 }

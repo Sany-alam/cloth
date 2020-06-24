@@ -10,6 +10,15 @@
         <div class="card-body ">
             <div class="d-flex justify-content-between align-items-center">
                 <h4>Order list</h4>
+                <div class="m-b-10">
+                    <select class="custom-select" style="max-width: 180px;">
+                        <option selected>Status</option>
+                        <option value="all">All</option>
+                        <option value="queue">Queue</option>
+                        <option value="pending">Pending</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
             </div>
             <div class="m-t-25 table-responsive" id="order-table">
 

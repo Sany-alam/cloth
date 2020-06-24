@@ -37,7 +37,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // return $request->product_name." ".$request->product_size." ".$request->product_price." ".$request->product_weight." ".$request->product_fabric." ".$request->product_brand." ".$request->product_color." ".$request->product_description." ".$request->product_category." ".print_r($request->product_images);
-        $product = Product::create(['name'=>$request->product_name,'category_id'=>$request->product_category,'size'=>$request->product_size,'price'=>$request->product_price,'weight'=>$request->product_weight,'fabric'=>$request->product_fabric,'brand'=>$request->product_brand,'color'=>$request->product_color,'description'=>$request->product_description]);
+        $product = Product::create(['name'=>$request->product_name,'subcategory_id'=>$request->product_subcategory,'size'=>$request->product_size,'price'=>$request->product_price,'weight'=>$request->product_weight,'fabric'=>$request->product_fabric,'brand'=>$request->product_brand,'color'=>$request->product_color,'description'=>$request->product_description]);
         // images filtering and save
         function clean($string) {
             $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
@@ -79,14 +79,13 @@ class ProductController extends Controller
                 <th>Images</th>
                 <th>Name</th>
                 <th>Category</th>
-                <!---<th>Size</th>--->
+                <th>Size</th>
                 <th>Price</th>
-               <!--- <th>Weight</th>--->
-               <!---<th>Fabric</th>--->
+                <th>Weight</th>
+                <th>Fabric</th>
                 <th>Stock</th>
-                <!---<th>Description</th>
                 <th>Brand</th>
-                <th>Color</th>--->
+                <th>Color</th>
                 <th>Edit</th>
                 <th>Manage images</th>
                 <th>Delete</th>
@@ -115,17 +114,14 @@ for ($i=0; $i < sizeof($fetch); $i++) {
                 <td>'.$fetch[$i]->id.'</td>
                 <td>'.$imgs.'</td>
                 <td>'.$fetch[$i]->name.'</td>
-                <td>'.$fetch[$i]->category->name.'</td>
-                <td>'.$fetch[$i]->price.'</td>
-                <!--- <td>'.$fetch[$i]->size.'</td>
+                <td>'.$fetch[$i]->subcategory->name.'</td>
+                <td>'.$fetch[$i]->size.'</td>
+                <td>'.$fetch[$i]->price.' Tk</td>
                 <td>'.$fetch[$i]->weight.'</td>
                 <td>'.$fetch[$i]->fabric.'</td>
-                <td>'.$fetch[$i]->description.'</td>
+                <td>'.$stock.'</td>
                 <td>'.$fetch[$i]->brand.'</td>
-                <td>'.$fetch[$i]->color.'</td> --->
-                <td>
-                    '.$stock.'
-                </td>
+                <td>'.$fetch[$i]->color.'</td> 
                 <td class="">
                     <button onclick="edit_product('.$fetch[$i]->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
                         <i class="anticon anticon-edit"></i>

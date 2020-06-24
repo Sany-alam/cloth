@@ -66,7 +66,7 @@
 								</div>
 								<div class="product_meta">
 									{{-- <span class="sku_wrapper">SKU: <span class="sku">201623469</span></span> --}}
-									<span class="posted_in">Category: <a href="#" rel="tag">{{ $product->category->name }}</a></span>
+									<span class="posted_in"><a href="{{ url('products/'.$product->subcategory->id.'') }}" rel="tag">{{ $product->subcategory->name }}</a></span>
 									{{-- <span class="tags">Tags: <a href="#" rel="tag">Accessories,men,Women</a></span> --}}
 								</div>
 								<div class="share">
@@ -206,18 +206,17 @@
 						</div>
 					</div>
 				</div>
-				@if ($product->category->products->count() > 1)
+				@if ($product->subcategory->products->count() > 1)
 				<div class="related products">
 					<h3 class="title">Related Products</h3>
 					<ul class="product-list owl-carousel nav-center-center" data-loop="true" data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"}}'>
-						@foreach ($product->category->products->except($product->id) as $related_product)
-							@empty($related_product)
+						@foreach ($product->subcategory->products->except($product->id) as $related_product)
+							@if($related_product)
 								<script>
 									$(".title").hide();
-									alert("alert");
 								</script>
-							@endempty
-							@if ($product->category->products->count() == 1)
+							@endif
+							@if ($product->subcategory->products->count() == 1)
 								hello
 							@endif
 							<li class="product-item">

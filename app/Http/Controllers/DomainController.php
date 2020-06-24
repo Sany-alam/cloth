@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Domain;
 use Illuminate\Http\Request;
+use Storage;
 
-class CategoryController extends Controller
+class DomainController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category');
+        return view('admin.domain',['domains'=>Domain::all()]);
     }
 
     /**
@@ -35,31 +36,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        if (count(Category::
-            where('name','like',$request->category_name)
-            ->where('domain_id',$request->category_domain)
-            ->get()) > 0) {
+        if (count(Domain::where('name','like',$request->domain_name)->get()) > 0) {
             return "Already exists!";
         }
         else {
-            Category::create(['name'=>$request->category_name,'domain_id'=>$request->category_domain]);
+            Domain::create(['name'=>$request->domain_name]);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Domain  $domain
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Domain $domain)
     {
-        $fetch = Category::orderBy('id','desc')->get();
-        $data = '<table id="data-table" class="table table-hover e-commerce-table">
-        <thead>
+        $fetch = domain::orderBy('id','desc')->get();
+        $data = '<table id="data-table" class="table table-hover e-commerce-table table-bordered">
+        <thead class="thead-dark">
             <tr>
                 <th>#Id</th>
-                <th>Domain</th>
                 <th>Name</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -69,15 +66,14 @@ class CategoryController extends Controller
 for ($i=0; $i < sizeof($fetch); $i++) {
     $data .='<tr>
                 <td>'.$fetch[$i]->id.'</td>
-                <td>'.$fetch[$i]->domain->name.'</td>
                 <td>'.$fetch[$i]->name.'</td>
                 <td class="">
-                    <button onclick="edit_category('.$fetch[$i]->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                    <button onclick="edit_domain('.$fetch[$i]->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
                         <i class="anticon anticon-edit"></i>
                     </button>
                 </td>
                 <td class="">
-                    <button onclick="delete_category('.$fetch[$i]->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                    <button onclick="delete_domain('.$fetch[$i]->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
                         <i class="anticon anticon-delete"></i>
                     </button>
                 </td>
@@ -102,10 +98,10 @@ for ($i=0; $i < sizeof($fetch); $i++) {
 
     public function list()
     {
-        $fetch = Category::orderBy('id','desc')->get();
-        $data = '<option value="">Select category</option>';
-        foreach ($fetch as $cat) {
-            $data .= '<option value="'.$cat->id.'">'.$cat->domain->name.' - '.$cat->name.'</option>';
+        $fetch = Domain::orderBy('id','desc')->get();
+        $data = '<option value="">Select Domain</option>';
+        foreach ($fetch as $dom) {
+            $data .= '<option value="'.$dom->id.'">'.$dom->name.'</option>';
         }
         return $data;
     }
@@ -113,51 +109,47 @@ for ($i=0; $i < sizeof($fetch); $i++) {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Domain  $domain
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request)
     {
-        $category = Category::where('id','=',$request->category_id)->first();
-        return json_encode($category);
+        $domain = Domain::where('id','=',$request->domain_id)->first();
+        return json_encode($domain);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\Domain  $domain
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        if (count(Category::
-            where('name','like',$request->category_name)
-            ->where('domain_id',$request->category_domain)
-            ->get()) > 0) {
+        if (count(Domain::where('name','like',$request->domain_name)->get()) > 0) {
             return "Already exists!";
         }
         else {
-            Category::where('id',$request->category_id)->update(['name'=>$request->category_name,'domain_id'=>$request->category_domain]);
+            Domain::where('id',$request->domain_id)->update(['name'=>$request->domain_name]);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Domain  $domain
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        // $category = Category::where('id','=',$request->category_id)->first();
-        // Storage::delete('/public/category/'.$category->image);
-        // foreach ($category->products as $product) {
+        // $domain = Domain::where('id','=',$request->domain_id)->first();
+        // foreach ($domain->products as $product) {
         //     foreach ($product->images as $img) {
         //         Storage::delete('/public/product/'.$img->image);
         //     }
         // }
-        Category::where('id',$request->category_id)->delete();
-        // return "All files and post about this category have deleted successfully";
+        Domain::where('id',$request->domain_id)->delete();
+        // return "All files and post about this domain have deleted successfully";
     }
 }
