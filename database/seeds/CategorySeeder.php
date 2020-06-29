@@ -11,13 +11,23 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        App\Category::create([
-            'name'=>"T-Shirt",
-            'image'=>"ct1.webp",
-        ]);
-        App\Category::create([
-            'name'=>"Panjabi",
-            'image'=>"ct2.jpg",
-        ]);
+        $domain = [
+            [
+                'Top Wear','Bottom Wear','Foot Wear','Sports & Active Wear','Fashion Accessories'
+            ],
+            [
+                'Bangladeshi & Fusion Wear','Foot Wear','Lingerie & Sleepwear'
+            ],
+            [
+                'Boys Clothing','Girls Clothing','Boys Footwear','Girls Footwear'
+            ]
+        ];
+
+        foreach ($domain as $d_key => $categories) {
+            foreach ($categories as $c_key => $value) {
+                App\Category::create(['domain_id'=>$d_key+1,'name'=>$value,'slug'=>str_slug($value)]);
+            }
+        }
+        
     }
 }

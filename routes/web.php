@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('','HomeController@index')->name('home');
-Route::get('subcat/{name}','HomeController@subcat_products');
+Route::get('subcat/{domain}/{category}/{slug}','HomeController@subcat_products');
 Route::get('product/no/{id}','HomeController@product');
 Route::get('cart','HomeController@cart');
 Route::get('checkout','HomeController@checkout');
@@ -90,4 +90,12 @@ Route::prefix('admin')->group(function () {
     Route::get('order/queue/reject/{id}','OrderController@queue_product_reject');
     Route::get('order/pending','OrderController@pending');
     Route::get('order/complete','OrderController@complete');
+
+    Route::get('courier/queue','CourierController@queue');
+    Route::get('courier/queue/list','OrderController@courier_queue_list');
+    // Route::get('courier/queue/product/list/{id}','courierController@queue_product_list');
+    // Route::get('courier/queue/accept/{id}','courierController@queue_product_accept');
+    // Route::get('courier/queue/reject/{id}','courierController@queue_product_reject');
+    // Route::get('courier/pending','courierController@pending');
+    // Route::get('courier/complete','courierController@complete');
 });

@@ -188,6 +188,28 @@
                             <span class="icon-holder">
                                 <i class="anticon anticon-dashboard"></i>
                             </span>
+                            <span class="title">Courier</span>
+                            <span class="arrow">
+                                <i class="arrow-icon"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="@yield('courier-queue')">
+                                <a href="{{ url('admin/courier/queue') }}">In Queue</a>
+                            </li>
+                            <li class="@yield('panding')">
+                                <a href="{{ url('admin/courier/pending') }}">Panding</a>
+                            </li>
+                            <li class="@yield('complete')">
+                                <a href="{{ url('admin/courier/complete') }}">Complete</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <a class="dropdown-toggle" href="javascript:void(0)">
+                            <span class="icon-holder">
+                                <i class="anticon anticon-dashboard"></i>
+                            </span>
                             <span class="title">Orders</span>
                             <span class="arrow">
                                 <i class="arrow-icon"></i>

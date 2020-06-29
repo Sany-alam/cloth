@@ -86,10 +86,19 @@ $(function() {
                 cache: false,
                 success:function(data) {
                     $("#product-name").val('');
+
                     $("#product-size").val('');
+                    y = $("#product-size").data('tagify');
+                    y.removeAllTags();
+
                     $("#product-color").val('');
+                    z = $("#product-color").data('tagify');
+                    z.removeAllTags();
+                    
                     $("#product-price").val('');
-                    $("#product-category").val('');
+
+                    $("#product-subcategory").val(null).trigger('change');
+
                     $("#product-brand").val('');
                     $("#product-weight").val('');
                     $("#product-fabric").val('');

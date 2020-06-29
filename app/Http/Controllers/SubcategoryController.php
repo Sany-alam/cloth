@@ -108,7 +108,7 @@ for ($i=0; $i < sizeof($fetch); $i++) {
     public function list()
     {
         $fetch = Subcategory::orderBy('id','desc')->get();
-        $data = '<option value="">Select Subcategory</option>';
+        $data = '<option value="" selected>Select Subcategory</option>';
         foreach ($fetch as $subcat) {
             $data .= '<option value="'.$subcat->id.'">'.$subcat->category->domain->name.' - '.$subcat->category->name.' - '.$subcat->name.'</option>';
         }

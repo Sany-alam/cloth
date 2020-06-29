@@ -4,11 +4,11 @@
 <div class="container">
     <div class="page-heading-wapper">
 		<div class="container">
-			<h1 class="page-heading">{{ $sub_cate->name }}</h1>
+			<h1 class="page-heading">{{ $subcate->name }}</h1>
 		</div>
 	</div>
     <div class="row" style="margin-top: 50px;">
-        @foreach ($sub_cate->products as $product)
+        @foreach ($subcate->products as $product)
             <div class="col-md-3" style="margin-bottom:50px;">
                 <div class="product-item">
                     <div class="product-inner">

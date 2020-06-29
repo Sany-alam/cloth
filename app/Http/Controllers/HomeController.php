@@ -27,10 +27,12 @@ class HomeController extends Controller
         return view('home.cart');
     }
 
-    public function subcat_products($sub_name)
+    public function subcat_products($domain,$category,$subcate)
     {
-        $sub_cate = Subcategory::where('slug',$sub_name)->first();
-        return view('home.subcat-products',['sub_cate'=>$sub_cate]);
+        $dom = Domain::where('slug',$domain)->first();
+        $cat = Category::where('slug',$category)->where('domain_id',$dom->id)->first();
+        $subcat = Subcategory::where('category_id',$cat->id)->where('slug',$subcate)->first();
+        return view('home.card-products',['subcate'=>$subcat]);
     }
 
     public function checkout()
@@ -113,7 +115,7 @@ class HomeController extends Controller
                 <td class="product-thumbnail" style="text-align:left;">
                     <img class="product-thumb" src="'.asset('storage/app/public/product/'.Product::find($value['id'])->images[0]->image).'" alt="">
                 </td>
-                <td class="product-name" style="text-align:left;">
+                <td class="product-name" style="text-align:left;width:250px;">
                     <a class="name" href="product/no/'.$value['id'].'">'.$value['name'].'</a>
                 </td>
                 <td class="product-price" style="text-align:left;">

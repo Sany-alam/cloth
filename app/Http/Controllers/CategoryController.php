@@ -42,7 +42,7 @@ class CategoryController extends Controller
             return "Already exists!";
         }
         else {
-            Category::create(['name'=>$request->category_name,'domain_id'=>$request->category_domain]);
+            Category::create(['name'=>$request->category_name,'domain_id'=>$request->category_domain,'slug'=>str_slug($request->category_name)]);
         }
     }
 
@@ -138,7 +138,7 @@ for ($i=0; $i < sizeof($fetch); $i++) {
             return "Already exists!";
         }
         else {
-            Category::where('id',$request->category_id)->update(['name'=>$request->category_name,'domain_id'=>$request->category_domain]);
+            Category::where('id',$request->category_id)->update(['name'=>$request->category_name,'domain_id'=>$request->category_domain,'slug'=>str_slug($request->category_name)]);
         }
     }
 

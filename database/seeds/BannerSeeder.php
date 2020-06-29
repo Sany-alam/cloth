@@ -14,12 +14,12 @@ class BannerSeeder extends Seeder
         App\Banner::create([
             'title'=>'Hello Word',
             'description'=>  'lorem ipsum doller teller botkisu etcettrera',
-            'image' => 'bannaer1.jpg',
+            'image' => 'banner1.jpg',
         ]);
         App\Banner::create([
             'title'=>'Brand gallery',
             'description'=>  'lorem ipsum doller teller botkisu etcettrera',
-            'image' => 'bannaer2.jpg',
+            'image' => 'banner2.jpg',
         ]);
     }
 }

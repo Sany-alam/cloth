@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone',
+        'name', 'email', 'password', 'phone','is_admin',
     ];
 
     /**
@@ -41,14 +42,3 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 }
-
-
-    // public function comments()
-    // {
-    //     return $this->hasMany("App\comment","user_id");
-    // }
-
-    // public function posts()
-    // {
-    //     return $this->hasMany("App\post","user_id");
-    // }

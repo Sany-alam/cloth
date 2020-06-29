@@ -15,13 +15,14 @@ class UserSeeder extends Seeder
             'name' => "Sany",
             'email' => "mazharulalam26@gmail.com",
             'phone' => "01876626011",
-            'password' => bcrypt('asd'),
+            'is_admin' => true,
+            'password' => 'asd',
         ]);
         App\User::create([
             'name' => "Sabbir",
             'email' => "Sabbir@gmail.com",
             'phone' => "01876625555",
-            'password' => bcrypt('dsa'),
+            'password' => 'dsa',
         ]);
     }
 }

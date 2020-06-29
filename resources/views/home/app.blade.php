@@ -74,7 +74,7 @@
                         @foreach(App\Domain::all() as $domain)
 						<li class="menu-item-has-children item-megamenu">
                             <a href="javascript:void(0)">{{ $domain->name }}</a>
-                            <div class="sub-menu megamenu" style="width: 665px;">
+                            <div class="sub-menu megamenu" style="width:665px;height:350px;overflow-y:auto;">
 								<div class="row">
 									@foreach ($domain->categories as $category)
                                     <div class="col-sm-12 col-md-3">
@@ -83,12 +83,7 @@
 											<ul>
 												@foreach ($category->subcategories as $subcategory)
 													<li>
-														<a href="{{ url('subcat/'.$subcategory->slug.'') }}">{{$subcategory->name}}</a>
-														{{--class="menu-item-has-children" <ul class="sub-menu">
-															@foreach ($subcategory->products as $product)
-																<li><a href="{{ url('product/no/'.$product->id.'') }}">{{$product->name}}</a></li>
-															@endforeach  
-														</ul> --}}
+														<a href="{{ url('subcat/'.$domain->slug.'/'.$category->slug.'/'.$subcategory->slug.'') }}">{{$subcategory->name}}</a>
 													</li>
 												@endforeach
 											</ul>

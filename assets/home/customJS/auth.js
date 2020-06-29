@@ -62,6 +62,10 @@ $("#login").click(function() {
             else if(data == "CredentialsProblem"){
                 alert("Credentials Not valid");
             }
+            else{
+                console.log(data);
+                
+            }
         }
     })
 });

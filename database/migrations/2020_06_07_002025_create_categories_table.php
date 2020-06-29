@@ -16,8 +16,8 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('domain_id')->unsigned()->nullable();
-            $table->string('name', 50);
-            $table->string('slug', 100)->nullable()->unique();
+            $table->string('name', 50)->nullable();
+            $table->string('slug', 100)->nullable();
             $table->timestamps();
 
             $table->foreign('domain_id')->references('id')->on('domains')->onDelete('cascade');

@@ -14,4 +14,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
+
+    public function courier()
+    {
+        return $this->hasOne('App\Courier', 'order_id', 'id');
+    }
 }
