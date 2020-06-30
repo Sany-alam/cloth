@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('courier_id')->nullable();
             $table->string('order_code')->unique()->nullable();;
             $table->text('address', 100)->nullable();
             $table->text('note')->nullable();
@@ -27,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('courier_id')->references('id')->on('couriers')->onDelete('cascade');
         });
     }
 

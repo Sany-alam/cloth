@@ -88,14 +88,17 @@ Route::prefix('admin')->group(function () {
     Route::get('order/queue/product/list/{id}','OrderController@queue_product_list');
     Route::get('order/queue/accept/{id}','OrderController@queue_product_accept');
     Route::get('order/queue/reject/{id}','OrderController@queue_product_reject');
-    Route::get('order/pending','OrderController@pending');
+
+    Route::get('order/pending-processing','OrderController@pending_processing');
+    Route::get('order/pending-processing/{status}','OrderController@pending_processing_show');
+
     Route::get('order/complete','OrderController@complete');
 
-    Route::get('courier/queue','CourierController@queue');
-    Route::get('courier/queue/list','OrderController@courier_queue_list');
-    // Route::get('courier/queue/product/list/{id}','courierController@queue_product_list');
-    // Route::get('courier/queue/accept/{id}','courierController@queue_product_accept');
-    // Route::get('courier/queue/reject/{id}','courierController@queue_product_reject');
-    // Route::get('courier/pending','courierController@pending');
-    // Route::get('courier/complete','courierController@complete');
+    Route::get('courier','CourierController@index');
+    Route::post('courier/add','CourierController@store');
+    Route::get('courier/show','CourierController@show');
+    Route::get('courier/delete/{id}','CourierController@destroy');
+    Route::get('courier/edit/{id}','CourierController@edit');
+    Route::post('courier/update','CourierController@update');
+    // Route::get('courier/list','CourierController@list');
 });

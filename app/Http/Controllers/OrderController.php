@@ -20,7 +20,6 @@ class OrderController extends Controller
             <tr>
                 <th>#Id</th>
                 <th>User</th>
-                <th>Order Code</th>
                 <th>Total</th>
                 <th>Address</th>
                 <th>Note</th>
@@ -33,12 +32,11 @@ class OrderController extends Controller
         </thead>
         <tbody>';
 
-    foreach ($orders as $order){
+        foreach ($orders as $order){
         $data .= '
         <tr>
             <td class="text-left">'.$order->id.'</td>
             <td class="text-left">'.$order->user->name.'</td>
-            <td class="text-left">'.$order->order_code.'</td>
             <td class="text-left">'.$order->total.' Tk</td>
             <td class="text-left">'.$order->address.'</td>
             <td class="text-left">'.$order->note.'</td>
@@ -62,24 +60,24 @@ class OrderController extends Controller
                 </div>
             </td>
         </tr>';
-    }
-    $data .='
-        </tbody>
-    </table>
+        }
+        $data .='
+            </tbody>
+        </table>
 
-    <script src='.asset("assets/admin/vendors/datatables/jquery.dataTables.min.js").'></script>
-    <script src='.asset("assets/admin/vendors/datatables/dataTables.bootstrap.min.js").'></script>
-    <script src='.asset("assets/admin/js/pages/datatables.js").'></script>
+        <script src='.asset("assets/admin/vendors/datatables/jquery.dataTables.min.js").'></script>
+        <script src='.asset("assets/admin/vendors/datatables/dataTables.bootstrap.min.js").'></script>
+        <script src='.asset("assets/admin/js/pages/datatables.js").'></script>
 
-    <script>
-        $("#data-table").DataTable({
-            // paging: false,
-            // scrollY: 230,
-            order:[[0,"desc" ]]
-        });
-    </script>';
+        <script>
+            $("#data-table").DataTable({
+                // paging: false,
+                // scrollY: 230,
+                order:[[0,"desc" ]]
+            });
+        </script>';
 
-    return $data;
+        return $data;
     }
 
     public function queue_product_list($id)
@@ -124,10 +122,80 @@ class OrderController extends Controller
         $orders = Order::where('id',$id)->delete();
     }
 
-    public function pending()
+    public function pending_processing()
     {
-        $orders = Order::where('status','pending')->get();
-        return view('admin.order.order-pending',['orders'=>$orders]);
+        return view('admin.order.order-pending&processing');
+    }
+
+    public function pending_processing_show($status)
+    {
+        if ($status === 'pending') {
+            $orders = Order::where('status',$status)->get();
+        }
+        elseif($status === 'processing'){
+            $orders = Order::where('status',$status)->get();
+        }
+        $data = '<table id="data-table" class="table table-hover e-commerce-table">
+            <thead>
+                <tr>
+                    <th>#Id</th>
+                    <th>User</th>
+                    <th>Total</th>
+                    <th>Address</th>
+                    <th>Note</th>
+                    <th>Payment Methode</th>
+                    <th>Payment Confirmation</th>
+                    <th>Status</th>
+                    <th>Product</th>
+                </tr>
+            </thead>
+            <tbody>';
+
+            foreach ($orders as $order){
+                if ($order->status == "pending") {
+                    $status = '<button class="btn btn-sm btn-primary btn-rounded" onclick="assign_courier('.$order->id.')">Assign courier</button>';
+                }else{
+                    $status = '<div class="d-flex align-items-center">
+                                    <div class="badge badge-primary badge-dot m-r-10"></div>
+                                    <div>Processing</div>
+                                </div>';
+                }
+            $data .= '
+            <tr>
+                <td class="text-left">'.$order->id.'</td>
+                <td class="text-left">'.$order->user->name.'</td>
+                <td class="text-left">'.$order->total.' Tk</td>
+                <td class="text-left">'.$order->address.'</td>
+                <td class="text-left">'.$order->note.'</td>
+                <td class="text-left">'.$order->payment_methode.'</td>
+                <td class="text-left">'.$order->payment_confirmation.'</td>
+                <td class="">
+                    '.$status.'
+                </td>
+                <td class="text-left">
+                    <button onclick="productList('.$order->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                        <i class="anticon anticon-ordered-list"></i>
+                    </button>
+                </td>
+            </tr>';
+            }
+            $data .='
+                </tbody>
+            </table>
+
+            <script src='.asset("assets/admin/vendors/datatables/jquery.dataTables.min.js").'></script>
+            <script src='.asset("assets/admin/vendors/datatables/dataTables.bootstrap.min.js").'></script>
+            <script src='.asset("assets/admin/js/pages/datatables.js").'></script>
+
+            <script>
+                $("#data-table").DataTable({
+                    // paging: false,
+                    // scrollY: 230,
+                    order:[[0,"desc" ]]
+                });
+            </script>';
+
+        return $data;
     }
 
     public function complete()
@@ -154,62 +222,62 @@ class OrderController extends Controller
 
 
 
-    public function courier_queue_list()
-    {
+    // public function courier_queue_list()
+    // {
         
-        $orders = Order::where('status',"Order in queue")->get();
-        $data = '<table id="data-table" class="table table-hover e-commerce-table">
-        <thead>
-            <tr>
-                <th>#Id</th>
-                <th>User</th>
-                <th>Total</th>
-                <th>Address</th>
-                <th>Note</th>
-                <th>Payment Methode</th>
-                <th>Payment Confirmation</th>
-                <th>Product List</th>
-                <th>Assign Courier</th>
-            </tr>
-        </thead>
-        <tbody>';
+    //     $orders = Order::where('status',"Order in queue")->get();
+    //     $data = '<table id="data-table" class="table table-hover e-commerce-table">
+    //     <thead>
+    //         <tr>
+    //             <th>#Id</th>
+    //             <th>User</th>
+    //             <th>Total</th>
+    //             <th>Address</th>
+    //             <th>Note</th>
+    //             <th>Payment Methode</th>
+    //             <th>Payment Confirmation</th>
+    //             <th>Product List</th>
+    //             <th>Assign Courier</th>
+    //         </tr>
+    //     </thead>
+    //     <tbody>';
 
-        foreach ($orders as $order){
-            $data .= '
-            <tr>
-                <td class="text-left">'.$order->id.'</td>
-                <td class="text-left">'.$order->user->name.'</td>
-                <td class="text-left">'.$order->total.' Tk</td>
-                <td class="text-left">'.$order->address.'</td>
-                <td class="text-left">'.$order->note.'</td>
-                <td class="text-left">'.$order->payment_methode.'</td>
-                <td class="text-left">'.$order->payment_confirmation.'</td>
-                <td class="text-left">
-                    <button onclick="productList('.$order->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
-                        <i class="anticon anticon-ordered-list"></i>
-                    </button>
-                </td>
-                <td class="text-left">
-                    <button onclick="assign_couriar('.$order->id.')" class="btn btn-primary btn-sm btn-rounded">Assign</button>
-                </td>
-            </tr>';
-        }
-        $data .='
-            </tbody>
-        </table>
+    //     foreach ($orders as $order){
+    //         $data .= '
+    //         <tr>
+    //             <td class="text-left">'.$order->id.'</td>
+    //             <td class="text-left">'.$order->user->name.'</td>
+    //             <td class="text-left">'.$order->total.' Tk</td>
+    //             <td class="text-left">'.$order->address.'</td>
+    //             <td class="text-left">'.$order->note.'</td>
+    //             <td class="text-left">'.$order->payment_methode.'</td>
+    //             <td class="text-left">'.$order->payment_confirmation.'</td>
+    //             <td class="text-left">
+    //                 <button onclick="productList('.$order->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
+    //                     <i class="anticon anticon-ordered-list"></i>
+    //                 </button>
+    //             </td>
+    //             <td class="text-left">
+    //                 <button onclick="assign_couriar('.$order->id.')" class="btn btn-primary btn-sm btn-rounded">Assign</button>
+    //             </td>
+    //         </tr>';
+    //     }
+    //     $data .='
+    //         </tbody>
+    //     </table>
 
-        <script src='.asset("assets/admin/vendors/datatables/jquery.dataTables.min.js").'></script>
-        <script src='.asset("assets/admin/vendors/datatables/dataTables.bootstrap.min.js").'></script>
-        <script src='.asset("assets/admin/js/pages/datatables.js").'></script>
+    //     <script src='.asset("assets/admin/vendors/datatables/jquery.dataTables.min.js").'></script>
+    //     <script src='.asset("assets/admin/vendors/datatables/dataTables.bootstrap.min.js").'></script>
+    //     <script src='.asset("assets/admin/js/pages/datatables.js").'></script>
 
-        <script>
-            $("#data-table").DataTable({
-                // paging: false,
-                // scrollY: 230,
-                order:[[0,"desc" ]]
-            });
-        </script>';
+    //     <script>
+    //         $("#data-table").DataTable({
+    //             // paging: false,
+    //             // scrollY: 230,
+    //             order:[[0,"desc" ]]
+    //         });
+    //     </script>';
 
-        return $data;
-    }
+    //     return $data;
+    // }
 }

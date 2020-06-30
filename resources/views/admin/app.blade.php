@@ -183,27 +183,13 @@
                             <span class="title">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item dropdown ">
-                        <a class="dropdown-toggle" href="javascript:void(0)">
+                    <li class="nav-item">
+                        <a class="dropdown-toggle" href="{{ url('admin/courier') }}">
                             <span class="icon-holder">
                                 <i class="anticon anticon-dashboard"></i>
                             </span>
                             <span class="title">Courier</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li class="@yield('courier-queue')">
-                                <a href="{{ url('admin/courier/queue') }}">In Queue</a>
-                            </li>
-                            <li class="@yield('panding')">
-                                <a href="{{ url('admin/courier/pending') }}">Panding</a>
-                            </li>
-                            <li class="@yield('complete')">
-                                <a href="{{ url('admin/courier/complete') }}">Complete</a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="nav-item dropdown ">
                         <a class="dropdown-toggle" href="javascript:void(0)">
@@ -220,7 +206,7 @@
                                 <a href="{{ url('admin/order/queue') }}">In Queue</a>
                             </li>
                             <li class="@yield('panding')">
-                                <a href="{{ url('admin/order/pending') }}">Panding</a>
+                                <a href="{{ url('admin/order/pending-processing') }}">Panding</a>
                             </li>
                             <li class="@yield('complete')">
                                 <a href="{{ url('admin/order/complete') }}">Complete</a>

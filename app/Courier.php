@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Courier extends Model
 {
     protected $fillable = [
-        'name','email','phone','order_no',
+        'name','email','phone',
     ];
 
-    public function order()
+    public function orders()
     {
-        return $this->belongsTo('App\Order', 'order_id', 'id');
+        return $this->hasMany('App\Order', 'courier_id', 'id');
     }
 }

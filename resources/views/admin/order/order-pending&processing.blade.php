@@ -10,56 +10,22 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h4>Order list</h4>
-                {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#AddOrderModal">Add Order</button> --}}
+                <div class="m-b-10">
+                    <select id="show-status" class="custom-select" style="max-width: 180px;">
+                        <option>Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                    </select>
+                </div>
             </div>
             <div class="m-t-25" id="order-table">
-                <table id="data-table" class="table">
-                    <thead>
-                        <tr>
-                            <th>#Id</th>
-                            <th>User</th>
-                            <th>Order Code</th>
-                            <th>Total</th>
-                            <th>Address</th>
-                            <th>Note</th>
-                            <th>Payment Methode</th>
-                            <th>Payment Confirmation</th>
-                            <th>Status</th>
-                            <th>Product</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($orders as $order)
-                        <tr>
-                            <td>{{$order->id}}</td>
-                            <td>{{$order->user->name}}</td>
-                            <td>{{$order->order_code}}</td>
-                            <td>{{$order->total}}</td>
-                            <td>{{$order->address}}</td>
-                            <td>{{$order->note}}</td>
-                            <td>{{$order->payment_methode}}</td>
-                            <td>{{$order->payment_confirmation}}</td>
-                            <td class="">
-                                <div class="d-flex align-items-center">
-                                    <div class="badge badge-primary badge-dot m-r-10"></div>
-                                    <div>{{$order->status}}</div>
-                                </div>
-                            </td>
-                            <td class="">
-                                <button data-toggle="modal" data-target="#ProductListModal" class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                    <i class="anticon anticon-ordered-list"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                
             </div>
         </div>
     </div>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="ProductListModal">
+{{-- <div class="modal fade bd-example-modal-lg" id="ProductListModal">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -92,11 +58,6 @@
                                 <td>{{$product->quantity}}</td>
                                 <td>{{$product->price}}</td>
                                 <td>{{$product->price*$product->quantity}}</td>
-                                {{-- <td class="">
-                                    <button onclick="orderList('{{$order->id}}')" class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                        <i class="anticon anticon-ordered-list"></i>
-                                    </button>
-                                </td> --}}
                             </tr>
                             @endforeach
                         @endforeach
@@ -109,7 +70,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 @section('page-js')
     <script src={{asset("assets/admin/vendors/datatables/jquery.dataTables.min.js")}}></script>
@@ -117,5 +78,5 @@
     <script src={{asset("assets/admin/js/pages/datatables.js")}}></script>
 @endsection
 @section('custom-js')
-    <script src="{{asset('assets\admin\js\custom\order.js')}}"></script>
+    <script src="{{asset('assets\admin\js\custom\order\pending-processing.js')}}"></script>
 @endsection

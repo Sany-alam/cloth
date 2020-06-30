@@ -15,13 +15,10 @@ class CreateCouriersTable extends Migration
     {
         Schema::create('couriers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id')->nullable();
             $table->string('name', 100)->nullable()->default('text');
             $table->string('phone', 100)->nullable()->default('text');
             $table->string('email', 100)->nullable()->default('text');
             $table->timestamps();
-
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 
