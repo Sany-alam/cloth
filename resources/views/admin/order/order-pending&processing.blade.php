@@ -25,7 +25,7 @@
     </div>
 
 <!-- Modal -->
-{{-- <div class="modal fade bd-example-modal-lg" id="ProductListModal">
+<div class="modal fade bd-example-modal-lg" id="ProductListModal">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -34,35 +34,8 @@
                     <i class="anticon anticon-close"></i>
                 </button>
             </div>
-            <div class="modal-body" id="order-list">
-                <table id="data-table" class="table">
-                    <thead>
-                        <tr>
-                            <th>Product Id</th>
-                            <th>UsProduct Name</th>
-                            <th>Product size</th>
-                            <th>Product Color</th>
-                            <th>Product Quantity</th>
-                            <th>Product Price</th>
-                            <th>Product Subttotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($orders as $order)
-                            @foreach (json_decode($order->product) as $product)
-                            <tr>
-                                <td>{{$product->id}}</td>
-                                <td>{{$product->name}}</td>
-                                <td>{{$product->size}}</td>
-                                <td>{{$product->color}}</td>
-                                <td>{{$product->quantity}}</td>
-                                <td>{{$product->price}}</td>
-                                <td>{{$product->price*$product->quantity}}</td>
-                            </tr>
-                            @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="modal-body" id="product-list">
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -70,7 +43,27 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
+<div class="modal fade" id="AssignCourierModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="anticon anticon-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Select courier <select class="form-control" id="courier-list"></select></h4>
+                <h6>For order no #<i id="order-id"></i></h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="AssignCourier">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('page-js')
     <script src={{asset("assets/admin/vendors/datatables/jquery.dataTables.min.js")}}></script>
@@ -78,5 +71,8 @@
     <script src={{asset("assets/admin/js/pages/datatables.js")}}></script>
 @endsection
 @section('custom-js')
+    <script>
+        var admin = "{{url('admin/')}}";
+    </script>
     <script src="{{asset('assets\admin\js\custom\order\pending-processing.js')}}"></script>
 @endsection

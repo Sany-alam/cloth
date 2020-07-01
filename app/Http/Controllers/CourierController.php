@@ -81,4 +81,16 @@ for ($i=0; $i < sizeof($fetch); $i++) {
     {
         Courier::where('id',$request->id)->update(['name'=>$request->name,'email'=>$request->email,'phone'=>$request->phone]);
     }
+
+    public function list()
+    {
+        $fetch = Courier::orderBy('id','desc')->get();
+        $data = '<option value="">Select courier</option>';
+        if ($fetch) {
+            foreach ($fetch as $cour) {
+                $data .= '<option value="'.$cour->id.'">'.$cour->name.'</option>';
+            }
+        }
+        return $data;
+    }
 }

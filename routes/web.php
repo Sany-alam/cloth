@@ -100,5 +100,5 @@ Route::prefix('admin')->group(function () {
     Route::get('courier/delete/{id}','CourierController@destroy');
     Route::get('courier/edit/{id}','CourierController@edit');
     Route::post('courier/update','CourierController@update');
-    // Route::get('courier/list','CourierController@list');
+    Route::get('courier/list','CourierController@list');
 });

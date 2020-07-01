@@ -153,7 +153,8 @@ class OrderController extends Controller
 
             foreach ($orders as $order){
                 if ($order->status == "pending") {
-                    $status = '<button class="btn btn-sm btn-primary btn-rounded" onclick="assign_courier('.$order->id.')">Assign courier</button>';
+                    $status = '<button class="btn btn-sm btn-primary btn-rounded" onclick="assign_courier('.$order->id.')">Assign courier</button>
+                    ';
                 }else{
                     $status = '<div class="d-flex align-items-center">
                                     <div class="badge badge-primary badge-dot m-r-10"></div>
