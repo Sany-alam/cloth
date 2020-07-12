@@ -82,10 +82,11 @@ class HomeController extends Controller
             'updated_at'=>$product->updated_at
         ];
         if (count(session()->get('cart')) > 0) {
-            $cart = session()->get('cart');
+            // $cart = session()->get('cart');
+            $cart = session()->pull('cart');
             $count = 0;
             foreach ($cart as $value) {
-                if ($value['id'] == $PItems['id'] && $value['size'] == $PItems['size']) {
+                if ($value['id'] == $PItems['id'] && $value['size'] == $PItems['size'] && $value['color'] == $PItems['color']) {
                     $count = 1;
                 }
             }
@@ -216,7 +217,7 @@ class HomeController extends Controller
             'total'=>$total,
             'payment_methode'=> $request->payment,
         ]);
-        
+
         if (session()->has('cart')) {
             session()->forget('cart');
         }

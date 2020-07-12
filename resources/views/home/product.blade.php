@@ -46,7 +46,7 @@
 											@php
 												$c = explode(",",$product->color)
                                             @endphp
-											<select id="size">
+											<select id="color">
                                                 <option value="">Color</option>
 												@for ($i = 0; $i < count($c); $i++)
 												<option value="{{ $c[$i] }}">{{ $c[$i] }}</option>

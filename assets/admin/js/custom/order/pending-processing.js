@@ -1,4 +1,10 @@
 $(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     selected_status='';
     $("#show-status option[value='pending']").prop('selected',true);
     selected_status = $("#show-status option:selected").val();
@@ -52,9 +58,8 @@ function assign_courier(order_id) {
         url:admin+"/courier/list",
         type:"get",
         success:function(data) {
-            console.log(data);
             $("#courier-list").html(data)
-            $("#order-id").html(order_id)
+            $("#order-id").val(order_id)
             $("#AssignCourierModal").modal('show')
         }
     })
@@ -62,34 +67,42 @@ function assign_courier(order_id) {
 
 $("#AssignCourier").click(function () {
     if ($("#courier-list").val().length != 0 && $("#order-id").val().length != 0) {
-        alert($("#courier-list").val()+" "+$("#order-id").val());
+
+        courier = $("#courier-list").val();
+        order = $("#order-id").val();
+        formdata = new FormData();
+        formdata.append('courier',courier);
+        formdata.append('order',order);
+        $.ajax({
+            processData:false,
+            contentType:false,
+            data:formdata,
+            url:admin+"/order/pending-processing/assign-courier",
+            type:"post",
+            success:function(data) {
+                showOrders()
+                alert(data)
+                console.log(data);
+
+            }
+        })
     }
 })
 
-// function acceptOrder(id) {
-//     formdata = new FormData();
-//     $.ajax({
-//         processData:false,
-//         contentType:false,
-//         data:formdata,
-//         url:admin+"/order/queue/accept/"+id,
-//         type:"get",
-//         success:function(data) {
-//             showOrderQueueList();
-//         }
-//     })
-// }
+function complete_order(order_id) {
+    confirmation = confirm("Are you sure?");
+    if (confirmation) {
+        formdata = new FormData();
+        $.ajax({
+            processData:false,
+            contentType:false,
+            data:formdata,
+            url:admin+"/order/pending-processing/completed/"+order_id,
+            type:"get",
+            success:function(data) {
+                showOrders()
+            }
+        })
+    }
+}
 
-// function rejectOrder(id) {
-//     formdata = new FormData();
-//     $.ajax({
-//         processData:false,
-//         contentType:false,
-//         data:formdata,
-//         url:admin+"/order/queue/reject/"+id,
-//         type:"get",
-//         success:function(data) {
-//             showOrderQueueList();
-//         }
-//     })
-// }

@@ -122,6 +122,7 @@ class OrderController extends Controller
         $orders = Order::where('id',$id)->delete();
     }
 
+    // pending processing starts here *********************************
     public function pending_processing()
     {
         return view('admin.order.order-pending&processing');
@@ -146,7 +147,11 @@ class OrderController extends Controller
                     <th>Payment Methode</th>
                     <th>Payment Confirmation</th>
                     <th>Status</th>
-                    <th>Product</th>
+                    <th>Courier</th>';
+        // if ($status === 'processing') {
+        //     $data .='<th>courier</th>';
+        // }
+        $data .= '<th>Product</th>
                 </tr>
             </thead>
             <tbody>';
@@ -156,10 +161,7 @@ class OrderController extends Controller
                     $status = '<button class="btn btn-sm btn-primary btn-rounded" onclick="assign_courier('.$order->id.')">Assign courier</button>
                     ';
                 }else{
-                    $status = '<div class="d-flex align-items-center">
-                                    <div class="badge badge-primary badge-dot m-r-10"></div>
-                                    <div>Processing</div>
-                                </div>';
+                    $status = '<button class="btn btn-sm btn-primary btn-rounded" onclick="complete_order('.$order->id.')">Complete</button>';
                 }
             $data .= '
             <tr>
@@ -170,10 +172,17 @@ class OrderController extends Controller
                 <td class="text-left">'.$order->note.'</td>
                 <td class="text-left">'.$order->payment_methode.'</td>
                 <td class="text-left">'.$order->payment_confirmation.'</td>
-                <td class="">
-                    '.$status.'
-                </td>
-                <td class="text-left">
+                <td class="">'.$status.'</td>
+                <td class="">';
+    if ($order->courier) {
+        $data .=$order->courier->name;
+    }
+    else{
+        $data.="Not assigned";
+    }
+            $data .='
+            </td>
+            <td class="text-left">
                     <button onclick="productList('.$order->id.')" class="btn btn-icon btn-hover btn-sm btn-rounded">
                         <i class="anticon anticon-ordered-list"></i>
                     </button>
@@ -197,6 +206,16 @@ class OrderController extends Controller
             </script>';
 
         return $data;
+    }
+
+    public function assignCourier(Request $Request)
+    {
+        Order::where('id',$Request->order)->update(['status'=>'processing','courier_id'=>$Request->courier]);
+    }
+
+    public function completeOrder($id)
+    {
+        Order::where('id',$id)->update(['status'=>'complete']);
     }
 
     public function complete()
@@ -225,7 +244,7 @@ class OrderController extends Controller
 
     // public function courier_queue_list()
     // {
-        
+
     //     $orders = Order::where('status',"Order in queue")->get();
     //     $data = '<table id="data-table" class="table table-hover e-commerce-table">
     //     <thead>

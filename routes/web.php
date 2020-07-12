@@ -91,6 +91,8 @@ Route::prefix('admin')->group(function () {
 
     Route::get('order/pending-processing','OrderController@pending_processing');
     Route::get('order/pending-processing/{status}','OrderController@pending_processing_show');
+    Route::post('order/pending-processing/assign-courier','OrderController@assignCourier');
+    Route::get('order/pending-processing/completed/{id}','OrderController@completeOrder');
 
     Route::get('order/complete','OrderController@complete');
 

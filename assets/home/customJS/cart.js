@@ -13,27 +13,27 @@ $(function() {
     });
 })
 
-function add_to_cart(id) {
-    formdata = new FormData();
-    formdata.append('id',id)
-    $.ajax({
-        processData:false,
-        contentType:false,
-        data:formdata,
-        url:""+cartUrl+"/add",
-        type:"post",
-        success:function(data) {
-            CountCart();
-            if (data.length != 0 && typeof(data) !== Object) {
-                alert(data);
-            }
-        }
-    })
-}
+// function add_to_cart(id) {
+//     formdata = new FormData();
+//     formdata.append('id',id)
+//     $.ajax({
+//         processData:false,
+//         contentType:false,
+//         data:formdata,
+//         url:""+cartUrl+"/add",
+//         type:"post",
+//         success:function(data) {
+//             CountCart();
+//             if (data.length != 0 && typeof(data) !== Object) {
+//                 alert(data);
+//             }
+//         }
+//     })
+// }
 
 
 $("#add_to_cart").click(function() {
-    if ($("#quantity").val().length > 0 && $("#id").val().length > 0 && $("#size").val().length > 0) {
+    if ($("#quantity").val().length > 0 && $("#id").val().length > 0 && $("#size").val().length > 0 && $("#color").val().length > 0) {
         formdata = new FormData();
         formdata.append('id',$("#id").val()),
         formdata.append('quantity',$("#quantity").val()),

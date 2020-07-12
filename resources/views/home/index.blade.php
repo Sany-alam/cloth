@@ -38,9 +38,9 @@
 						@endif
 						<div class="thumb">
 							<a class="product-image" href="{{url('product/no/'.$product->id)}}"><img style="width:263px!important;height:263px!important;" src="{{ asset('storage/app/public/product/'.$product->images[0]->image) }}" alt=""></a>
-							<div class="group-buttons">
+							{{-- <div class="group-buttons">
 								<a href="javascript:void(0)" onclick="add_to_cart({{$product->id}})" class="button add_to_cart_button">Add to cart</a>
-							</div>
+							</div> --}}
 						</div>
 						<div class="info">
 							<h3 class="product-name"><a href="#">{{ $product->name }}</a></h3>
@@ -61,7 +61,7 @@
 	{{-- @if(sizeof($categories) > 0)
 	<div class="kt-box-categories margin-top-70">
 		<div class="head">
-			 <h3 class="title">CATEGORIES</h3> 
+			 <h3 class="title">CATEGORIES</h3>
 			<a href="#" class="more">View all<span class="lnr lnr-arrow-right"></span></a>
 		</div>
 		<div class="content">
@@ -91,7 +91,7 @@
 							$i=1
 						@endphp
 						@foreach ($categories as $category)
-							@if(sizeof($category->products) > 0) 
+							@if(sizeof($category->products) > 0)
 							<li class="@if($i==1) active @endif"><a data-animated="fadeInRight" data-toggle="tab" href="#tab-{{$i}}">{{ $category->name }}</a>
 							</li>
 							@php
@@ -109,7 +109,7 @@
 					<div id="tab-{{$i}}" class="tab-panel @if($i==1) active @endif">
 						<ul class="owl-products margin-top-45 owl-carousel nav-center-center" data-responsive='{"0":{"items":1,"nav":"false"},"480":{"items":2},"768":{"items":3},"1024":{"items":4}}'>
 							@foreach ($category->products as $product)
-							@if(sizeof($category->products) > 0) 
+							@if(sizeof($category->products) > 0)
 							<li class="product-item">
 								<div class="product-inner">
 									@if ($product->stock == false)

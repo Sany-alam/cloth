@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="m-t-25" id="order-table">
-                
+
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                 </button>
             </div>
             <div class="modal-body" id="product-list">
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -48,14 +48,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Assign courier</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <i class="anticon anticon-close"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <h4>Select courier <select class="form-control" id="courier-list"></select></h4>
-                <h6>For order no #<i id="order-id"></i></h6>
+                <h6>For order no <input type="text" id="order-id" class="form-control" disabled></h6>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

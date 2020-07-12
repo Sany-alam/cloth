@@ -44,7 +44,7 @@ class SubcategorySeeder extends Seeder
                 } $serial++;
             }
         }
-        
+
 
     }
 }

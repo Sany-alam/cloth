@@ -19,9 +19,9 @@
                         @endif
                         <div class="thumb">
                             <a class="product-image" href="{{url('product/no/'.$product->id)}}"><img style="width:263px!important;height:263px!important;" src="{{ asset('storage/app/public/product/'.$product->images[0]->image) }}" alt=""></a>
-                            <div class="group-buttons">
+                            {{-- <div class="group-buttons">
                                 <a href="javascript:void(0)" onclick="add_to_cart({{$product->id}})" class="button add_to_cart_button">Add to cart</a>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="info">
                             <h3 class="product-name"><a href="#">{{ $product->name }}</a></h3>

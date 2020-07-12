@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DomainSeeder extends Seeder
 {
@@ -15,8 +16,9 @@ class DomainSeeder extends Seeder
             'Men','Women','Kids'
         ];
 
-        for ($i=0; $i < sizeof($name); $i++) { 
-            App\Domain::create(['name'=>$name[$i],'slug'=>str_slug($name[$i])]);
+        for ($i=0; $i < sizeof($name); $i++) {
+            $slug = Str::slug($name[$i],'-');
+            App\Domain::create(['name'=>$name[$i],'slug'=>$slug]);
         }
     }
 }
