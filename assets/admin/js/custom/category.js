@@ -110,7 +110,7 @@ function showDomainList(){
 }
 
 function delete_category(id) {
-    var answer = window.confirm("All about this category will be deleted?")
+    var answer = window.confirm("All about this subcategory and products will be deleted?")
     if (answer) {
         formdata = new FormData();
         formdata.append('category_id',id);

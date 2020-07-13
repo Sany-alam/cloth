@@ -39,14 +39,20 @@
                             <i class="anticon"></i>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="modal" data-target="#search-drawer">
                             <i class="anticon anticon-search"></i>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
                 <ul class="nav-right">
-                    <li class="dropdown dropdown-animated scale-left">
+                    <a href="javascript:;">
+                        <div class="mx-5">
+                            <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
+                            <span class="m-l-10">Logout</span>
+                        </div>
+                    </a>
+                    {{-- <li class="dropdown dropdown-animated scale-left">
                         <a href="javascript:void(0);" data-toggle="dropdown">
                             <i class="anticon anticon-bell notification-badge"></i>
                         </a>
@@ -165,7 +171,7 @@
                                 </div>
                             </a>
                         </div>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

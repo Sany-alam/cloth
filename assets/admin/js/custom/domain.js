@@ -89,6 +89,7 @@ function showDomainAdmin(){
 }
 
 function delete_domain(id) {
+    answer = confirm("All products and categories will be deleted!");
     if (answer) {
         formdata = new FormData();
         formdata.append('domain_id',id);

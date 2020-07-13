@@ -105,6 +105,7 @@ $(function() {
                     $("#product-description").val('');
                     $("#product-images").val('');
                     showProductAdmin();
+                    $("#AddProductModal").modal("hide");
                 }
             })
         }
@@ -118,11 +119,11 @@ $(function() {
 
 
     $("#UpdateProduct").click(function(){
-        if ($("#update-product-name").val().length > 0 && $("#update-product-price").val().length > 0) {
+        if ($("#update-product-name").val().length > 0 && $("#update-product-price").val().length > 0 && $("#update-product-subcategory").val().length > 0 &&  $("#update-product-size").val().length > 0 && $("#update-product-color").val().length > 0) {
             formdata = new FormData();
             formdata.append('product_id',$("#update-product-id").val());
             formdata.append('product_name',$("#update-product-name").val());
-            formdata.append('product_category',$("#update-product-category").val());
+            formdata.append('product_subcategory',$("#update-product-subcategory").val());
             formdata.append('product_price',$("#update-product-price").val());
             formdata.append('product_brand',$("#update-product-brand").val());
             formdata.append('product_size',$("#update-product-size").val());
@@ -139,6 +140,7 @@ $(function() {
                 cache: false,
                 success:function(data) {
                     showProductAdmin();
+                    $("#updateProductModal").modal("hide");
                     alert(data);
                 }
             })
@@ -257,7 +259,8 @@ function edit_product(id) {
             all = JSON.parse(data);
             $("#update-product-id").val(all.id);
             $("#update-product-name").val(all.name);
-            $("#update-product-category option[value="+all.category_id+"]").prop('selected', true);
+            $("#update-product-subcategory option[value="+all.subcategory_id+"]").prop('selected', true);
+            $('#update-product-subcategory').trigger('change');
             $("#update-product-price").val(all.price);
             $("#update-product-color").val(all.color);
             $("#update-product-brand").val(all.brand);

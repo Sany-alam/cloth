@@ -194,7 +194,7 @@ for ($i=0; $i < sizeof($fetch); $i++) {
      */
     public function update(Request $request)
     {
-        Product::where('id',$request->product_id)->update(['name'=>$request->product_name,'category_id'=>$request->product_category,'size'=>$request->product_size,'price'=>$request->product_price,'weight'=>$request->product_weight,'fabric'=>$request->product_fabric,'brand'=>$request->product_brand,'color'=>$request->product_color,'description'=>$request->product_description]);
+        Product::where('id',$request->product_id)->update(['name'=>$request->product_name,'subcategory_id'=>$request->product_subcategory,'size'=>$request->product_size,'price'=>$request->product_price,'weight'=>$request->product_weight,'fabric'=>$request->product_fabric,'brand'=>$request->product_brand,'color'=>$request->product_color,'description'=>$request->product_description]);
         return "Successfully Updated";
     }
 

@@ -85,7 +85,7 @@
             <div class="modal-footer">
                 <div class="form-group">
                     <div class="text-right">
-                        <button data-dismiss="modal" type="button" class="btn btn-primary" id="AddProduct">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="AddProduct">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -116,8 +116,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group col">
-                        <label for="update-product-subcategory">Select Category</label>
-                        <select id="update-product-subcategory" class="form-control">
+                        <label for="update-product-subcategory">Select Subcategory</label>
+                        <select id="update-product-subcategory" class="select2">
                         </select>
                     </div>
                     <div class="form-group col">
@@ -127,7 +127,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col">
-                        <label for="update-product-size">Size (Optional)</label>
+                        <label for="update-product-size">Size</label>
                         <input id="update-product-size" class="form-control" placeholder="Size">
                     </div>
                     <div class="form-group col">
@@ -149,9 +149,11 @@
                     <label for="update-product-description">Description (Optional)</label>
                     <textarea id="update-product-description" class="form-control" placeholder="Describe your product"></textarea>
                 </div>
+            </div>
+            <div class="modal-footer">
                 <div class="form-group">
                     <div class="text-right">
-                        <button data-dismiss="modal" type="button" class="btn btn-primary" id="UpdateProduct">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="UpdateProduct">Save changes</button>
                     </div>
                 </div>
             </div>

@@ -38,9 +38,8 @@ Route::prefix('user')->group(function(){
 
 
 Route::prefix('admin')->group(function () {
-    Route::get('',function(){
-        return view('admin.home');
-    });
+    Route::get('/','AdminController@index');
+
     Route::get('domain','DomainController@index');
     Route::post('domain/add','DomainController@store');
     Route::get('domain/show','DomainController@show');

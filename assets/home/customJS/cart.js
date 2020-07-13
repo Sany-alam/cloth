@@ -38,6 +38,7 @@ $("#add_to_cart").click(function() {
         formdata.append('id',$("#id").val()),
         formdata.append('quantity',$("#quantity").val()),
         formdata.append('size',$("#size").val()),
+        formdata.append('color',$("#color").val()),
         $.ajax({
             processData:false,
             contentType:false,
@@ -49,6 +50,7 @@ $("#add_to_cart").click(function() {
                 if (data.length !== 0) {
                     alert(data);
                 }
+                console.log(data);
             }
         })
     }

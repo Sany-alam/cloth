@@ -65,6 +65,8 @@ class HomeController extends Controller
         $product = Product::where('id',$request->id)->first();
         $s = explode(",",$product->size);
         $siz = $s[0];
+        $c = explode(",",$product->color);
+        $color = $c[0];
         $PItems = [
             'id'=>$product->id,
             'category_id'=>$product->category_id,
@@ -76,7 +78,7 @@ class HomeController extends Controller
             'stock'=>$product->stock,
             'description'=>$product->description,
             'brand'=>$product->brand,
-            'color'=>$product->color,
+            'color'=>$request->input('color',$color),
             'quantity'=>$request->input('quantity', 1),
             'created_at'=>$product->created_at,
             'updated_at'=>$product->updated_at

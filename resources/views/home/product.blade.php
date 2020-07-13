@@ -66,33 +66,23 @@
 								</div>
 								<div class="product_meta">
 									{{-- <span class="sku_wrapper">SKU: <span class="sku">201623469</span></span> --}}
-									<span class="posted_in"><a href="{{ url('products/'.$product->subcategory->id.'') }}" rel="tag">{{ $product->subcategory->name }}</a></span>
+									<span class="posted_in"><a href="{{ url('subcat/'.$product->subcategory->category->domain->slug.'/'.$product->subcategory->category->slug.'/'.$product->subcategory->slug.'') }}" rel="tag">{{ $product->subcategory->name }}</a></span>
 									{{-- <span class="tags">Tags: <a href="#" rel="tag">Accessories,men,Women</a></span> --}}
 								</div>
-								<div class="share">
-			                        <a href="#"><i class="fa fa-facebook"></i></a>
-			                        <a href="#"><i class="fa fa-twitter"></i></a>
-			                        <a href="#"><i class="fa fa-google-plus"></i></a>
-			                        <a href="#"><i class="fa fa-instagram"></i></a>
-			                        <a href="#"><i class="fa fa-pinterest"></i></a>
-			                    </div>
 			                    <div class="woocommerce-tabs">
 									<ul class="tabs wc-tabs nav-tab">
-										<li class="description_tab active">
-											<a data-toggle="tab" href="#tab-description">Description</a>
-										</li>
-										<li class="additional_information_tab">
+										<li class="additional_information_tab active">
 											<a data-toggle="tab" href="#tab-additional_information">DETAILS</a>
+										</li>
+										<li class="description_tab">
+											<a data-toggle="tab" href="#tab-description">Description</a>
 										</li>
 										{{-- <li class="reviews_tab">
 											<a data-toggle="tab" href="#tab-reviews">Reviews (2)</a>
 										</li> --}}
 									</ul>
 									<div class="tab-container">
-										<div id="tab-description" class="tab-panel active">
-											<p>{{ $product->description }}</p>
-										</div>
-										<div id="tab-additional_information" class="tab-panel">
+										<div id="tab-additional_information" class="tab-panel active">
 											<table class="shop_attributes">
 												<tbody>
 													<tr class="">
@@ -104,7 +94,7 @@
 														<td><p>{{ $product->fabric }}</p></td>
 													</tr>
 													<tr class="alt">
-														<th>Dimensions:</th>
+														<th>Size:</th>
 														<td><p>{{ $product->size }}</p></td>
 													</tr>
 													<tr class="alt">
@@ -113,6 +103,9 @@
 													</tr>
 												</tbody>
 											</table>
+										</div>
+										<div id="tab-description" class="tab-panel">
+											<p>{{ $product->description }}</p>
 										</div>
 										{{-- <div  id="tab-reviews" class="tab-panel">
 											<div id="reviews">
