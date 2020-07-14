@@ -202,59 +202,35 @@
 				@if ($product->subcategory->products->count() > 1)
 				<div class="related products">
 					<h3 class="title">Related Products</h3>
-					<ul class="product-list owl-carousel nav-center-center" data-loop="true" data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"}}'>
+					<ul class="owl-products owl-carousel nav-center-center" data-loop="true" data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1,"nav":"false"},"480":{"items":2},"768":{"items":3},"1024":{"items":4}}'>
+                        @if(count($product->subcategory->products->except($product->id)) < 1)
+                            <script>
+                                $(".title").hide();
+                            </script>
+                        @endif
 						@foreach ($product->subcategory->products->except($product->id) as $related_product)
-							@if($related_product)
-								<script>
-									$(".title").hide();
-								</script>
-							@endif
-							@if ($product->subcategory->products->count() == 1)
-								hello
-							@endif
 							<li class="product-item">
-								<div class="product-inner">
-									@if ($related_product->stock == false)
-										<div class="flash">
-											<span class="sale">Sale</span>
-										</div>
-									@endif
-									<div class="thumb">
-										<a class="product-image" href="#"><img src="{{asset('/storage/app/public/product/'.$related_product->images[0]->image) }}" alt=""></a>
-										<div class="group-buttons">
-											<a href="javascript:void(0)" onclick="add_to_cart({{$related_product->id}})" class="button add_to_cart_button">Add to cart</a>
-											<a href="{{ url('/product/no/'.$related_product->id) }}" class="button yith-wcqv-button">Quickview</a>
-											<div class="yith-wcwl-add-to-wishlist add-to-wishlist-70">
-												{{-- <div class="yith-wcwl-add-button show">
-													<a href="#" rel="nofollow"> Wishlist</a>
-												</div> --}}
-												<div class="yith-wcwl-wishlistaddedbrowse hide">
-													<span class="feedback">Product added!</span>
-													<a href="#">Browse Wishlist</a>
-												</div>
-												<div class="yith-wcwl-wishlistexistsbrowse hide">
-													<span class="feedback">The product is already in the wishlist!</span>
-													<a href="#" rel="nofollow">Browse Wishlist</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="info">
-										<h3 class="product-name"><a href="#">{{ $related_product->name }}</a></h3>
-										<span class="price">
-											<del>{{ $related_product->price*1.2 }}</del>
-											<ins>{{ $related_product->price }}Tk</ins>
-										</span>
-										{{-- <div class="rating">
-											<i class="active fa fa-star"></i>
-											<i class="active fa fa-star"></i>
-											<i class="active fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div> --}}
-									</div>
-								</div>
-							</li>
+                                <div class="product-inner">
+                                    @if ($related_product->stock == false)
+                                    <div class="flash">
+                                        <span class="sale">Sale</span>
+                                    </div>
+                                    @endif
+                                    <div class="thumb">
+                                        <a class="product-image" href="{{url('product/no/'.$related_product->id)}}"><img style="width:263px!important;height:263px!important;" src="{{ asset('storage/app/public/product/'.$related_product->images[0]->image) }}" alt=""></a>
+                                        {{-- <div class="group-buttons">
+                                            <a href="javascript:void(0)" onclick="add_to_cart({{$related_product->id}})" class="button add_to_cart_button">Add to cart</a>
+                                        </div> --}}
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="product-name"><a href="#">{{ $related_product->name }}</a></h3>
+                                        <span class="price">
+                                            <del>{{ $related_product->price*1.25}} Tk</del>
+                                            <ins>{{ $related_product->price }} Tk</ins>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
 						@endforeach
 					</ul>
 				</div>
